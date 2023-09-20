@@ -1,0 +1,117 @@
+import Cookies from 'js-cookie';
+import { MESSAGES } from '../models/messages';
+
+const convertToQueryParams = (params = {}) => {
+	let queryString = '';
+	Object.keys(params).forEach((key, index) => {
+		if (index === 0) queryString += `?${key}=${params[key]}`;
+		else queryString += `&${key}=${params[key]}`;
+	});
+	return queryString;
+};
+
+export const GET = (url = '', params = {}) => {
+	return new Promise((resolve, reject) => {
+		let address;
+		url += convertToQueryParams(params);
+		const walletLS = window.localStorage.getItem('wallet');
+
+		if (walletLS && JSON.parse(walletLS)) {
+			const jsonWalletLS = JSON.parse(walletLS);
+			address = jsonWalletLS.address;
+		}
+		const options = {
+			method: 'GET',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				'Direction-Type': process.env.REACT_APP_TYPE,
+				'Session-Token': params.sessionToken || Cookies.get('sessionToken'),
+				'User-Address': params.userAddress || address,
+			},
+		};
+		fetch(url, options)
+			.then(async (response) => {
+				if (!response.ok) {
+					reject(
+						new Error(
+							`${response.statusText || MESSAGES.FETCH_DATA_ERROR}\n${url}`,
+						),
+					);
+				}
+
+				const json = await response.json();
+				resolve(json);
+			})
+			.catch((e) => {
+				reject(new Error(`${e.message}\n${url}`));
+			});
+	});
+};
+
+export const POST = (url = '', data = {}) => {
+	return new Promise((resolve, reject) => {
+		let address;
+		const walletLS = window.localStorage.getItem('wallet');
+		if (walletLS && JSON.parse(walletLS)) {
+			const jsonWalletLS = JSON.parse(walletLS);
+			address = jsonWalletLS.address;
+		}
+		const options = {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				'Direction-Type': process.env.REACT_APP_TYPE,
+				'Session-Token': data.sessionToken || Cookies.get('sessionToken'),
+				'User-Address': data.userAddress || address,
+			},
+			body: JSON.stringify(data),
+		};
+
+		fetch(url, options)
+			.then((response) => {
+				if (!response.ok) {
+					reject(
+						new Error(
+							`${
+								response.statusText || MESSAGES.POST_DATA_ERROR
+							}\n${url}\n${JSON.stringify(data)}`,
+						),
+					);
+				}
+
+				resolve(response.json());
+			})
+			.catch((e) => reject(new Error(`${e.message}\n${url}`)));
+	});
+};
+
+export const PUT = async (url = '', data = {}) => {
+	return new Promise((resolve, reject) => {
+		let address;
+		const walletLS = window.localStorage.getItem('wallet');
+		if (walletLS && JSON.parse(walletLS)) {
+			const jsonWalletLS = JSON.parse(walletLS);
+			address = jsonWalletLS.address;
+		}
+		const options = {
+			method: 'PUT',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				'Direction-Type': process.env.REACT_APP_TYPE,
+				'Session-Token': data.sessionToken || Cookies.get('sessionToken'),
+				'User-Address': data.userAddress || address,
+			},
+			body: JSON.stringify(data),
+		};
+		fetch(url, options)
+			.then((response) => {
+				resolve(response.json());
+			})
+			.catch((err) => {
+				reject(new Error(err.message));
+			});
+	});
+};
