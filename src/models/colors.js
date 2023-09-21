@@ -1,4 +1,4 @@
-//old
+//_DEPRECATED
 const lightBlack = '#0A131F';
 // const black = '#0F031C';
 const transparentBlack = 'rgb(19, 3, 35, .6)';
@@ -21,8 +21,8 @@ const colorHex = '#A72174';
 const darkBlue = '#627EEB';
 // const purpleDark = '#140E2B';
 
-//new
-const richBlack = '#11071C';
+// CURRENT
+const richBlack = '#15173D';
 const black = '#1C102F';
 const dark = '#2B1C4D';
 const richPurple = '#3E2467';
@@ -42,12 +42,12 @@ const warnings = '#FF7996';
 const red = '#FC087C';
 const pink = '#DF39EA';
 
+const gradientBackground = `linear-gradient(115deg, ${black} 0%, ${dark} 52.09%, ${black} 100%)`;
 const gradientRedPink = 'linear-gradient(90deg, #FC077A 0%, #DB3FF8 110.75%)';
-
 const gradientDarkPurple = 'linear-gradient(180deg, #1C102F 0%, #A180FF 100%)';
 
 export const COLORS = {
-	//new
+	// CURRENT
 	RICH_BLACK: richBlack,
 	BLACK: black,
 	DARK: dark,
@@ -68,11 +68,11 @@ export const COLORS = {
 	RED: red,
 	PINK: pink,
 
+	GRADIENT_BACKGROUND: gradientBackground,
 	GRADIENT_RED_PINK: gradientRedPink,
-
 	GRADIENT_DARK_PURPLE: gradientDarkPurple,
 
-	//old
+	// _DEPRECATED
 	LIGHT_BLACK: lightBlack,
 	TRANSPARENT_BLACK: transparentBlack,
 	WHITE: white,

@@ -46,7 +46,6 @@ const WalletButton = () => {
 		if (connected) {
 			await WalletService.disconnect();
 		} else {
-			// TODO Просто убрать if, если нужно для мобилки
 			if (mobile) {
 				await walletHandler('wc');
 			} else {
@@ -69,7 +68,7 @@ const WalletButton = () => {
 				)}
 
 			<Styled.WalletButton main small onClick={toggleModal}>
-				{connected ? shortAddress : MESSAGES.CONNECT}
+				{connected ? shortAddress : MESSAGES.CONNECT_WALLET_TEXT}
 			</Styled.WalletButton>
 		</Styled.BalanceSheet>
 	);

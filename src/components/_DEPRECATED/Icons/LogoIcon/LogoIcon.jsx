@@ -7,8 +7,8 @@ const LogoIcon = ({ size }) => {
 	let height;
 	switch (size) {
 		default:
-			width = 132;
-			height = 50;
+			width = 121;
+			height = 18;
 			break;
 	}
 	return <Styled.Logo src={Logo} alt="" width={width} height={height} />;

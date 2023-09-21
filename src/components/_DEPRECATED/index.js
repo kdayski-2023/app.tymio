@@ -7,7 +7,7 @@ export { default as ChatWidget } from './ChatWidget/ChatWidget';
 
 export { default as Card } from './Containers/Card';
 export { default as Select } from './Select';
-export { default as Layout } from './Layout/Layout';
+export { default as Layout } from '../Layout/Layout';
 export { default as Table } from './Table';
 export { default as List } from './List';
 export { default as Input } from './Input/Input';
@@ -16,7 +16,7 @@ export { default as Modal } from './Modal/Modal';
 export { default as WalletModal } from './WalletModal/WalletModal';
 export { default as Accordion } from './Accordion/Accordion';
 
-export { default as Header } from './Header/Header';
+export { default as Header } from '../Header/Header';
 export { default as WalletButton } from './WalletButton/WalletButton';
 export { default as NetworkButton } from './NetworkButton/NetworkButton';
 export { default as MessageDialog } from './MessageDialog/MessageDialog';

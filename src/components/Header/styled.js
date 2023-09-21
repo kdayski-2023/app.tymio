@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { COLORS } from '../../../models/colors';
+import { COLORS } from '../../models/colors';
 
 export const Flex = styled.div`
 	display: flex;
+	height: 40px;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
 	gap: 12px;
 	@media (max-width: 992px) {
 		align-items: flex-start;
@@ -13,7 +14,7 @@ export const Flex = styled.div`
 `;
 
 export const Container = styled.div`
-	padding: 16px;
+	padding: 20px 30px 20px 60px;
 `;
 
 export const Actions = styled(Flex)`

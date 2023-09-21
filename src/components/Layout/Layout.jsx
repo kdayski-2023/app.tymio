@@ -7,7 +7,7 @@ import {
 	ChatWidget,
 	WalletModal,
 	Header,
-} from '../../_DEPRECATED';
+} from '../_DEPRECATED';
 import * as Styled from './styled';
 
 const Layout = () => {
@@ -19,8 +19,8 @@ const Layout = () => {
 			<ChatWidget />
 			<WalletModal />
 
-			<Header />
 			<Styled.Main>
+				<Header />
 				<Outlet />
 			</Styled.Main>
 		</>

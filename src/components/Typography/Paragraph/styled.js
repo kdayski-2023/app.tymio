@@ -2,15 +2,16 @@ import styled from 'styled-components';
 import { COLORS } from '../../../models/colors';
 
 const sizeMap = {
-	Big: {
+	large: {
 		fontSize: '18px',
 		letterSpacing: '0.18px',
 	},
-	Medium: {
-		fontSize: '17px',
-		letterSpacing: '0.34px',
+	medium: {
+		fontSize: '16px',
+		letterSpacing: '0.32px',
+		lineHeight: '14px',
 	},
-	Small: {
+	small: {
 		fontSize: '13px',
 		letterSpacing: '0.39px',
 	},
@@ -18,10 +19,13 @@ const sizeMap = {
 
 export const Paragraph = styled.p`
 	margin: 0;
-	font-size: ${({ size }) => sizeMap[size]?.fontSize || '18px'};
+	font-size: ${({ size }) =>
+		sizeMap[size]?.fontSize || sizeMap['medium'].fontSize};
 	font-style: normal;
-	font-weight: 400;
-	line-height: 140%;
-	letter-spacing: ${({ size }) => sizeMap[size]?.letterSpacing || '0.18px'};
+	font-weight: '400px';
+	line-height: ${({ size }) =>
+		sizeMap[size]?.lineHeight || sizeMap['medium'].lineHeight};
+	letter-spacing: ${({ size }) =>
+		sizeMap[size]?.letterSpacing || sizeMap['medium'].letterSpacing};
 	color: ${({ color }) => (color ? color : COLORS.LIGHT)};
 `;

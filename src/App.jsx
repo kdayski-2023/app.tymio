@@ -10,6 +10,7 @@ import { useSession, useConfig, useBallance } from './hooks';
 import { Layout } from './components/_DEPRECATED';
 
 const UIDemo = React.lazy(() => import('./pages/UIDemo/UIDemo'));
+const MainPage = React.lazy(() => import('./pages/MainPage/MainPage'));
 
 const App = () => {
 	const { loading: loadingSession, error: errorSession } = useSession();
@@ -31,11 +32,9 @@ const App = () => {
 			<Route path="/" element={<Layout />}>
 				{!loadingSession && !loadingConfig && (
 					<>
-						{/* <Route path="/" element={<MainPage config={config} />} /> */}
-						<Route path="/" element={<UIDemo />} />
+						<Route path="/" element={<MainPage config={config} />} />
 						<Route path="/ui" element={<UIDemo />} />
-						<Route path="*" element={<UIDemo />} />
-						{/* <Route path="*" element={<MainPage config={config} />} /> */}
+						<Route path="*" element={<MainPage config={config} />} />
 					</>
 				)}
 			</Route>

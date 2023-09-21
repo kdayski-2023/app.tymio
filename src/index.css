@@ -3,21 +3,23 @@
  */
 
 @font-face {
-	font-family: 'PPNeueMontreal Medium';
+	font-family: 'PPNeueMontreal';
 	src: url('./assets/fonts/PPNeueMontreal-Medium.woff2');
 	src: url('./assets/fonts/PPNeueMontreal-Medium.woff2') format('woff2'),
 		url('./assets/fonts/PPNeueMontreal-Medium.woff') format('woff'),
 		url('./assets/fonts/PPNeueMontreal-Medium.ttf') format('truetype'),
-		url('./assets/fonts/PPNeueMontreal-Regular.otf') format('otf');
+		url('./assets/fonts/PPNeueMontreal-Medium.otf') format('otf');
+	font-weight: 500;
 }
 
 @font-face {
-	font-family: 'PPNeueMontreal Regular';
+	font-family: 'PPNeueMontreal';
 	src: url('./assets/fonts/PPNeueMontreal-Regular.woff2');
 	src: url('./assets/fonts/PPNeueMontreal-Regular.woff2') format('woff2'),
 		url('./assets/fonts/PPNeueMontreal-Regular.woff') format('woff'),
 		url('./assets/fonts/PPNeueMontreal-Regular.ttf') format('truetype'),
 		url('./assets/fonts/PPNeueMontreal-Regular.otf') format('otf');
+	font-weight: 400;
 }
 
 /**
@@ -26,7 +28,8 @@
 
 * {
 	box-sizing: border-box;
-	font-family: 'PPNeueMontreal Medium', sans-serif !important;
+	font-family: 'PPNeueMontreal', sans-serif !important;
+	font-weight: 500;
 }
 
 iframe {
