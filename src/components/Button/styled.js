@@ -30,7 +30,7 @@ export const Button = styled.button`
 	}
 
 	&:focus {
-		box-shadow: 0px 0px 3px 0px #eeeaf7;
+		box-shadow: ${`0px 0px 3px 0px ${COLORS.BOX_SHADOW}`};
 		border: 1.5px solid ${COLORS.LIGHT};
 		padding: 13.5px 19px 11px 19px;
 		background: ${({ type }) => {

@@ -17,12 +17,6 @@ export const Container = styled.div`
 	padding: 20px 30px 20px 60px;
 `;
 
-export const Actions = styled(Flex)`
-	@media (max-width: 992px) {
-		display: none;
-	}
-`;
-
 export const MobileActions = styled(Flex)`
 	display: none;
 	@media (max-width: 992px) {

@@ -14,6 +14,7 @@ const sizeMap = {
 	small: {
 		fontSize: '13px',
 		letterSpacing: '0.39px',
+		lineHeight: '15px',
 	},
 };
 

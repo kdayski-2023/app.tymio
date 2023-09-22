@@ -4,19 +4,20 @@ import { COLORS } from '../../../models/colors';
 export const Select = styled.div`
 	position: relative;
 	width: ${({ width }) => `${width}px`};
-	height: ${({ custom }) => (custom ? 'auto' : '36px')};
+	height: ${({ custom }) => (custom ? 'auto' : '34px')};
 	background: ${({ custom, show }) => {
+		if (!custom && show) return COLORS.LIGHT;
 		if (custom && show) return '#3E2467';
 		if (custom) return '#2B1C4D';
-		return COLORS.WHITE;
+		return COLORS.BLACK;
 	}};
-	border-radius: 45px;
+	border-radius: 5px;
 	cursor: pointer;
 	user-select: none;
-	padding: ${({ custom }) => (custom ? '0' : 'inherit')};
+	padding: ${({ custom }) => (custom ? '0' : '0')};
 
 	&:hover {
-		background: ${({ custom }) => (custom ? '#3E2467' : COLORS.WHITE)};
+		background: ${({ custom }) => (custom ? '#3E2467' : COLORS.LIGHT)};
 	}
 
 	@media (max-width: 992px) {
@@ -28,10 +29,9 @@ export const Select = styled.div`
 export const Value = styled.div`
 	position: inherit;
 	z-index: 2;
-	padding: ${({ custom }) =>
-		custom ? '7px 15px 7px 15px' : '4px 14px 4px 10px'};
-	border-radius: 45px;
-	gap: 6px;
+	padding: ${({ custom }) => (custom ? '7px 15px 7px 15px' : '4.5px 10px')};
+	border-radius: 5px;
+	gap: ${({ custom }) => (custom ? '6px' : '10px')};
 	height: 100%;
 	display: flex;
 	align-items: center;

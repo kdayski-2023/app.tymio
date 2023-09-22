@@ -14,4 +14,5 @@ export const MESSAGES = {
 	NOT_SUPPORTED_NETWORK:
 		'Network that you try connect to is not supported by Tymio',
 	REFUND_SUCCESS: 'Refund success',
+	DISCONNECT: 'Disconnect',
 };

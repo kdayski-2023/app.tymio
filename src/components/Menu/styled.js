@@ -2,42 +2,31 @@ import styled from 'styled-components';
 import { COLORS } from '../../models/colors';
 
 export const Menu = styled.div`
-	padding: 0 10px;
-	backdrop-filter: blur(2px);
-	border-radius: 5px;
 	display: flex;
-	width: fit-content;
-	background-color: ${({ light }) =>
-		light ? COLORS.PURPLE_LIGHT : COLORS.BLACK};
-
-	button {
-		color: ${({ light }) => (light ? COLORS.GRAY_DARK : COLORS.PURPLE_GRAY)};
-
-		&:hover {
-			color: ${({ light }) => (light ? COLORS.RICH_BLACK : COLORS.LIGHT)};
-		}
-
-		&:focus {
-			border: 1px solid ${({ light }) => (light ? COLORS.BLACK : COLORS.LIGHT)};
-			box-shadow: ${({ light }) =>
-				light ? '0px 0px 3px 0px #625C71' : '0px 0px 3px 0px #eeeaf7'};
-		}
-	}
+	background-color: ${COLORS.BLACK};
+	border-radius: 5px;
 `;
 export const MenuItem = styled.button`
-	padding: 14.5px 10px;
-	font-size: 16px;
-	font-weight: 500;
-	line-height: 140%;
-	letter-spacing: 0.32px;
-	text-transform: uppercase;
-
-	background-color: transparent;
+	padding: 12px 20px;
+	text-transform: capitalize;
 	border: none;
-	cursor: pointer;
+	background-color: transparent;
+
+	p {
+		color: ${({ active }) => active && COLORS.PINK};
+	}
+
+	&:hover {
+		cursor: pointer;
+		p {
+			color: ${({ active }) => !active && COLORS.PURPLE_BRIGHT};
+		}
+	}
 
 	&:focus {
-		padding: 13.5px 9px;
+		border: 1.5px solid ${COLORS.LIGHT};
+		box-shadow: ${`0px 0px 3px 0px ${COLORS.BOX_SHADOW}`};
+		padding: 11px 19px;
 		border-radius: 5px;
 	}
 `;

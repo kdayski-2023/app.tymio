@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Styled from './styled';
 import * as UI from '../../components';
-import { COLORS } from '../../models/colors';
 
 const UIDemo = () => {
 	const faqList = [
@@ -27,8 +26,8 @@ const UIDemo = () => {
 			<UI.Paragraph size={'Medium'}>Paragraph</UI.Paragraph>
 			<UI.Paragraph size={'Small'}>Paragraph</UI.Paragraph>
 			<UI.Button lowercase={true}>Start earning</UI.Button>
-			<UI.MenuWeb />
-			<UI.MenuWeb light={true} />
+			<UI.Menu />
+			<UI.Menu light={true} />
 			<UI.Accordion faqList={faqList} />
 			<UI.Input />
 		</Styled.Container>

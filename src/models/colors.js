@@ -42,9 +42,11 @@ const warnings = '#FF7996';
 const red = '#FC087C';
 const pink = '#DF39EA';
 
+const boxShadow = '#EEEAF7';
+
 const gradientBackground = `linear-gradient(115deg, ${black} 0%, ${dark} 52.09%, ${black} 100%)`;
 const gradientRedPink = 'linear-gradient(90deg, #FC077A 0%, #DB3FF8 110.75%)';
-const gradientDarkPurple = 'linear-gradient(180deg, #1C102F 0%, #A180FF 100%)';
+const gradientDarkPurple = `linear-gradient(180deg, ${black} 0%, ${purpleBright} 100%)`;
 
 export const COLORS = {
 	// CURRENT
@@ -67,6 +69,8 @@ export const COLORS = {
 	WARNINGS: warnings,
 	RED: red,
 	PINK: pink,
+
+	BOX_SHADOW: boxShadow,
 
 	GRADIENT_BACKGROUND: gradientBackground,
 	GRADIENT_RED_PINK: gradientRedPink,
