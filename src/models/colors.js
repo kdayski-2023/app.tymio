@@ -33,6 +33,7 @@ const purpleLight = '#D7CBFA';
 const grayDark = '#625C71';
 const gray = '#827A95';
 const purpleGray = '#A093D1';
+const purpleGray2 = '#A89ADF';
 const lightBright = '#D9D0F1';
 const light = '#E6E2EE';
 
@@ -61,6 +62,7 @@ export const COLORS = {
 	GRAY_DARK: grayDark,
 	GRAY: gray,
 	PURPLE_GRAY: purpleGray,
+	PURPLE_GRAY2: purpleGray2,
 	LIGHT_BRIGHT: lightBright,
 	LIGHT: light,
 

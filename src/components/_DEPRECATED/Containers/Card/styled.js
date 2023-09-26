@@ -8,6 +8,7 @@ export const Card = styled.div`
 	display: grid;
 	gap: 16px;
 	border: ${({ unfilled }) => (unfilled ? `2px solid ${COLORS.PINK}` : 'none')};
+	border-radius: 10px;
 `;
 
 export const CardHeader = styled.div`

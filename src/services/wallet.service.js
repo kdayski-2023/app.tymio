@@ -115,21 +115,25 @@ class WalletService {
 		}
 	};
 
-	#getBalance = async (token, address) => {
-		const contract = new this.web3.eth.Contract(ERC20Abi, token, {
-			from: address,
-		});
-		const balance = await contract.methods.balanceOf(address).call();
-		const decimals = await contract.methods.decimals().call();
-		if (decimals === '18') {
-			return this.#roundDown(this.web3.utils.fromWei(balance, 'ether'), 0);
-		}
-		if (decimals !== '18') {
-			const delimiter = new BN('10')
-				.pow(new BN(String(18 - Number(decimals))))
-				.toString();
-			const value = new BN(String(balance)).mul(new BN(delimiter)).toString();
-			return this.#roundDown(this.web3.utils.fromWei(value, 'ether'), 0);
+	#getBalance = async (token, address, provider) => {
+		try {
+			const web3 = new Web3(provider);
+			const contract = new web3.eth.Contract(ERC20Abi, token);
+			const balance = await contract.methods.balanceOf(address).call();
+			const decimals = await contract.methods.decimals().call();
+			if (decimals === '18') {
+				return this.#roundDown(web3.utils.fromWei(balance, 'ether'), 0);
+			}
+			if (decimals !== '18') {
+				const delimiter = new BN('10')
+					.pow(new BN(String(18 - Number(decimals))))
+					.toString();
+				const value = new BN(String(balance)).mul(new BN(delimiter)).toString();
+				return this.#roundDown(web3.utils.fromWei(value, 'ether'), 0);
+			}
+		} catch (e) {
+			console.log('samara', e);
+			throw e;
 		}
 	};
 
@@ -148,8 +152,12 @@ class WalletService {
 		this.state$.next(this.state);
 
 		const { chainId } = wallet;
-		const { WITHDRAWAL_TOKEN_ADDRESS, CHAIN_LIST, PAYIN_TOKEN_ADDRESS_LIST } =
-			config;
+		const {
+			WITHDRAWAL_TOKEN_ADDRESS,
+			CHAIN_LIST,
+			PAYIN_TOKEN_ADDRESS_LIST,
+			INFURA_PROVIDERS,
+		} = config;
 		if (this.provider && CHAIN_LIST.includes(Number(chainId))) {
 			const currentToken = PAYIN_TOKEN_ADDRESS_LIST[chainId].find(
 				(item) => item.tokenSymbol === targetSymbol,
@@ -164,15 +172,20 @@ class WalletService {
 				const balanceWei = await this.web3.eth.getBalance(this.state.address);
 				balance = this.#roundDown(
 					this.web3.utils.fromWei(balanceWei, 'ether'),
-					3,
+					2,
 				);
 			} else {
-				balance = await this.#getBalance(targetToken, this.state.address);
+				balance = await this.#getBalance(
+					targetToken,
+					this.state.address,
+					INFURA_PROVIDERS[chainId],
+				);
 			}
 
 			const balanceUSDC = await this.#getBalance(
 				WITHDRAWAL_TOKEN_ADDRESS[this.state.chainId],
 				this.state.address,
+				INFURA_PROVIDERS[chainId],
 			);
 
 			this.state = {

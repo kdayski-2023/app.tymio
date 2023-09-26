@@ -21,11 +21,11 @@ const WalletConnectButton = () => {
 
 	return (
 		<TymioUI.Button type={BUTTON_TYPE.PRIMARY} onClick={handleClick}>
-			<TymioUI.Paragraph
+			<TymioUI.Typography
 				size={TYPOGRAPHY_SIZE.MEDIUM}
 				color={COLORS.RICH_BLACK}>
 				{MESSAGES.CONNECT_WALLET_TEXT}
-			</TymioUI.Paragraph>
+			</TymioUI.Typography>
 		</TymioUI.Button>
 	);
 };

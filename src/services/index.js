@@ -13,3 +13,4 @@ export { default as ReferralService } from './referral.service';
 export { default as UtmService } from './utm.service';
 export { default as SubscribeService } from './subscribe.service';
 export { default as AirdropService } from './airdrop.service';
+export { default as DirectionService } from './direction.service';

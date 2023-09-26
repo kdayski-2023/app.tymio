@@ -15,7 +15,6 @@ export const Button = styled.button`
 	}};
 	text-transform: ${({ common }) => !common && 'uppercase'};
 	border: none;
-	backdrop-filter: blur(2px);
 
 	&:hover {
 		cursor: pointer;

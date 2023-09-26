@@ -4,11 +4,10 @@ import { COLORS } from '../../../models/colors';
 export const InputWrapper = styled.div`
 	color: ${COLORS.WHITE};
 	display: flex;
-	border: 1px solid ${COLORS.GRAY};
+	border: 0.5px solid ${COLORS.PURPLE_BRIGHT};
 	background: ${COLORS.BLACK};
-	border-radius: 45px;
-	/* padding: 12px 20px; */
-	padding: 0 20px 0 0;
+	border-radius: 5px;
+	padding: 0 15px 0 0;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -23,9 +22,12 @@ export const CheckboxWrapper = styled(InputWrapper)`
 `;
 
 export const Input = styled.input`
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 15px
+	letter-spacing: 0.32px;
 	width: 100%;
-	color: ${COLORS.WHITE};
-	font-size: 24px;
+	color: ${COLORS.LIGHT};
 	text-align: ${({ align }) => align || 'right'};
 	background: none;
 	border: none;
@@ -58,6 +60,7 @@ export const Checkbox = styled(Input)`
 
 export const Label = styled.label`
 	display: flex;
+	height: 100%;
 	align-items: center;
 	gap: 12px;
 	font-size: 20px;

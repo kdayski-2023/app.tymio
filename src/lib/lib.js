@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie';
-import MessageDialogService from '../services/message-dialog.service';
+import { MessageDialogService, DirectionService } from '../services';
 
-const APP_TYPE = process.env.REACT_APP_TYPE;
 export const updateCookies = (sessionInfo) => {
 	const { sessionToken } = sessionInfo;
 	Cookies.set('sessionToken', sessionToken);
@@ -130,6 +129,7 @@ export const getTimeLeft = (startDate, endDate) => {
 
 export const parseTransactionDetails = (order, config) => {
 	try {
+		const APP_TYPE = DirectionService.state.direction;
 		let rows = [
 			{
 				name: 'Deal date:',

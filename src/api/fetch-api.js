@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { MESSAGES } from '../models/messages';
+import { DirectionService } from '../services';
 
 const convertToQueryParams = (params = {}) => {
 	let queryString = '';
@@ -25,7 +26,10 @@ export const GET = (url = '', params = {}) => {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				'Direction-Type': process.env.REACT_APP_TYPE,
+				'Direction-Type':
+					params.direction ||
+					DirectionService.state.direction ||
+					Cookies.get('direction'),
 				'Session-Token': params.sessionToken || Cookies.get('sessionToken'),
 				'User-Address': params.userAddress || address,
 			},
@@ -62,7 +66,10 @@ export const POST = (url = '', data = {}) => {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				'Direction-Type': process.env.REACT_APP_TYPE,
+				'Direction-Type':
+					data.direction ||
+					DirectionService.state.direction ||
+					Cookies.get('direction'),
 				'Session-Token': data.sessionToken || Cookies.get('sessionToken'),
 				'User-Address': data.userAddress || address,
 			},
@@ -100,7 +107,10 @@ export const PUT = async (url = '', data = {}) => {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				'Direction-Type': process.env.REACT_APP_TYPE,
+				'Direction-Type':
+					data.direction ||
+					DirectionService.state.direction ||
+					Cookies.get('direction'),
 				'Session-Token': data.sessionToken || Cookies.get('sessionToken'),
 				'User-Address': data.userAddress || address,
 			},

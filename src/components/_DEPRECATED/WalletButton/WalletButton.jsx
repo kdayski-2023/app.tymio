@@ -10,10 +10,8 @@ import {
 	WalletModalService,
 } from '../../../services';
 
-import { useConfig, useWallet } from '../../../hooks';
+import { useConfig, useDirection, useWallet } from '../../../hooks';
 import { isMobile } from '../../../lib/lib';
-
-const appType = process.env.REACT_APP_TYPE;
 
 const WalletButton = () => {
 	const {
@@ -26,6 +24,7 @@ const WalletButton = () => {
 		error,
 	} = useWallet();
 	const { config, loading } = useConfig();
+	const { direction: appType } = useDirection();
 
 	useEffect(() => {
 		if (error) {

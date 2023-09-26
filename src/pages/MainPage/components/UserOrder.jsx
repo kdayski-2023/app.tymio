@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { OrderService } from '../../../services';
-import { useWallet } from '../../../hooks';
+import { useDirection, useWallet } from '../../../hooks';
 import { useUserOrders } from '../hooks';
 import {
 	LoadingSpinner,
@@ -11,11 +11,10 @@ import {
 } from '../../../components/_DEPRECATED';
 import UserOrderTr from './UserOrderTr';
 
-const appType = process.env.REACT_APP_TYPE;
-
 const UserOrder = () => {
 	const { error, loading, orders } = useUserOrders();
 	const { connected, userAddress } = useWallet();
+	const { direction: appType } = useDirection();
 
 	useEffect(() => {
 		const interval = setInterval(async () => {

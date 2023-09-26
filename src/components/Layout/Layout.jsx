@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import {
-	Preloader,
+	// Preloader,
 	Modal,
 	MessageDialog,
 	ChatWidget,

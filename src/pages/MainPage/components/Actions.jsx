@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import { WalletService, MessageDialogService } from '../../../services';
+import {
+	WalletService,
+	// MessageDialogService
+} from '../../../services';
 import { useWallet } from '../../../hooks';
 import {
 	Message,

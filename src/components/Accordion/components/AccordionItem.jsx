@@ -18,7 +18,7 @@ const AccordionItem = ({ isExpanded, isOpen, id, item, clickHandler }) => {
 			</Styled.Quation>
 			<Styled.Collapse isOpen={isOpen} itemRef={itemRef}>
 				<Styled.Body ref={itemRef}>
-					<UI.Paragraph color={COLORS.PURPLE_GRAY}>{item.a}</UI.Paragraph>
+					<UI.Typography color={COLORS.PURPLE_GRAY}>{item.a}</UI.Typography>
 				</Styled.Body>
 			</Styled.Collapse>
 		</Styled.AccordionItem>

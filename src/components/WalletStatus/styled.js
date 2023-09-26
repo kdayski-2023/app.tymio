@@ -6,7 +6,6 @@ export const BalanceSheet = styled.div`
 	background: ${COLORS.BLACK};
 	border: 0.5px solid ${COLORS.LIGHT};
 	border-radius: 5px;
-	backdrop-filter: blur(2px);
 
 	button {
 		min-width: 120px;
@@ -26,7 +25,7 @@ export const BalanceSheet = styled.div`
 `;
 
 export const WalletBalance = styled.div`
-	padding: 14px 20px 12px;
+	padding: 13px 20px 12px;
 	border-right: 0.5px solid ${COLORS.LIGHT};
 	text-transform: uppercase;
 `;

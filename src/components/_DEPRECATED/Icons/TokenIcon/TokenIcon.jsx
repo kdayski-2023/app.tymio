@@ -13,13 +13,17 @@ const TokenIcon = ({ size, token }) => {
 	let width;
 	let height;
 	switch (size) {
-		case 'xs':
+		case 'xxs':
 			width = 20;
 			height = 20;
 			break;
+		case 'xs':
+			width = 25;
+			height = 25;
+			break;
 		case 'sm':
 			width = 30;
-			height = 300;
+			height = 30;
 			break;
 		default:
 			width = 30;

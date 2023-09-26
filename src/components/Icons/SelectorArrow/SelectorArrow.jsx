@@ -1,7 +1,7 @@
 import React from 'react';
 import { COLORS } from '../../../models/colors';
 
-const AccordionIcon = ({ expanded }) => {
+const SelectorArrow = ({ expanded }) => {
 	const iconStyle = {
 		transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
 	};
@@ -15,7 +15,7 @@ const AccordionIcon = ({ expanded }) => {
 			style={iconStyle}>
 			<path
 				d="M1 1L8.5 8L16 1"
-				stroke={expanded ? COLORS.PINK : COLORS.LEMON}
+				stroke={COLORS.LIGHT}
 				strokeWidth="1.5"
 				strokeLinecap="round"
 				strokeLinejoin="bevel"
@@ -24,4 +24,4 @@ const AccordionIcon = ({ expanded }) => {
 	);
 };
 
-export default AccordionIcon;
+export default SelectorArrow;

@@ -2,22 +2,23 @@ import styled, { css, keyframes } from 'styled-components';
 import { COLORS } from '../../../models/colors';
 
 export const Select = styled.div`
+	height: 100%;
 	position: relative;
-	width: ${({ width }) => `${width}px`};
-	height: ${({ custom }) => (custom ? 'auto' : '34px')};
-	background: ${({ custom, show }) => {
-		if (!custom && show) return COLORS.LIGHT;
-		if (custom && show) return '#3E2467';
-		if (custom) return '#2B1C4D';
-		return COLORS.BLACK;
-	}};
 	border-radius: 5px;
 	cursor: pointer;
 	user-select: none;
-	padding: ${({ custom }) => (custom ? '0' : '0')};
+	padding: 0;
+
+	width: ${({ width }) => (width ? `${width}px` : 'auto')};
+	background: ${({ custom, show }) => {
+		if (!custom && show) return COLORS.LIGHT;
+		if (custom && show) return COLORS.RICH_PURPLE;
+		if (custom) return COLORS.DARK;
+		return COLORS.BLACK;
+	}};
 
 	&:hover {
-		background: ${({ custom }) => (custom ? '#3E2467' : COLORS.LIGHT)};
+		background: ${({ custom }) => custom && COLORS.RICH_PURPLE};
 	}
 
 	@media (max-width: 992px) {
@@ -29,13 +30,14 @@ export const Select = styled.div`
 export const Value = styled.div`
 	position: inherit;
 	z-index: 2;
-	padding: ${({ custom }) => (custom ? '7px 15px 7px 15px' : '4.5px 10px')};
-	border-radius: 5px;
-	gap: ${({ custom }) => (custom ? '6px' : '10px')};
 	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	border-radius: 5px;
+
+	padding: ${({ custom }) => (custom ? '7px 15px 7px 15px' : '4.5px 10px')};
+	gap: ${({ custom }) => (custom ? '6px' : '10px')};
 	color: ${({ custom }) => (custom ? COLORS.WHITE : COLORS.PINK)};
 
 	svg {
@@ -61,15 +63,18 @@ const slideIn = keyframes`
 
 export const Options = styled.div`
 	z-index: 1;
-	padding: ${({ custom }) => (custom ? '0' : 'inherit')};
-	display: ${({ show }) => (show ? 'block' : 'none')};
+	width: auto;
+	white-space: nowrap;
 	position: absolute;
-	top: ${({ custom }) => (custom ? '16px' : '48px')};
+	border-radius: 5px;
+
+	padding: ${({ custom }) => (custom ? '0' : '10px')};
+	display: ${({ show }) => (show ? 'block' : 'none')};
+	top: ${({ custom }) => (custom ? '16px' : '51.6px')};
 	left: ${({ side }) => (side === 'left' ? 'unset' : '0')};
 	right: ${({ side }) => (side === 'right' ? 'unset' : '0')};
-	border-radius: ${({ custom }) => (custom ? '12px 12px 19px 19px' : '12px')};
-	width: 140px;
-	background: ${({ custom }) => (custom ? '#3E2467' : COLORS.WHITE)};
+	min-width: ${({ custom }) => (custom ? '130px' : '148px')};
+	background: ${({ custom }) => (custom ? COLORS.RICH_PURPLE : COLORS.LIGHT)};
 	animation: ${({ show }) =>
 		show
 			? css`
@@ -79,21 +84,20 @@ export const Options = styled.div`
 `;
 
 export const Option = styled.div`
-	padding: ${({ custom }) => (custom ? '36px 15px 7px 15px' : '10px')};
 	border-radius: 12px;
 	display: flex;
 	align-items: center;
-	gap: 12px;
 
+	padding: ${({ custom }) => (custom ? '36px 15px 8px 15px' : '10px')};
+	gap: ${({ custom }) => (custom ? '12px' : '10px')};
 	color: ${({ active, custom }) => {
 		if (custom) return COLORS.WHITE;
-		if (active && !custom) return COLORS.PINK;
+		// if (active && !custom) return COLORS.PINK;
 		return COLORS.BLACK;
 	}};
 
 	&:hover {
-		background: ${({ custom }) => (custom ? 'inherit' : COLORS.LIGHT_GRAY)};
-		border-radius: ${({ custom }) => (custom ? '0 0 19px 19px' : 'inherit')};
-		color: ${({ custom }) => (custom ? COLORS.PINK : 'inherit')};
+		background: ${({ custom }) => (custom ? 'inherit' : COLORS.PURPLE_GRAY2)};
+		border-radius: ${({ custom }) => (custom ? '0 0 19px 19px' : '5px')};
 	}
 `;

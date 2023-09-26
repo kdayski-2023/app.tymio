@@ -13,12 +13,13 @@ import {
 	WalletButton,
 } from '../../components/_DEPRECATED';
 
-import { useWallet } from '../../hooks';
+import { useDirection, useWallet } from '../../hooks';
 import { useMainPage } from './hooks';
 
 const MainPage = ({ config }) => {
 	const { ref } = useParams();
 	const { chainId, connected, userAddress } = useWallet();
+	const { direction } = useDirection();
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const [error, setError] = useState(null);
@@ -93,9 +94,9 @@ const MainPage = ({ config }) => {
 
 	useEffect(() => {
 		if (tokenSymbol) {
-			Service.PricesService.getData(tokenSymbol);
+			Service.PricesService.getData(tokenSymbol, direction);
 		}
-	}, [tokenSymbol]);
+	}, [tokenSymbol, direction]);
 
 	useEffect(() => {
 		if (price && parseFloat(amount) > 0 && tokenSymbol) {
@@ -109,7 +110,6 @@ const MainPage = ({ config }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tokenSymbol, price, amount, userAddress]);
 
-	const showPrice = true;
 	const showPeriod = price && parseFloat(amount) > 0 ? true : false;
 	const showAgreement =
 		price && period && amount && Number(amount) ? true : false;
@@ -145,21 +145,18 @@ const MainPage = ({ config }) => {
 					<Components.Amount
 						formik={formik}
 						loading={loading}
-						arrowDown={showPrice}
 						setAmountFocused={setAmountFocused}
 						unfilledFields={unfilledFields}
 						setUnfilledFields={setUnfilledFields}
 					/>
-					{showPrice && (
-						<Components.Prices
-							formik={formik}
-							loading={loading}
-							arrowDown={showPeriod}
-							amountFocused={amountFocused}
-							unfilledFields={unfilledFields}
-							setUnfilledFields={setUnfilledFields}
-						/>
-					)}
+					<Components.Prices
+						formik={formik}
+						loading={loading}
+						arrowDown={showPeriod}
+						amountFocused={amountFocused}
+						unfilledFields={unfilledFields}
+						setUnfilledFields={setUnfilledFields}
+					/>
 					{showPeriod && (
 						<Components.Periods
 							formik={formik}

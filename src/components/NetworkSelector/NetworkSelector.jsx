@@ -7,6 +7,7 @@ import { WalletService } from '../../services';
 
 import { useConfig, useWallet } from '../../hooks';
 import { isMobile } from '../../lib/lib';
+import NetworkMenuArrow from '../Icons/NetworkMenuArrow/NetworkMenuArrow';
 
 const NetworkSelector = () => {
 	const ref = useRef(null);
@@ -47,7 +48,7 @@ const NetworkSelector = () => {
 	return (
 		<Styled.Wrapper>
 			{!loading && config && config.CHAIN_NAMES && chainId && (
-				<TymioUI.Select ref={ref}>
+				<TymioUI.Select ref={ref} show={show}>
 					<TymioUI.Select.Value
 						onClick={() => setShow((prevState) => !prevState)}>
 						{config.CHAIN_NAMES[selectedChain] ? (
@@ -55,15 +56,7 @@ const NetworkSelector = () => {
 						) : (
 							<TymioUI.CurrencyIcon chainId={0} size={'xs'} />
 						)}
-						{!mobile && (
-							<TymioUI.Chevron
-								height={15}
-								width={15}
-								stroke={0.1}
-								color={'alt_chevron'}
-								direction={show ? 'top' : 'bottom'}
-							/>
-						)}
+						{!mobile && <NetworkMenuArrow expanded={show} />}
 					</TymioUI.Select.Value>
 
 					{!mobile && (

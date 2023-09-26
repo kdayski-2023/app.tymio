@@ -12,9 +12,9 @@ const RouteMenu = ({ options, active, ...props }) => {
 					key={index}
 					active={path === active}
 					onClick={() => navigate(path)}>
-					<TymioUI.Paragraph size={TYPOGRAPHY_SIZE.SMALL}>
+					<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
 						{label}
-					</TymioUI.Paragraph>
+					</TymioUI.Typography>
 				</TymioUI.Menu.Item>
 			))}
 		</TymioUI.Menu>

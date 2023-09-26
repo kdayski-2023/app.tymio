@@ -6,8 +6,8 @@ import {
 	Select,
 	TokenIcon,
 	LoadingSpinner,
-	Chevron,
 } from '../../../components/_DEPRECATED';
+import * as TymioUI from '../../../components';
 import * as Service from '../../../services';
 
 const PairSelector = ({ formik, disabled }) => {
@@ -76,18 +76,11 @@ const PairSelector = ({ formik, disabled }) => {
 	}, [config, wallet.chainId, wallet.balanceToken]);
 
 	return (
-		<Select custom noMargin ref={ref} width={140} show={show}>
+		<Select custom noMargin ref={ref} width={130} show={show}>
 			<Select.Value custom onClick={handleClick}>
-				<TokenIcon token={formik.values.tokenSymbol} />
-
-				<span>{formik.values.tokenSymbol}</span>
-				<Chevron
-					height={8}
-					width={8}
-					stroke={0.1}
-					color={'alt_chevron'}
-					direction={show ? 'top' : 'bottom'}
-				/>
+				<TokenIcon size={'xs'} token={formik.values.tokenSymbol} />
+				<TymioUI.Typography>{formik.values.tokenSymbol}</TymioUI.Typography>
+				<TymioUI.SelectorArrow expanded={show} />
 			</Select.Value>
 			<Select.Options custom show={show} side={'right'}>
 				{loading && <LoadingSpinner />}
@@ -100,8 +93,8 @@ const PairSelector = ({ formik, disabled }) => {
 									custom
 									active={false}
 									onClick={() => handleSelect(token)}>
-									<TokenIcon token={token.tokenSymbol} />
-									<span>{token.tokenSymbol}</span>
+									<TokenIcon size={'xs'} token={token.tokenSymbol} />
+									<TymioUI.Typography>{token.tokenSymbol}</TymioUI.Typography>
 								</Select.Option>
 							);
 						} else return null;

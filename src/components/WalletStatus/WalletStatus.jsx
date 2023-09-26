@@ -5,18 +5,17 @@ import * as Styled from './styled';
 
 import { MessageDialogService, WalletService } from '../../services';
 
-import { useConfig, useWallet } from '../../hooks';
+import { useConfig, useDirection, useWallet } from '../../hooks';
 import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../models/types';
 import { COLORS } from '../../models/colors';
 import { MESSAGES } from '../../models/messages';
-
-const appType = process.env.REACT_APP_TYPE;
 
 const WalletStatus = () => {
 	const [buttonText, setButtonText] = useState('');
 	const { shortAddress, chainId, balance, balanceUSDC, balanceToken, error } =
 		useWallet();
 	const { config, loading } = useConfig();
+	const { direction: appType } = useDirection();
 
 	useEffect(() => {
 		setButtonText(shortAddress);
@@ -52,10 +51,10 @@ const WalletStatus = () => {
 				chainId &&
 				config.CHAIN_LIST.includes(Number(chainId)) && (
 					<Styled.WalletBalance>
-						<TymioUI.Paragraph size={TYPOGRAPHY_SIZE.SMALL}>
+						<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
 							{appType === 'sell' && `${balance} ${balanceToken}`}
 							{appType === 'buy' && `${balanceUSDC} USDC`}
-						</TymioUI.Paragraph>
+						</TymioUI.Typography>
 					</Styled.WalletBalance>
 				)}
 
@@ -65,11 +64,11 @@ const WalletStatus = () => {
 				onClick={handleClick}
 				onMouseOver={handleMouseOver}
 				onMouseOut={handleMouseOut}>
-				<TymioUI.Paragraph
+				<TymioUI.Typography
 					size={TYPOGRAPHY_SIZE.SMALL}
 					color={COLORS.RICH_BLACK}>
 					{buttonText}
-				</TymioUI.Paragraph>
+				</TymioUI.Typography>
 			</TymioUI.Button>
 		</Styled.BalanceSheet>
 	);
