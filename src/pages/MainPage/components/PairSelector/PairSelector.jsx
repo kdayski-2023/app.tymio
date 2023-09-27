@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { useConfig, useWallet } from '../../../hooks';
+import { useConfig, useWallet } from '../../../../hooks';
 
 import {
 	Select,
 	TokenIcon,
 	LoadingSpinner,
-} from '../../../components/_DEPRECATED';
-import * as TymioUI from '../../../components';
-import * as Service from '../../../services';
+} from '../../../../components/_DEPRECATED';
+import * as TymioUI from '../../../../components';
+import * as Service from '../../../../services';
 
 const PairSelector = ({ formik, disabled }) => {
 	const ref = useRef(null);

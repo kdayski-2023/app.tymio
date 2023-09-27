@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 
-import { OrderService } from '../../../services';
-import { useDirection, useWallet } from '../../../hooks';
-import { useUserOrders } from '../hooks';
+import { OrderService } from '../../../../services';
+import { useDirection, useWallet } from '../../../../hooks';
+import { useUserOrders } from '../../hooks';
 import {
 	LoadingSpinner,
 	Message,
 	Card,
 	Table,
-} from '../../../components/_DEPRECATED';
-import UserOrderTr from './UserOrderTr';
+} from '../../../../components/_DEPRECATED';
+import UserOrderTr from '../UserOrderTr/UserOrderTr';
 
 const UserOrder = () => {
 	const { error, loading, orders } = useUserOrders();

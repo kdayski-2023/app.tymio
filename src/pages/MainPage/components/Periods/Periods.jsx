@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { useFocus, useWallet } from '../../../hooks';
-import * as Hook from '../hooks';
-import * as Styled from '../styled';
+import { useFocus, useWallet } from '../../../../hooks';
+import * as Hook from '../../hooks';
+import * as Styled from './styled';
 import {
 	Card,
 	Grid,
@@ -10,16 +10,17 @@ import {
 	LoadingSpinner,
 	Message,
 	Button,
-	TransitionArrow,
-} from '../../../components/_DEPRECATED';
+} from '../../../../components/_DEPRECATED';
+import { CautionLabel, Label } from '../../styled';
 
 const Periods = ({
 	formik,
-	arrowDown,
 	loading: orderLoading,
 	amountFocused,
 	unfilledFields,
 	setUnfilledFields,
+	price,
+	amount,
 }) => {
 	const ref = useRef();
 	useFocus(orderLoading, ref);
@@ -44,19 +45,21 @@ const Periods = ({
 		setEarnPercent(period.earnPercent);
 	};
 
+	const showPeriod = price && parseFloat(amount) > 0 ? true : false;
+
 	return (
 		<>
 			<Card unfilled={unfilledFields.includes('period')}>
 				<Card.Header>
 					<Grid columns={3} rows={1}>
 						<GridElem textAlign={'left'} column={1} inline>
-							<Styled.Label>Time:</Styled.Label>
+							<Label>Time:</Label>
 						</GridElem>
 						<GridElem textAlign={'center'} column={2} inline>
-							<Styled.Label>APR</Styled.Label>
+							<Label>APR</Label>
 						</GridElem>
 						<GridElem textAlign={'right'} column={3} inline>
-							<Styled.Label>You earn</Styled.Label>
+							<Label>You earn</Label>
 						</GridElem>
 					</Grid>
 				</Card.Header>
@@ -64,7 +67,25 @@ const Periods = ({
 
 				{error && <Message message={error} />}
 
-				{!loading && !error && (
+				{!loading && !error && !showPeriod && (
+					<Card.Body>
+						<Button>
+							<Grid columns={3} rows={1}>
+								<GridElem textAlign={'left'} column={1} inline>
+									<Styled.PeriodButtonText>123</Styled.PeriodButtonText>
+								</GridElem>
+								<GridElem textAlign={'center'} column={2}>
+									123%
+								</GridElem>
+								<GridElem textAlign={'right'} column={3} inline>
+									<Styled.PeriodButtonText>123$</Styled.PeriodButtonText>
+								</GridElem>
+							</Grid>
+						</Button>
+					</Card.Body>
+				)}
+
+				{!loading && !error && showPeriod && (
 					<Card.Body>
 						{periods.map((period, index) => (
 							<React.Fragment key={index}>
@@ -102,9 +123,7 @@ const Periods = ({
 							</React.Fragment>
 						))}
 						{!periods.filter((period) => period.recieve).length ? (
-							<Styled.CautionLabel align={'center'}>
-								No dates found
-							</Styled.CautionLabel>
+							<CautionLabel align={'center'}>No dates found</CautionLabel>
 						) : (
 							<></>
 						)}
@@ -112,14 +131,11 @@ const Periods = ({
 				)}
 				{earnPercent ? (
 					<Card.Footer>
-						<Styled.Label>Earn:</Styled.Label>
-						<Styled.CautionLabel align={'right'}>
-							{earnPercent} %
-						</Styled.CautionLabel>
+						<Label>Earn:</Label>
+						<CautionLabel align={'right'}>{earnPercent} %</CautionLabel>
 					</Card.Footer>
 				) : null}
 			</Card>
-			{arrowDown && <TransitionArrow />}
 		</>
 	);
 };

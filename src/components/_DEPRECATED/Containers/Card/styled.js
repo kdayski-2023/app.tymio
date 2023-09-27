@@ -4,7 +4,7 @@ import { COLORS } from '../../../../models/colors';
 export const Card = styled.div`
 	padding: 30px;
 	background-color: ${({ background }) =>
-		background ? background : COLORS.TRANSPARENT_BLACK};
+		background ? background : COLORS.BLACK};
 	display: grid;
 	gap: 16px;
 	border: ${({ unfilled }) => (unfilled ? `2px solid ${COLORS.PINK}` : 'none')};
@@ -13,8 +13,7 @@ export const Card = styled.div`
 
 export const CardHeader = styled.div`
 	width: 100%;
-	font-size: 18px;
-	color: ${COLORS.WHITE};
+	color: ${COLORS.LIGHT};
 	text-align: ${({ align }) => align};
 `;
 
@@ -28,6 +27,5 @@ export const CardFooter = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
-	font-size: 18px;
-	color: ${COLORS.WHITE};
+	color: ${COLORS.LIGHT};
 `;

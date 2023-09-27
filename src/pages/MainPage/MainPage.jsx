@@ -11,6 +11,8 @@ import {
 	Message,
 	Card,
 	WalletButton,
+	Grid,
+	GridElem,
 } from '../../components/_DEPRECATED';
 
 import { useDirection, useWallet } from '../../hooks';
@@ -110,7 +112,6 @@ const MainPage = ({ config }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tokenSymbol, price, amount, userAddress]);
 
-	const showPeriod = price && parseFloat(amount) > 0 ? true : false;
 	const showAgreement =
 		price && period && amount && Number(amount) ? true : false;
 	const showActions =
@@ -124,7 +125,7 @@ const MainPage = ({ config }) => {
 	const showUnsupportedNetwork = showActions || !connected;
 
 	return (
-		<Container>
+		<Container grid>
 			{showUnsupportedNetwork ? (
 				''
 			) : (
@@ -141,55 +142,64 @@ const MainPage = ({ config }) => {
 				</>
 			)}
 			{!error && (
-				<>
-					<Components.Amount
-						formik={formik}
-						loading={loading}
-						setAmountFocused={setAmountFocused}
-						unfilledFields={unfilledFields}
-						setUnfilledFields={setUnfilledFields}
-					/>
-					<Components.Prices
-						formik={formik}
-						loading={loading}
-						arrowDown={showPeriod}
-						amountFocused={amountFocused}
-						unfilledFields={unfilledFields}
-						setUnfilledFields={setUnfilledFields}
-					/>
-					{showPeriod && (
+				<Grid columns={2} gap={'20px'} alignItems={'flex-start'}>
+					<GridElem column={'span 2'} row={1}>
+						<Components.Amount
+							formik={formik}
+							loading={loading}
+							setAmountFocused={setAmountFocused}
+							unfilledFields={unfilledFields}
+							setUnfilledFields={setUnfilledFields}
+						/>
+					</GridElem>
+					<GridElem column={1} row={2}>
+						<Components.Prices
+							formik={formik}
+							loading={loading}
+							amountFocused={amountFocused}
+							unfilledFields={unfilledFields}
+							setUnfilledFields={setUnfilledFields}
+						/>
+					</GridElem>
+					<GridElem column={2} row={2}>
 						<Components.Periods
 							formik={formik}
 							loading={loading}
-							arrowDown={showAgreement}
+							price={price}
+							amount={amount}
 							amountFocused={amountFocused}
 							unfilledFields={unfilledFields}
 							setUnfilledFields={setUnfilledFields}
 						/>
-					)}
+					</GridElem>
 					{showAgreement && (
-						<Components.Agreement
-							formik={formik}
-							unfilledFields={unfilledFields}
-							setUnfilledFields={setUnfilledFields}
-						/>
+						<GridElem column={'span 2'} row={3}>
+							<Components.Agreement
+								formik={formik}
+								unfilledFields={unfilledFields}
+								setUnfilledFields={setUnfilledFields}
+							/>
+						</GridElem>
 					)}
-					{showActions ? (
-						<Components.Actions
-							formik={formik}
-							loading={loading}
-							waitSubmit={waitSubmit}
-							error={submitError}
-							amountFocused={amountFocused}
-							setUnfilledFields={setUnfilledFields}
-						/>
-					) : (
-						<Card background={'inherit'}>
-							<WalletButton />
-						</Card>
+					{showActions && (
+						<GridElem column={'span 2'} row={4}>
+							<Components.Actions
+								formik={formik}
+								loading={loading}
+								waitSubmit={waitSubmit}
+								error={submitError}
+								amountFocused={amountFocused}
+								setUnfilledFields={setUnfilledFields}
+							/>
+						</GridElem>
 					)}
-					{showUserOrder && <Components.UserOrder />}
-				</>
+
+					{showUserOrder && (
+						<GridElem column={'span 2'} row={5}>
+							<Components.UserOrder />
+						</GridElem>
+					)}
+				</Grid>
 			)}
 		</Container>
 	);

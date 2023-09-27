@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import {
 	WalletService,
 	// MessageDialogService
-} from '../../../services';
-import { useWallet } from '../../../hooks';
+} from '../../../../services';
+import { useWallet } from '../../../../hooks';
 import {
 	Message,
 	Card,
 	Button,
 	LoadingSpinner,
-} from '../../../components/_DEPRECATED';
+} from '../../../../components/_DEPRECATED';
 
 const Actions = ({
 	formik,

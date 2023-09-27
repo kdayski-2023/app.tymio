@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { useCurrentPrice, useOrder } from '../hooks';
+import { useCurrentPrice, useOrder } from '../../hooks';
 import {
 	Card,
 	LoadingSpinner,
 	Message,
 	Input,
-} from '../../../components/_DEPRECATED';
-import * as Styled from '../styled';
+} from '../../../../components/_DEPRECATED';
+import * as Styled from './styled';
 
 const TERMS = process.env.REACT_APP_TERMS;
 

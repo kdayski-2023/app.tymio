@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
-import { useFocus } from '../../../hooks';
-import * as Hook from '../hooks';
+import { useFocus } from '../../../../hooks';
+import * as Hook from '../../hooks';
 import {
 	Card,
 	LoadingSpinner,
@@ -11,8 +11,8 @@ import {
 	GridElem,
 	DollarIcon,
 	TransitionArrow,
-} from '../../../components/_DEPRECATED';
-import * as Styled from '../styled';
+} from '../../../../components/_DEPRECATED';
+import { Label, CautionLabel } from '../../styled';
 
 const Prices = ({
 	formik,
@@ -73,10 +73,8 @@ const Prices = ({
 								))}
 							</Card.Body>
 							<Card.Footer>
-								<Styled.Label>Current price:</Styled.Label>
-								<Styled.CautionLabel align={'right'}>
-									$ {currentPrice}
-								</Styled.CautionLabel>
+								<Label>Current price:</Label>
+								<CautionLabel align={'right'}>$ {currentPrice}</CautionLabel>
 							</Card.Footer>
 						</>
 					)}

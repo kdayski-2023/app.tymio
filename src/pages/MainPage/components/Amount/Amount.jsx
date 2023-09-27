@@ -7,17 +7,17 @@ import {
 	// useDirection,
 	useFocus,
 	//  useWallet
-} from '../../../hooks';
+} from '../../../../hooks';
 
-import { Card, Input } from '../../../components/_DEPRECATED';
-import * as Styled from '../styled';
-import * as Hook from '../hooks';
+import { Card, Input } from '../../../../components/_DEPRECATED';
+import * as Styled from './styled';
+import * as Hook from '../../hooks';
 // import * as Service from '../../../services';
-import * as TymioUI from '../../../components';
-import PairSelector from './PairSelector';
-import { COLORS } from '../../../models/colors';
-import { TYPOGRAPHY_SIZE } from '../../../models/types';
-import { DirectionService } from '../../../services';
+import * as TymioUI from '../../../../components';
+import PairSelector from '../PairSelector/PairSelector';
+import { COLORS } from '../../../../models/colors';
+import { TYPOGRAPHY_SIZE } from '../../../../models/types';
+import { DirectionService } from '../../../../services';
 
 const Amount = ({
 	formik,
@@ -31,6 +31,7 @@ const Amount = ({
 	const innerRef = useRef();
 	// const wallet = useWallet();
 	const { loading: periodsLoading } = Hook.usePeriods();
+	const { loading: priceLoading } = Hook.usePrices();
 	// const { config } = useConfig();
 	useFocus(orderLoading || periodsLoading, innerRef);
 	const [amount, setAmount] = useState('10');
@@ -158,13 +159,12 @@ const Amount = ({
 						</TymioUI.Typography>
 					</TymioUI.Tooltip>
 					<TymioUI.Switcher>
-						{/* TODO дождаться запроса на цены и сбрасывать периоды при смене направления */}
-						{console.log(orderLoading || periodsLoading)}
-						{directionOptions.map((option) => (
+						{directionOptions.map((option, index) => (
 							<TymioUI.Switcher.Option
+								key={index}
 								active={option === direction}
 								onClick={() => handleSwitch(option)}
-								disabled={orderLoading || periodsLoading}>
+								disabled={orderLoading || periodsLoading || priceLoading}>
 								<TymioUI.Typography uppercase>{option}</TymioUI.Typography>
 							</TymioUI.Switcher.Option>
 						))}
