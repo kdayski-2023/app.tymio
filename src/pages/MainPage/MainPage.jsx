@@ -20,7 +20,7 @@ import { useMainPage } from './hooks';
 
 const MainPage = ({ config }) => {
 	const { ref } = useParams();
-	const { chainId, connected, userAddress } = useWallet();
+	const { chainId, connected, userAddress, balance, balanceUSDC } = useWallet();
 	const { direction } = useDirection();
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
@@ -29,7 +29,7 @@ const MainPage = ({ config }) => {
 	const [waitSubmit, setWaitSubmit] = useState(false);
 	const [submitError, setSubmitError] = useState(null);
 	const [amountFocused, setAmountFocused] = useState(false);
-	const [unfilledFields, setUnfilledFields] = useState([]);
+	const [isNotEnoughBalance, setIsNotEnoughBalance] = useState(false);
 
 	const {
 		formik,
@@ -95,6 +95,17 @@ const MainPage = ({ config }) => {
 	}, [price, period, amount, tokenSymbol]);
 
 	useEffect(() => {
+		if (price && period && amount && tokenSymbol && direction) {
+			if (direction === 'sell') {
+				setIsNotEnoughBalance(amount >= balance);
+			}
+			if (direction === 'buy') {
+				setIsNotEnoughBalance(amount * price >= balanceUSDC);
+			}
+		}
+	}, [price, period, amount, tokenSymbol, direction, balance, balanceUSDC]);
+
+	useEffect(() => {
 		if (tokenSymbol) {
 			Service.PricesService.getData(tokenSymbol, direction);
 		}
@@ -148,36 +159,30 @@ const MainPage = ({ config }) => {
 							formik={formik}
 							loading={loading}
 							setAmountFocused={setAmountFocused}
-							unfilledFields={unfilledFields}
-							setUnfilledFields={setUnfilledFields}
+							isNotEnoughBalance={isNotEnoughBalance}
 						/>
 					</GridElem>
-					<GridElem column={1} row={2}>
+					<GridElem column={1} row={2} height={'100%'}>
 						<Components.Prices
 							formik={formik}
 							loading={loading}
 							amountFocused={amountFocused}
-							unfilledFields={unfilledFields}
-							setUnfilledFields={setUnfilledFields}
 						/>
 					</GridElem>
-					<GridElem column={2} row={2}>
+					<GridElem column={2} row={2} height={'100%'}>
 						<Components.Periods
 							formik={formik}
 							loading={loading}
 							price={price}
 							amount={amount}
 							amountFocused={amountFocused}
-							unfilledFields={unfilledFields}
-							setUnfilledFields={setUnfilledFields}
 						/>
 					</GridElem>
 					{showAgreement && (
 						<GridElem column={'span 2'} row={3}>
 							<Components.Agreement
 								formik={formik}
-								unfilledFields={unfilledFields}
-								setUnfilledFields={setUnfilledFields}
+								isNotEnoughBalance={isNotEnoughBalance}
 							/>
 						</GridElem>
 					)}
@@ -189,7 +194,6 @@ const MainPage = ({ config }) => {
 								waitSubmit={waitSubmit}
 								error={submitError}
 								amountFocused={amountFocused}
-								setUnfilledFields={setUnfilledFields}
 							/>
 						</GridElem>
 					)}

@@ -12,22 +12,6 @@ export const CautionLabel = styled.span`
 	text-align: ${({ align }) => (align ? align : 'inherit')};
 `;
 
-export const Max = styled.div`
-	margin-left: auto;
-	background: ${COLORS.LIGHT_BLUE};
-	color: ${COLORS.WHITE};
-	padding: 3px 6px;
-	margin-right: 20px;
-	border-radius: 45px;
-	font-size: 14px;
-
-	&:hover {
-		cursor: pointer;
-		background: ${COLORS.TRANSPARENT_BRIGHT_BLUE};
-		color: ${COLORS.BRIGHT_BLUE};
-	}
-`;
-
 export const Blur = styled.div`
 	z-index: 999;
 	position: absolute;
@@ -46,4 +30,15 @@ export const Blur = styled.div`
 	svg {
 		margin-right: 0 !important;
 	}
+`;
+
+export const CardBadge = styled.div`
+	height: 36px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 15px;
+	background: ${COLORS.RICH_BLACK2};
+	border-radius: 5px;
 `;

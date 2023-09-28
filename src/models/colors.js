@@ -23,6 +23,7 @@ const darkBlue = '#627EEB';
 
 // CURRENT
 const richBlack = '#15173D';
+const richBlack2 = '#11071C';
 const black = '#1C102F';
 const dark = '#2B1C4D';
 const richPurple = '#3E2467';
@@ -52,6 +53,7 @@ const gradientDarkPurple = `linear-gradient(180deg, ${black} 0%, ${purpleBright}
 export const COLORS = {
 	// CURRENT
 	RICH_BLACK: richBlack,
+	RICH_BLACK2: richBlack2,
 	BLACK: black,
 	DARK: dark,
 	RICH_PURPLE: richPurple,

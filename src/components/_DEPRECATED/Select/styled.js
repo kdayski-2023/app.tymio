@@ -37,8 +37,8 @@ export const Value = styled.div`
 	border-radius: 5px;
 
 	padding: ${({ custom }) => (custom ? '7px 15px 7px 15px' : '4.5px 10px')};
-	gap: ${({ custom }) => (custom ? '6px' : '10px')};
-	color: ${({ custom }) => (custom ? COLORS.WHITE : COLORS.PINK)};
+	gap: 10px;
+	color: ${({ custom }) => (custom ? COLORS.LIGHT : COLORS.PINK)};
 
 	svg {
 		margin-right: 0 !important;

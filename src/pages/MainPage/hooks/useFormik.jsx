@@ -95,11 +95,13 @@ const useMainPageFormik = ({
 						address,
 					});
 					if (
-						!wallet.balance ||
-						(direction === 'sell' && wallet.balance - parseFloat(amount) <= 0)
+						!wallet.balanceETH ||
+						(direction === 'sell' &&
+							tokenSymbol === 'ETH' &&
+							wallet.balanceETH - parseFloat(amount) <= 0)
 					) {
 						throw new Error(
-							`You don't have enough ${tokenSymbol} to pay the transaction fee`,
+							`You don't have enough ETH to pay the transaction fee`,
 						);
 					}
 					const hash = await Service.Web3Service.deposit(

@@ -9,7 +9,7 @@ import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../models/types';
 import { COLORS } from '../../models/colors';
 import { MESSAGES } from '../../models/messages';
 
-const WalletConnectButton = () => {
+const WalletConnectButton = ({ width }) => {
 	const handleClick = async () => {
 		const mobile = isMobile();
 		if (mobile) {
@@ -20,7 +20,10 @@ const WalletConnectButton = () => {
 	};
 
 	return (
-		<TymioUI.Button type={BUTTON_TYPE.PRIMARY} onClick={handleClick}>
+		<TymioUI.Button
+			width={width}
+			type={BUTTON_TYPE.PRIMARY}
+			onClick={handleClick}>
 			<TymioUI.Typography
 				size={TYPOGRAPHY_SIZE.MEDIUM}
 				color={COLORS.RICH_BLACK}>

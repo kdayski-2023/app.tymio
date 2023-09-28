@@ -24,6 +24,7 @@ class WalletService {
 		balance: 0,
 		balanceToken: 'ETH',
 		balanceUSDC: 0,
+		balanceETH: 0,
 		// gasETH: 21000,
 		// gasToken: 48600,
 	};
@@ -122,14 +123,14 @@ class WalletService {
 			const balance = await contract.methods.balanceOf(address).call();
 			const decimals = await contract.methods.decimals().call();
 			if (decimals === '18') {
-				return this.#roundDown(web3.utils.fromWei(balance, 'ether'), 0);
+				return this.#roundDown(web3.utils.fromWei(balance, 'ether'), 6);
 			}
 			if (decimals !== '18') {
 				const delimiter = new BN('10')
 					.pow(new BN(String(18 - Number(decimals))))
 					.toString();
 				const value = new BN(String(balance)).mul(new BN(delimiter)).toString();
-				return this.#roundDown(web3.utils.fromWei(value, 'ether'), 0);
+				return this.#roundDown(web3.utils.fromWei(value, 'ether'), 6);
 			}
 		} catch (e) {
 			console.log('samara', e);
@@ -172,7 +173,7 @@ class WalletService {
 				const balanceWei = await this.web3.eth.getBalance(this.state.address);
 				balance = this.#roundDown(
 					this.web3.utils.fromWei(balanceWei, 'ether'),
-					2,
+					6,
 				);
 			} else {
 				balance = await this.#getBalance(
@@ -181,7 +182,11 @@ class WalletService {
 					INFURA_PROVIDERS[chainId],
 				);
 			}
-
+			const balanceWei = await this.web3.eth.getBalance(this.state.address);
+			const balanceETH = this.#roundDown(
+				this.web3.utils.fromWei(balanceWei, 'ether'),
+				6,
+			);
 			const balanceUSDC = await this.#getBalance(
 				WITHDRAWAL_TOKEN_ADDRESS[this.state.chainId],
 				this.state.address,
@@ -191,6 +196,7 @@ class WalletService {
 			this.state = {
 				...this.state,
 				balance,
+				balanceETH,
 				balanceUSDC,
 				balanceToken: targetSymbol,
 			};
@@ -428,6 +434,7 @@ class WalletService {
 				providerType: this.state.providerType,
 				balance: this.state.balance,
 				balanceToken: this.state.balanceToken,
+				balanceETH: this.state.balanceETH,
 				balanceUSDC: this.state.balanceUSDC,
 			}),
 		);

@@ -2,12 +2,14 @@ import React from 'react';
 import ETH from '../../../../assets/img/icons/eth.svg';
 import UNKNOWN from '../../../../assets/img/icons/warning.svg';
 import WBTC from '../../../../assets/img/icons/btc.svg';
+import USDC from '../../../../assets/img/icons/usdc.svg';
 import * as Styled from './styled';
 
 const TokenIcon = ({ size, token }) => {
 	const tokenIcons = {
 		ETH,
 		WBTC,
+		USDC,
 		UNKNOWN,
 	};
 	let width;

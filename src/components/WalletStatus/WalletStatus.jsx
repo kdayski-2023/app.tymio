@@ -52,8 +52,18 @@ const WalletStatus = () => {
 				config.CHAIN_LIST.includes(Number(chainId)) && (
 					<Styled.WalletBalance>
 						<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
-							{appType === 'sell' && `${balance} ${balanceToken}`}
-							{appType === 'buy' && `${balanceUSDC} USDC`}
+							{appType === 'sell' &&
+								`${
+									typeof balance === 'number' && balance > 0
+										? balance.toFixed(3)
+										: balance
+								} ${balanceToken}`}
+							{appType === 'buy' &&
+								`${
+									typeof balanceUSDC === 'number' && balanceUSDC > 0
+										? balanceUSDC.toFixed(3)
+										: balanceUSDC
+								} USDC`}
 						</TymioUI.Typography>
 					</Styled.WalletBalance>
 				)}

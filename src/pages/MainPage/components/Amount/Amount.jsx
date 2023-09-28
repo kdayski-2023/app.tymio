@@ -1,42 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import {
-	// useConfig,
+	useConfig,
 	useDebounce,
 	useDirection,
-	// useDirection,
 	useFocus,
-	//  useWallet
+	useWallet,
 } from '../../../../hooks';
 
 import { Card, Input } from '../../../../components/_DEPRECATED';
 import * as Styled from './styled';
 import * as Hook from '../../hooks';
-// import * as Service from '../../../services';
+import * as Service from '../../../../services';
 import * as TymioUI from '../../../../components';
 import PairSelector from '../PairSelector/PairSelector';
 import { COLORS } from '../../../../models/colors';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
-import { DirectionService } from '../../../../services';
 
 const Amount = ({
 	formik,
 	loading: orderLoading,
 	setAmountFocused,
-	unfilledFields,
-	setUnfilledFields,
+	isNotEnoughBalance,
 }) => {
 	const directionOptions = ['sell', 'buy'];
 	const { direction } = useDirection();
 	const innerRef = useRef();
-	// const wallet = useWallet();
+	const wallet = useWallet();
 	const { loading: periodsLoading } = Hook.usePeriods();
 	const { loading: priceLoading } = Hook.usePrices();
-	// const { config } = useConfig();
+	const { config } = useConfig();
 	useFocus(orderLoading || periodsLoading, innerRef);
 	const [amount, setAmount] = useState('10');
 	const debouncedNewValue = useDebounce(amount, 1000);
-	// const {direction: appType} = useDirection()
+	const { direction: appType } = useDirection();
 
 	useEffect(() => {
 		formik.setFieldValue('amount', debouncedNewValue);
@@ -68,9 +65,6 @@ const Amount = ({
 
 	const changeAmount = (value) => {
 		setAmountFocused(true);
-		setUnfilledFields(
-			unfilledFields.filter((unfilled) => unfilled !== 'amount'),
-		);
 		if (!value) value = '0';
 
 		value = value.replace(',', '.');
@@ -84,51 +78,67 @@ const Amount = ({
 		}
 	};
 
-	// const handleClick = async () => {
-	// 	const { connected } = Service.WalletService.state;
-	// 	if (!connected) await Service.WalletService.connect();
-	// 	await Service.WalletService.changeNetwork(wallet.chainId);
-	// 	await Service.WalletService.setBalance(
-	// 		config,
-	// 		wallet,
-	// 		formik.values.tokenSymbol,
-	// 	);
-	// 	const { balance, balanceUSDC } = Service.WalletService.state;
-	// 	if (appType === 'sell') {
-	// 		let availableAmount = parseFloat(balance);
-	// 		availableAmount = Math.floor(availableAmount * 100) / 100;
-	// 		changeAmount(String(availableAmount));
-	// 	}
+	const handleClick = async () => {
+		const { connected } = Service.WalletService.state;
+		if (!connected) await Service.WalletService.connect();
+		await Service.WalletService.changeNetwork(wallet.chainId);
+		await Service.WalletService.setBalance(
+			config,
+			wallet,
+			formik.values.tokenSymbol,
+		);
+		const { balance, balanceUSDC } = Service.WalletService.state;
+		if (appType === 'sell') {
+			let availableAmount = parseFloat(balance);
+			availableAmount = Math.floor(availableAmount * 100) / 100;
+			changeAmount(String(availableAmount));
+		}
 
-	// 	if (appType === 'buy' && !formik.values.price) {
-	// 		Service.MessageDialogService.showError('Choose price first');
-	// 	}
+		if (appType === 'buy' && !formik.values.price) {
+			Service.MessageDialogService.showError('Choose price first');
+		}
 
-	// 	if (appType === 'buy' && formik.values.price) {
-	// 		let availableAmount =
-	// 			parseFloat(balanceUSDC) / parseFloat(formik.values.price);
-	// 		availableAmount = Math.floor(availableAmount * 100) / 100;
-	// 		changeAmount(String(availableAmount));
-	// 	}
-	// };
-
-	const handleSwitch = async (value) => {
-		await DirectionService.setDirection(value);
+		if (appType === 'buy' && formik.values.price) {
+			let availableAmount =
+				parseFloat(balanceUSDC) / parseFloat(formik.values.price);
+			availableAmount = Math.floor(availableAmount * 100) / 100;
+			changeAmount(String(availableAmount));
+		}
 	};
 
+	const handleSwitch = async (value) => {
+		await formik.setValues({
+			...formik.values,
+			direction: value,
+			price: formik.initialValues.price,
+		});
+		await Service.DirectionService.setDirection(value);
+	};
 	return (
-		<Card unfilled={unfilledFields.includes('amount')}>
+		<Card>
 			<Styled.AmountContentWrapper>
 				<Styled.AmountItemWrapper>
 					<Styled.AmountAsset>
 						<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
 							Asset and amount
 						</TymioUI.Typography>
-						<TymioUI.Typography
-							size={TYPOGRAPHY_SIZE.SMALL}
-							color={COLORS.GRAY_DARK}>
-							Start from 1 ETH
-						</TymioUI.Typography>
+						{!wallet.connected && (
+							<TymioUI.Typography
+								size={TYPOGRAPHY_SIZE.SMALL}
+								color={COLORS.GRAY_DARK}>
+								Start from 1 ETH
+							</TymioUI.Typography>
+						)}
+						{wallet.connected && isNotEnoughBalance && (
+							<TymioUI.Typography
+								size={TYPOGRAPHY_SIZE.SMALL}
+								color={COLORS.WARNINGS}>
+								At least {formik.values.amount} {formik.values.tokenSymbol}
+							</TymioUI.Typography>
+						)}
+						{wallet.connected && !isNotEnoughBalance && (
+							<Styled.Max onClick={handleClick}>MAX</Styled.Max>
+						)}
 					</Styled.AmountAsset>
 					<Input
 						innerRef={innerRef}
@@ -146,7 +156,6 @@ const Amount = ({
 						error={formik.errors.amount}
 						style={{ flexGrow: 1 }}
 					/>
-					{/* <Styled.Max onClick={handleClick}>MAX</Styled.Max> */}
 				</Styled.AmountItemWrapper>
 				<Styled.AmountItemWrapper>
 					<TymioUI.Tooltip

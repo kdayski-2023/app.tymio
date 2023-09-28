@@ -11,20 +11,21 @@ import {
 	Message,
 	Button,
 } from '../../../../components/_DEPRECATED';
-import { CautionLabel, Label } from '../../styled';
+import { CardBadge, CautionLabel, Label } from '../../styled';
+import * as TymioUI from '../../../../components';
+import { TYPOGRAPHY_SIZE } from '../../../../models/types';
+import { COLORS } from '../../../../models/colors';
 
 const Periods = ({
 	formik,
 	loading: orderLoading,
 	amountFocused,
-	unfilledFields,
-	setUnfilledFields,
 	price,
 	amount,
 }) => {
 	const ref = useRef();
 	useFocus(orderLoading, ref);
-	const { userAddress } = useWallet();
+	const { connected } = useWallet();
 	const { error, loading, periods } = Hook.usePeriods();
 	const [earnPercent, setEarnPercent] = useState(0);
 
@@ -32,16 +33,8 @@ const Periods = ({
 		setEarnPercent(0);
 	}, [formik.values.price]);
 
-	useEffect(() => {
-		formik.setFieldValue('period', 0);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userAddress]);
-
 	const chosePeriod = (period) => {
 		formik.setFieldValue('period', period.timestamp);
-		setUnfilledFields(
-			unfilledFields.filter((unfilled) => unfilled !== 'period'),
-		);
 		setEarnPercent(period.earnPercent);
 	};
 
@@ -49,92 +42,124 @@ const Periods = ({
 
 	return (
 		<>
-			<Card unfilled={unfilledFields.includes('period')}>
-				<Card.Header>
-					<Grid columns={3} rows={1}>
-						<GridElem textAlign={'left'} column={1} inline>
-							<Label>Time:</Label>
-						</GridElem>
-						<GridElem textAlign={'center'} column={2} inline>
-							<Label>APR</Label>
-						</GridElem>
-						<GridElem textAlign={'right'} column={3} inline>
-							<Label>You earn</Label>
-						</GridElem>
-					</Grid>
-				</Card.Header>
+			<Card
+				height={'100%'}
+				mh={365}
+				gap={'0'}
+				pt={'27px'}
+				flex={true}>
 				{loading && <LoadingSpinner />}
 
 				{error && <Message message={error} />}
 
 				{!loading && !error && !showPeriod && (
-					<Card.Body>
-						<Button>
-							<Grid columns={3} rows={1}>
-								<GridElem textAlign={'left'} column={1} inline>
-									<Styled.PeriodButtonText>123</Styled.PeriodButtonText>
-								</GridElem>
-								<GridElem textAlign={'center'} column={2}>
-									123%
-								</GridElem>
-								<GridElem textAlign={'right'} column={3} inline>
-									<Styled.PeriodButtonText>123$</Styled.PeriodButtonText>
-								</GridElem>
-							</Grid>
-						</Button>
-					</Card.Body>
+					<>
+						<Card.Header>
+							<TymioUI.Typography
+								size={TYPOGRAPHY_SIZE.BIG}
+								color={COLORS.LEMON}
+								style={{ textAlign: 'left' }}>
+								Select the price to see the offers here. Connect your wallet to
+								make a final transaction.
+							</TymioUI.Typography>
+						</Card.Header>
+						<Card.Body>
+							{!connected && <TymioUI.WalletConnectButton />}
+						</Card.Body>
+					</>
 				)}
 
 				{!loading && !error && showPeriod && (
-					<Card.Body>
-						{periods.map((period, index) => (
-							<React.Fragment key={index}>
-								{period.recieve && period.apr ? (
-									<Button
-										disabled={orderLoading || amountFocused}
-										ref={ref}
-										key={index}
-										type="button"
-										active={
-											formik.values.period === period.timestamp
-												? 'true'
-												: undefined
-										}
-										onClick={() => chosePeriod(period)}>
-										<Grid columns={3} rows={1}>
-											<GridElem textAlign={'left'} column={1} inline>
-												<Styled.PeriodButtonText>
-													{period.title}
-												</Styled.PeriodButtonText>
-											</GridElem>
-											<GridElem textAlign={'center'} column={2}>
-												{period.apr}%
-											</GridElem>
-											<GridElem textAlign={'right'} column={3} inline>
-												<Styled.PeriodButtonText>
-													{Math.floor(parseFloat(period.recieve))}$
-												</Styled.PeriodButtonText>
-											</GridElem>
-										</Grid>
-									</Button>
+					<>
+						<Card.Header>
+							<Grid columns={3} rows={1}>
+								<GridElem textAlign={'left'} column={1} inline>
+									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+										Time
+									</TymioUI.Typography>
+								</GridElem>
+								<GridElem textAlign={'center'} column={2} inline>
+									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+										APR
+									</TymioUI.Typography>
+								</GridElem>
+								<GridElem textAlign={'right'} column={3} inline>
+									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+										You earn
+									</TymioUI.Typography>
+								</GridElem>
+							</Grid>
+						</Card.Header>
+						<Card.Body mt={'16px'}>
+							{periods.map((period, index) => (
+								<React.Fragment key={index}>
+									{period.recieve && period.apr ? (
+										<Button
+											disabled={orderLoading || amountFocused}
+											ref={ref}
+											key={index}
+											type="button"
+											active={
+												formik.values.period === period.timestamp
+													? 'true'
+													: undefined
+											}
+											onClick={() => chosePeriod(period)}>
+											<Grid columns={3} rows={1}>
+												<GridElem textAlign={'left'} column={1} inline>
+													<TymioUI.Typography lh={'100%'}>
+														{period.title}
+													</TymioUI.Typography>
+												</GridElem>
+												<GridElem textAlign={'center'} column={2}>
+													<TymioUI.Typography lh={'100%'}>
+														{period.apr}%
+													</TymioUI.Typography>
+												</GridElem>
+												<GridElem textAlign={'right'} column={3} inline>
+													<TymioUI.Typography lh={'100%'}>
+														${Math.floor(parseFloat(period.recieve))}
+													</TymioUI.Typography>
+												</GridElem>
+											</Grid>
+										</Button>
+									) : (
+										<></>
+									)}
+								</React.Fragment>
+							))}
+							{!periods.filter((period) => period.recieve).length ? (
+								<CautionLabel align={'center'}>No dates found</CautionLabel>
+							) : (
+								<></>
+							)}
+						</Card.Body>
+						<Card.Footer mt={'20px'}>
+							<CardBadge>
+								{earnPercent ? (
+									<>
+										<TymioUI.Typography
+											size={TYPOGRAPHY_SIZE.SMALL}
+											color={COLORS.PURPLE_BRIGHT}>
+											Earn
+										</TymioUI.Typography>
+										<TymioUI.Typography
+											color={COLORS.PURPLE_BRIGHT}
+											lh={'100%'}>
+											{String(earnPercent).replace('.', ',')}%
+										</TymioUI.Typography>
+									</>
 								) : (
-									<></>
+									<TymioUI.Typography
+										size={TYPOGRAPHY_SIZE.SMALL}
+										color={COLORS.LEMON}>
+										Select the period
+									</TymioUI.Typography>
 								)}
-							</React.Fragment>
-						))}
-						{!periods.filter((period) => period.recieve).length ? (
-							<CautionLabel align={'center'}>No dates found</CautionLabel>
-						) : (
-							<></>
-						)}
-					</Card.Body>
+							</CardBadge>
+						</Card.Footer>
+					</>
 				)}
-				{earnPercent ? (
-					<Card.Footer>
-						<Label>Earn:</Label>
-						<CautionLabel align={'right'}>{earnPercent} %</CautionLabel>
-					</Card.Footer>
-				) : null}
 			</Card>
 		</>
 	);

@@ -18,7 +18,6 @@ const Actions = ({
 	loading: mainDataLoading,
 	waitSubmit,
 	amountFocused,
-	setUnfilledFields,
 }) => {
 	const { error, connected } = useWallet();
 
@@ -50,14 +49,6 @@ const Actions = ({
 			await formik.handleSubmit(setWaitProcess);
 		}
 		if (connected && !formik.isValid) {
-			const unfilledFields = Object.keys(formik.errors);
-			setUnfilledFields(unfilledFields);
-			// let errorMessage = '';
-			// unfilledFields.forEach(
-			//   (key) => (errorMessage += formik.errors[key] + ', ')
-			// );
-			// errorMessage = errorMessage.substring(0, errorMessage.length - 2);
-			// MessageDialogService.showError(errorMessage);
 			setWaitProcess(false);
 		}
 		if (!connected) {

@@ -25,6 +25,7 @@ export const TooltipText = styled.div`
 	width: 255px;
 	position: absolute;
 	transition: opacity 0.5s ease;
+	text-align: left;
 `;
 
 export const TitleWrapper = styled.div`

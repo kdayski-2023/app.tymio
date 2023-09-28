@@ -15,6 +15,7 @@ const useWallet = () => {
 	const [balance, setBalance] = useState(WalletService.balance);
 	const [balanceToken, setBalanceToken] = useState(WalletService.balanceToken);
 	const [balanceUSDC, setBalanceUSDC] = useState(WalletService.balanceUSDC);
+	const [balanceETH, setBalanceETH] = useState(WalletService.balanceETH);
 	const [connecting, setConnecting] = useState(WalletService.connecting);
 	const [providerType, setProviderType] = useState(WalletService.providerType);
 	const [error, setError] = useState(null);
@@ -30,6 +31,7 @@ const useWallet = () => {
 			setBalance(state.balance);
 			setBalanceToken(state.balanceToken);
 			setBalanceUSDC(state.balanceUSDC);
+			setBalanceETH(state.balanceETH);
 			setConnecting(state.connecting);
 			setProviderType(state.providerType);
 		});
@@ -50,6 +52,7 @@ const useWallet = () => {
 		balance,
 		balanceToken,
 		balanceUSDC,
+		balanceETH,
 		connecting,
 	};
 };

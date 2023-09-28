@@ -7,20 +7,18 @@ import {
 	LoadingSpinner,
 	Message,
 	Button,
-	Grid,
-	GridElem,
-	DollarIcon,
-	TransitionArrow,
+	TokenIcon,
 } from '../../../../components/_DEPRECATED';
-import { Label, CautionLabel } from '../../styled';
+import { CardBadge } from '../../styled';
+import * as TymioUI from '../../../../components';
+import * as Styled from './styled';
+import { TYPOGRAPHY_SIZE } from '../../../../models/types';
+import { COLORS } from '../../../../models/colors';
 
 const Prices = ({
 	formik,
-	arrowDown,
 	loading: orderLoading,
 	amountFocused,
-	unfilledFields,
-	setUnfilledFields,
 }) => {
 	const ref = useRef();
 	const {
@@ -35,21 +33,33 @@ const Prices = ({
 	const chosePrice = async (e) => {
 		await formik.setFieldValue('period', 0, true);
 		await formik.setFieldValue('price', e, true);
-		setUnfilledFields(
-			unfilledFields.filter((unfilled) => unfilled !== 'price'),
-		);
 	};
 
 	return (
 		<>
-			<Card unfilled={unfilledFields.includes('price')}>
-				<Card.Header>Price:</Card.Header>
+			<Card
+				height={'100%'}
+				mh={365}
+				gap={'0'}
+				pt={'15px'}
+				flex={true}>
+				<Card.Header>
+					<Styled.Price>
+						<Styled.CurrencyBadge>
+							<TokenIcon size={'xs'} token={'USDC'} />
+							<TymioUI.Typography>USDC</TymioUI.Typography>
+						</Styled.CurrencyBadge>
+						<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+							Price
+						</TymioUI.Typography>
+					</Styled.Price>
+				</Card.Header>
 				<>
 					{priceLoading && <LoadingSpinner />}
 					{priceError && <Message message={priceError} />}
 					{!priceLoading && !priceError && (
 						<>
-							<Card.Body>
+							<Card.Body mt={'5px'}>
 								{prices.map((price, index) => (
 									<Button
 										disabled={orderLoading || periodsLoading || amountFocused}
@@ -58,29 +68,26 @@ const Prices = ({
 										type="button"
 										active={formik.values.price === price ? 'true' : undefined}
 										onClick={() => chosePrice(price)}>
-										<Grid columns={6} rows={1}>
-											<GridElem offset={1} height={30} column={1} xsColumn={2}>
-												<DollarIcon />
-											</GridElem>
-											<GridElem
-												column={'span 4'}
-												lgTextAlign={'right'}
-												lgColumn={'span 3'}>
-												{price} USDC
-											</GridElem>
-										</Grid>
+										<TymioUI.Typography lh={'100%'}>{price}</TymioUI.Typography>
 									</Button>
 								))}
 							</Card.Body>
-							<Card.Footer>
-								<Label>Current price:</Label>
-								<CautionLabel align={'right'}>$ {currentPrice}</CautionLabel>
+							<Card.Footer mt={'20px'}>
+								<CardBadge>
+									<TymioUI.Typography
+										size={TYPOGRAPHY_SIZE.SMALL}
+										color={COLORS.PURPLE_BRIGHT}>
+										Current price
+									</TymioUI.Typography>
+									<TymioUI.Typography color={COLORS.PURPLE_BRIGHT} lh={'100%'}>
+										{currentPrice}
+									</TymioUI.Typography>
+								</CardBadge>
 							</Card.Footer>
 						</>
 					)}
 				</>
 			</Card>
-			{arrowDown && <TransitionArrow />}
 		</>
 	);
 };

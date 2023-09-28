@@ -2,39 +2,58 @@ import styled from 'styled-components';
 import { COLORS } from '../../../../models/colors';
 
 export const Button = styled.button`
+	height: 40px;
+	border-radius: 5px;
+	width: 100%;
+	cursor: pointer;
+
 	display: ${({ waitProcess }) => waitProcess && 'flex'};
 	align-items: ${({ waitProcess }) => waitProcess && 'center'};
 	justify-content: ${({ waitProcess }) => waitProcess && 'center'};
-
-	font-weight: bold;
-	background: ${({ main }) => (main ? 'none' : COLORS.BLACK)};
-	border-radius: 45px;
-	padding: 12px 20px;
-	width: 100%;
-	font-size: 20px;
-	cursor: pointer;
-	color: ${COLORS.WHITE};
-
 	opacity: ${({ disabled }) => disabled && '0.7'};
+	color: ${({ active }) => active && COLORS.BLACK};
 
-	border: ${({ active, main }) => {
-		if (active) return `3px solid ${COLORS.LIGHT_BLUE}`;
-		if (main) return 'none';
-		return `1px solid ${COLORS.GRAY}`;
-	}};
+	padding: ${({ active }) => (active ? '10px 13px' : '12px 15px')};
 
-	background-image: ${({ main }) =>
-		main ? COLORS.PINK_LINER_GRADIENT : 'none'};
+	border: ${({ active }) =>
+		active
+			? `2.5px solid ${COLORS.PURPLE_BRIGHT}`
+			: `0.5px solid ${COLORS.PURPLE_BRIGHT}`};
+	background: ${({ active }) => (active ? COLORS.PURPLE_BRIGHT : COLORS.DARK)};
+
+	p {
+		color: ${({ active }) => active && COLORS.BLACK};
+	}
 
 	&:hover {
-		background: ${({ main }) =>
-			main ? 'none' : COLORS.TRANSPARENT_BRIGHT_BLUE};
-		background-image: ${({ main }) =>
-			main ? COLORS.WHITE_LINER_GRADIENT : 'none'};
-		color: ${({ main }) => (main ? COLORS.PINK : COLORS.BRIGHT_BLUE)};
+		padding: 10px 13px;
+
+		background: ${({ active }) =>
+			active ? COLORS.PURPLE_BRIGHT : COLORS.DARK};
+		color: ${COLORS.PURPLE_GRAY2};
+		border: 2.5px solid ${COLORS.PURPLE_BRIGHT};
+
+		p {
+			color: ${({ active }) => (active ? COLORS.BLACK : COLORS.PURPLE_GRAY2)};
+		}
 
 		#status {
-			color: ${({ main }) => (main ? COLORS.PINK : COLORS.LIGHT_BLUE)};
+			color: ${COLORS.LIGHT_BLUE};
+		}
+	}
+
+	&:focus {
+		border: ${({ active }) =>
+			active
+				? `2.5px solid ${COLORS.PURPLE_BRIGHT}`
+				: `1.5px solid ${COLORS.LIGHT}`};
+		background: ${({ active }) =>
+			active ? COLORS.PURPLE_BRIGHT : COLORS.DARK};
+		box-shadow: ${({ active }) => !active && `0px 0px 3px 0px ${COLORS.LIGHT}`};
+		color: ${({ active }) => !active && COLORS.LIGHT};
+
+		p {
+			color: ${({ active }) => !active && COLORS.LIGHT};
 		}
 	}
 `;
