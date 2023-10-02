@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-import {
-	WalletService,
-	// MessageDialogService
-} from '../../../../services';
+import { WalletService } from '../../../../services';
 import { useWallet } from '../../../../hooks';
-import {
-	Message,
-	Card,
-	Button,
-	LoadingSpinner,
-} from '../../../../components/_DEPRECATED';
+import { Message } from '../../../../components/_DEPRECATED';
+import * as TymioUI from '../../../../components';
+import { COLORS } from '../../../../models/colors';
 
 const Actions = ({
 	formik,
 	error: submitError,
 	loading: mainDataLoading,
-	waitSubmit,
 	amountFocused,
+	setWaitSubmit,
 }) => {
 	const { error, connected } = useWallet();
 
 	const [loading, setLoading] = useState(mainDataLoading);
-	const [waitProcess, setWaitProcess] = useState(waitSubmit);
 	const [buttonText, setButtonText] = useState('');
 
 	useEffect(() => {
@@ -34,26 +27,28 @@ const Actions = ({
 	}, [mainDataLoading]);
 
 	useEffect(() => {
-		if (submitError) {
-			setWaitProcess(false);
+		if (submitError && setWaitSubmit) {
+			setWaitSubmit(false);
 		}
-	}, [submitError]);
+	}, [submitError, setWaitSubmit]);
 
 	useEffect(() => {
-		setWaitProcess(formik.isSubmitting);
-	}, [formik.isSubmitting]);
+		if (setWaitSubmit) {
+			setWaitSubmit(formik.isSubmitting);
+		}
+	}, [formik.isSubmitting, setWaitSubmit]);
 
 	const clickHandler = async () => {
-		setWaitProcess(true);
+		setWaitSubmit(true);
 		if (connected && formik.isValid) {
-			await formik.handleSubmit(setWaitProcess);
+			await formik.handleSubmit(setWaitSubmit);
 		}
 		if (connected && !formik.isValid) {
-			setWaitProcess(false);
+			setWaitSubmit(false);
 		}
 		if (!connected) {
 			await WalletService.connect();
-			setWaitProcess(false);
+			setWaitSubmit(false);
 		}
 	};
 
@@ -62,22 +57,17 @@ const Actions = ({
 			{error && <Message message={error} />}
 
 			{!error && (
-				<Card background={'inherit'}>
-					<Button
-						waitProcess={waitProcess}
-						type="button"
-						disabled={loading || error || amountFocused}
-						main
-						onClick={clickHandler}>
-						{waitProcess && (
-							<>
-								{'Deal pending...'}{' '}
-								<LoadingSpinner waitProcess={waitProcess} size={'xs'} />
-							</>
-						)}
-						{!waitProcess && buttonText}
-					</Button>
-				</Card>
+				<TymioUI.Button
+					width={'100%'}
+					type="button"
+					disabled={
+						loading || error || amountFocused || !formik.values.agreement
+					}
+					onClick={clickHandler}>
+					<TymioUI.Typography color={COLORS.BLACK}>
+						{buttonText}
+					</TymioUI.Typography>
+				</TymioUI.Button>
 			)}
 		</>
 	);

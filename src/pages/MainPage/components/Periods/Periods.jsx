@@ -42,12 +42,7 @@ const Periods = ({
 
 	return (
 		<>
-			<Card
-				height={'100%'}
-				mh={365}
-				gap={'0'}
-				pt={'27px'}
-				flex={true}>
+			<Card height={'100%'} mh={365} gap={'0'} pt={'27px'} flex={true}>
 				{loading && <LoadingSpinner />}
 
 				{error && <Message message={error} />}
@@ -129,34 +124,45 @@ const Periods = ({
 								</React.Fragment>
 							))}
 							{!periods.filter((period) => period.recieve).length ? (
-								<CautionLabel align={'center'}>No dates found</CautionLabel>
+								<TymioUI.Typography
+									size={TYPOGRAPHY_SIZE.BIG}
+									color={COLORS.WARNINGS}
+									style={{ textAlign: 'center' }}>
+									No dates found.
+									<br />
+									Please select a different price.
+								</TymioUI.Typography>
 							) : (
 								<></>
 							)}
 						</Card.Body>
 						<Card.Footer mt={'20px'}>
-							<CardBadge>
-								{earnPercent ? (
-									<>
+							{periods.filter((period) => period.recieve).length ? (
+								<CardBadge>
+									{earnPercent ? (
+										<>
+											<TymioUI.Typography
+												size={TYPOGRAPHY_SIZE.SMALL}
+												color={COLORS.PURPLE_BRIGHT}>
+												Earn
+											</TymioUI.Typography>
+											<TymioUI.Typography
+												color={COLORS.PURPLE_BRIGHT}
+												lh={'100%'}>
+												{String(earnPercent).replace('.', ',')}%
+											</TymioUI.Typography>
+										</>
+									) : (
 										<TymioUI.Typography
 											size={TYPOGRAPHY_SIZE.SMALL}
-											color={COLORS.PURPLE_BRIGHT}>
-											Earn
+											color={COLORS.LEMON}>
+											Select the period
 										</TymioUI.Typography>
-										<TymioUI.Typography
-											color={COLORS.PURPLE_BRIGHT}
-											lh={'100%'}>
-											{String(earnPercent).replace('.', ',')}%
-										</TymioUI.Typography>
-									</>
-								) : (
-									<TymioUI.Typography
-										size={TYPOGRAPHY_SIZE.SMALL}
-										color={COLORS.LEMON}>
-										Select the period
-									</TymioUI.Typography>
-								)}
-							</CardBadge>
+									)}
+								</CardBadge>
+							) : (
+								<></>
+							)}
 						</Card.Footer>
 					</>
 				)}

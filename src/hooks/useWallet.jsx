@@ -18,6 +18,9 @@ const useWallet = () => {
 	const [balanceETH, setBalanceETH] = useState(WalletService.balanceETH);
 	const [connecting, setConnecting] = useState(WalletService.connecting);
 	const [providerType, setProviderType] = useState(WalletService.providerType);
+	const [isNotEnoughBalance, setIsNotEnoughBalance] = useState(
+		WalletService.isNotEnoughBalance,
+	);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
@@ -34,6 +37,7 @@ const useWallet = () => {
 			setBalanceETH(state.balanceETH);
 			setConnecting(state.connecting);
 			setProviderType(state.providerType);
+			setIsNotEnoughBalance(state.isNotEnoughBalance);
 		});
 
 		return () => {
@@ -54,6 +58,7 @@ const useWallet = () => {
 		balanceUSDC,
 		balanceETH,
 		connecting,
+		isNotEnoughBalance,
 	};
 };
 

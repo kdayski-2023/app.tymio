@@ -79,14 +79,12 @@ const Amount = ({
 	};
 
 	const handleClick = async () => {
-		const { connected } = Service.WalletService.state;
-		if (!connected) await Service.WalletService.connect();
-		await Service.WalletService.changeNetwork(wallet.chainId);
-		await Service.WalletService.setBalance(
-			config,
-			wallet,
-			formik.values.tokenSymbol,
-		);
+		// await Service.WalletService.changeNetwork(wallet.chainId);
+		// await Service.WalletService.setBalance(
+		// 	config,
+		// 	wallet,
+		// 	formik.values.tokenSymbol,
+		// );
 		const { balance, balanceUSDC } = Service.WalletService.state;
 		if (appType === 'sell') {
 			let availableAmount = parseFloat(balance);
@@ -104,6 +102,7 @@ const Amount = ({
 			availableAmount = Math.floor(availableAmount * 100) / 100;
 			changeAmount(String(availableAmount));
 		}
+		setAmountFocused(false);
 	};
 
 	const handleSwitch = async (value) => {
@@ -114,6 +113,7 @@ const Amount = ({
 		});
 		await Service.DirectionService.setDirection(value);
 	};
+
 	return (
 		<Card>
 			<Styled.AmountContentWrapper>
@@ -137,7 +137,11 @@ const Amount = ({
 							</TymioUI.Typography>
 						)}
 						{wallet.connected && !isNotEnoughBalance && (
-							<Styled.Max onClick={handleClick}>MAX</Styled.Max>
+							<Styled.Max onClick={handleClick}>
+								<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+									MAX
+								</TymioUI.Typography>
+							</Styled.Max>
 						)}
 					</Styled.AmountAsset>
 					<Input

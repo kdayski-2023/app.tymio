@@ -17,6 +17,10 @@ export const Card = styled.div`
 `;
 
 export const CardHeader = styled.div`
+	display: ${({ display }) => display && display};
+	justify-content: ${({ justify }) => justify && justify};
+	gap: ${({ gap }) => gap && gap};
+	flex-wrap: ${({ wrap }) => wrap && 'wrap'};
 	width: 100%;
 	color: ${COLORS.LIGHT};
 	text-align: ${({ align }) => align};
@@ -36,4 +40,5 @@ export const CardFooter = styled.div`
 	justify-content: space-between;
 	color: ${COLORS.LIGHT};
 	margin-top: ${({ mt }) => mt && mt};
+	align-items: ${({ align }) => align && align};
 `;

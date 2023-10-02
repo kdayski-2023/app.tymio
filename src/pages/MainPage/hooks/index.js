@@ -4,8 +4,6 @@ export { default as useOrder } from './useOrder';
 export { default as useOrderAvailable } from './useOrderAvailable';
 export { default as usePeriods } from './usePeriods';
 export { default as usePrices } from './usePrices';
-export { default as useTransactionDetails } from './useTransactionDetails';
-export { default as useUserOrders } from './useUserOrders';
 export { default as useMainPage } from './useMainPage';
 export { default as useOrderState } from './useOrderState';
 export { default as useFormik } from './useFormik';

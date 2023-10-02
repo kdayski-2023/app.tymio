@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../../models/colors';
 
 export const InputWrapper = styled.div`
+	height: 40px;
 	color: ${COLORS.WHITE};
 	display: flex;
 	border: 0.5px solid ${COLORS.PURPLE_BRIGHT};
@@ -15,6 +16,7 @@ export const InputWrapper = styled.div`
 `;
 
 export const CheckboxWrapper = styled(InputWrapper)`
+	height: fit-content;
 	border: unset;
 	background: unset;
 	border-radius: unset;
@@ -52,9 +54,22 @@ export const TextArea = styled.textarea`
 `;
 
 export const Checkbox = styled(Input)`
+	margin: 0;
 	width: unset;
+	box-shadow: none;
+	width: 15px;
+	height: 15px;
+	border: 1px solid ${COLORS.LIGHT};
+	border-radius: 2px;
+	outline: none;
+	cursor: pointer;
+
 	&:checked {
-		accent-color: ${COLORS.LIGHT_BLUE};
+		accent-color: ${COLORS.LIGHT};
+	}
+
+	&:after {
+		box-shadow: none;
 	}
 `;
 
@@ -62,11 +77,8 @@ export const Label = styled.label`
 	display: flex;
 	height: 100%;
 	align-items: center;
-	gap: 12px;
-	font-size: 20px;
-	font-weight: bold;
+	gap: 15px;
 	user-select: none;
-	color: ${({ active }) => active && COLORS.LIGHT_BLUE};
 
 	&:hover {
 		cursor: pointer;
@@ -74,12 +86,6 @@ export const Label = styled.label`
 `;
 
 export const Terms = styled.a`
-	padding-left: 5px;
-	text-decoration: underline;
-	color: ${COLORS.WHITE};
-	&:hover {
-		color: ${COLORS.WHITE};
-	}
+	text-decoration: none;
+	color: ${COLORS.PURPLE_BRIGHT};
 `;
-
-export const Content = styled.span``;

@@ -13,18 +13,19 @@ const PROJECT_ID = process.env.REACT_APP_PROJECT_ID;
 
 class WalletService {
 	initialState = {
+		chainId: null,
+		balance: 0,
+		balanceUSDC: 0,
+		balanceETH: 0,
 		connected: false,
 		connecting: false,
+		isNotEnoughBalance: false,
 		address: '',
-		chainId: null,
 		networkName: '',
 		error: '',
 		deviceType: '',
 		providerType: '',
-		balance: 0,
 		balanceToken: 'ETH',
-		balanceUSDC: 0,
-		balanceETH: 0,
 		// gasETH: 21000,
 		// gasToken: 48600,
 	};
@@ -147,10 +148,6 @@ class WalletService {
 		if (!this.state.connected) {
 			return;
 		}
-		this.state = {
-			...this.state,
-		};
-		this.state$.next(this.state);
 
 		const { chainId } = wallet;
 		const {
@@ -205,6 +202,26 @@ class WalletService {
 
 			this.state$.next(this.state);
 		}
+	};
+
+	isNotEnoughBalance = async (price, amount, direction) => {
+		if (!this.state.connected) {
+			return;
+		}
+
+		let result = false;
+		if (direction === 'sell') {
+			result = amount >= this.state.balance;
+		}
+		if (direction === 'buy') {
+			result = amount * price >= this.state.balanceUSDC;
+		}
+		this.state = {
+			...this.state,
+			isNotEnoughBalance: result,
+		};
+
+		this.state$.next(this.state);
 	};
 
 	connect = async (provider) => {

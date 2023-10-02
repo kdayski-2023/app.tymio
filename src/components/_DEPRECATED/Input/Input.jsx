@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import * as Styled from './styled';
+import * as TymioUI from '../../';
 import FormErrorText from '../FormErrorText/FormErrorText';
+import { TYPOGRAPHY_SIZE } from '../../../models/types';
 
 const Input = ({
 	label,
@@ -26,11 +28,10 @@ const Input = ({
 				<Styled.CheckboxWrapper>
 					<Styled.Checkbox id={label} {...props} onChange={onChange} />
 					<Styled.Label
-						htmlFor={label}
-						active={props.value ? 'true' : undefined}>
+						htmlFor={label}>
 						{icon ? icon : ''}
-						<Styled.Content>
-							{label}
+						<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+							{label}{' '}
 							{props.terms ? (
 								<Styled.Terms href={props.terms.link} target="_blank">
 									{` ${props.terms.content}`}
@@ -38,7 +39,7 @@ const Input = ({
 							) : (
 								''
 							)}
-						</Styled.Content>
+						</TymioUI.Typography>
 					</Styled.Label>
 					{error ? <FormErrorText error={error} /> : null}
 				</Styled.CheckboxWrapper>

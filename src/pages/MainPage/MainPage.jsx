@@ -9,8 +9,6 @@ import {
 	Container,
 	ErrorIcon,
 	Message,
-	Card,
-	WalletButton,
 	Grid,
 	GridElem,
 } from '../../components/_DEPRECATED';
@@ -20,7 +18,14 @@ import { useMainPage } from './hooks';
 
 const MainPage = ({ config }) => {
 	const { ref } = useParams();
-	const { chainId, connected, userAddress, balance, balanceUSDC } = useWallet();
+	const {
+		chainId,
+		connected,
+		userAddress,
+		balance,
+		balanceUSDC,
+		isNotEnoughBalance,
+	} = useWallet();
 	const { direction } = useDirection();
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
@@ -29,7 +34,7 @@ const MainPage = ({ config }) => {
 	const [waitSubmit, setWaitSubmit] = useState(false);
 	const [submitError, setSubmitError] = useState(null);
 	const [amountFocused, setAmountFocused] = useState(false);
-	const [isNotEnoughBalance, setIsNotEnoughBalance] = useState(false);
+	const [success, setSuccess] = useState(false);
 
 	const {
 		formik,
@@ -47,6 +52,7 @@ const MainPage = ({ config }) => {
 		setLoading,
 		setWaitSubmit,
 		config,
+		setSuccess,
 	});
 
 	useEffect(() => {
@@ -96,12 +102,7 @@ const MainPage = ({ config }) => {
 
 	useEffect(() => {
 		if (price && period && amount && tokenSymbol && direction) {
-			if (direction === 'sell') {
-				setIsNotEnoughBalance(amount >= balance);
-			}
-			if (direction === 'buy') {
-				setIsNotEnoughBalance(amount * price >= balanceUSDC);
-			}
+			Service.WalletService.isNotEnoughBalance(price, amount, direction);
 		}
 	}, [price, period, amount, tokenSymbol, direction, balance, balanceUSDC]);
 
@@ -132,7 +133,6 @@ const MainPage = ({ config }) => {
 		config.CHAIN_LIST.includes(Number(chainId))
 			? true
 			: false;
-	const showUserOrder = showActions;
 	const showUnsupportedNetwork = showActions || !connected;
 
 	return (
@@ -162,14 +162,29 @@ const MainPage = ({ config }) => {
 							isNotEnoughBalance={isNotEnoughBalance}
 						/>
 					</GridElem>
-					<GridElem column={1} row={2} height={'100%'}>
+					<GridElem
+						display={success ? 'block' : 'none'}
+						column={'span 2'}
+						row={2}
+						height={'340px'}>
+						<Components.ModalCard setSuccess={setSuccess} />
+					</GridElem>
+					<GridElem
+						display={success ? 'none' : 'block'}
+						column={1}
+						row={2}
+						height={'100%'}>
 						<Components.Prices
 							formik={formik}
 							loading={loading}
 							amountFocused={amountFocused}
 						/>
 					</GridElem>
-					<GridElem column={2} row={2} height={'100%'}>
+					<GridElem
+						display={success ? 'none' : 'block'}
+						column={2}
+						row={2}
+						height={'100%'}>
 						<Components.Periods
 							formik={formik}
 							loading={loading}
@@ -179,28 +194,18 @@ const MainPage = ({ config }) => {
 						/>
 					</GridElem>
 					{showAgreement && (
-						<GridElem column={'span 2'} row={3}>
+						<GridElem
+							display={success ? 'none' : 'block'}
+							column={'span 2'}
+							row={3}>
 							<Components.Agreement
 								formik={formik}
 								isNotEnoughBalance={isNotEnoughBalance}
-							/>
-						</GridElem>
-					)}
-					{showActions && (
-						<GridElem column={'span 2'} row={4}>
-							<Components.Actions
-								formik={formik}
-								loading={loading}
 								waitSubmit={waitSubmit}
-								error={submitError}
+								setWaitSubmit={setWaitSubmit}
+								submitError={submitError}
 								amountFocused={amountFocused}
 							/>
-						</GridElem>
-					)}
-
-					{showUserOrder && (
-						<GridElem column={'span 2'} row={5}>
-							<Components.UserOrder />
 						</GridElem>
 					)}
 				</Grid>

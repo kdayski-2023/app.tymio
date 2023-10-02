@@ -12,10 +12,19 @@ import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 import { COLORS } from '../../../../models/colors';
 import { useWallet } from '../../../../hooks';
 import { OrderService } from '../../../../services';
+import Actions from '../Actions/Actions';
+import * as Styled from './styled';
 
 const TERMS = process.env.REACT_APP_TERMS;
 
-const Agreement = ({ formik, isNotEnoughBalance }) => {
+const Agreement = ({
+	formik,
+	isNotEnoughBalance,
+	waitSubmit,
+	submitError,
+	amountFocused,
+	setWaitSubmit,
+}) => {
 	const { price, period, amount, tokenSymbol } = formik.values;
 
 	const { connected, userAddress } = useWallet();
@@ -49,33 +58,15 @@ const Agreement = ({ formik, isNotEnoughBalance }) => {
 		setLoading(currentPriceLoading || agreementLoading);
 	}, [currentPriceLoading, agreementLoading]);
 
-	// const handleChange = async (e) => {
-	// 	await formik.setFieldValue('agreement', e.target.checked);
-	// };
-
-	// const [days, setDays] = useState(0);
-	// const [hours, setHours] = useState(0);
-	// const [minutes, setMinutes] = useState(0);
-	// const [seconds, setSeconds] = useState(0);
-
-	// const getTime = (end_date) => {
-	//   const time = Date.parse(end_date) - Date.now();
-	//   setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
-	//   setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
-	//   setMinutes(Math.floor((time / 1000 / 60) % 60));
-	//   setSeconds(Math.floor((time / 1000) % 60));
-	// };
-
-	// useEffect(() => {
-	//   if (period) {
-	//     const interval = setInterval(() => getTime(new Date(period)), 1000);
-	//     return () => clearInterval(interval);
-	//   }
-	//   return;
-	// }, [period]);
+	const handleChange = async (e) => {
+		await formik.setFieldValue('agreement', e.target.checked);
+	};
 
 	return (
-		<Card gap={'30px'} errored={connected && isNotEnoughBalance}>
+		<Card
+			gap={'30px'}
+			height={waitSubmit ? '235px' : 'auto'}
+			errored={connected && isNotEnoughBalance}>
 			{loading && <LoadingSpinner />}
 
 			{error && (
@@ -85,7 +76,7 @@ const Agreement = ({ formik, isNotEnoughBalance }) => {
 				</>
 			)}
 
-			{!loading && !error && orderAvailable && orderData ? (
+			{!loading && !error && orderAvailable && orderData && !waitSubmit ? (
 				<>
 					<Card.Header>
 						<TymioUI.Typography
@@ -109,6 +100,18 @@ const Agreement = ({ formik, isNotEnoughBalance }) => {
 								{formik.values.tokenSymbol} in your wallet to make a transaction
 							</TymioUI.Typography>
 						)}
+						{connected && !isNotEnoughBalance && (
+							<Input
+								type="checkbox"
+								label="I have read the agreement above and"
+								terms={{
+									content: 'Terms & Conditions',
+									link: TERMS,
+								}}
+								checked={formik.values.agreement}
+								onChange={handleChange}
+							/>
+						)}
 					</Card.Body>
 
 					{!connected && (
@@ -116,17 +119,50 @@ const Agreement = ({ formik, isNotEnoughBalance }) => {
 							<TymioUI.WalletConnectButton width={'100%'} />
 						</Card.Footer>
 					)}
-					{/* <Input
-							type="checkbox"
-							label="I have read the agreement above and"
-							terms={{
-								content: 'Terms & Conditions',
-								link: TERMS,
-							}}
-							value={formik.values.agreement}
-							onChange={handleChange}
-						/> */}
+					{connected && !isNotEnoughBalance && (
+						<Card.Footer>
+							<Actions
+								formik={formik}
+								loading={loading}
+								setWaitSubmit={setWaitSubmit}
+								error={submitError}
+								amountFocused={amountFocused}
+							/>
+						</Card.Footer>
+					)}
 				</>
+			) : (
+				<></>
+			)}
+			{!loading && !error && orderAvailable && orderData && waitSubmit ? (
+				<Styled.WaitText>
+					<div>
+						<TymioUI.Typography
+							size={TYPOGRAPHY_SIZE.BIG}
+							color={COLORS.LEMON}
+							style={{ marginRight: '10px', textTransform: 'capitalize' }}>
+							{formik.values.direction}
+						</TymioUI.Typography>
+						<TymioUI.Typography
+							size={TYPOGRAPHY_SIZE.BIG}
+							color={COLORS.LEMON}
+							style={{ marginRight: '10px' }}>
+							{`${formik.values.amount} ${formik.values.tokenSymbol}`}
+						</TymioUI.Typography>
+						<TymioUI.Typography
+							size={TYPOGRAPHY_SIZE.BIG}
+							color={COLORS.LEMON}
+							style={{ marginRight: '10px' }}>
+							{'→'}
+						</TymioUI.Typography>
+						<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG} color={COLORS.LEMON}>
+							{`${formik.values.price * formik.values.amount} USDC`}
+						</TymioUI.Typography>
+					</div>
+					<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG} color={COLORS.LEMON}>
+						{'Please confirm transaction with your wallet'}
+					</TymioUI.Typography>
+				</Styled.WaitText>
 			) : (
 				<></>
 			)}

@@ -3,8 +3,12 @@ import React from 'react';
 import * as Styled from './styled';
 
 export const PrimaryButton = (props) => {
-	const { children, ...restProps } = props;
-	return <Styled.Button {...restProps}>{children}</Styled.Button>;
+	const { children, type, ...restProps } = props;
+	return (
+		<Styled.Button type={type} {...restProps}>
+			{children}
+		</Styled.Button>
+	);
 };
 
 export default PrimaryButton;

@@ -12,6 +12,7 @@ const useMainPageFormik = ({
 	setWaitSubmit,
 	wallet,
 	orderAvailable,
+	setSuccess,
 	config,
 }) => {
 	const validationSchema = Yup.object().shape({
@@ -120,7 +121,7 @@ const useMainPageFormik = ({
 					if (state.error) {
 						Service.MessageDialogService.showError(state.error);
 					} else {
-						Service.MessageDialogService.showSuccess('Request accepted');
+						setSuccess(true);
 						Service.OrderService.getUserOrders(wallet.userAddress);
 					}
 				} catch (e) {

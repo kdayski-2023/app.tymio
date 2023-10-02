@@ -9,7 +9,7 @@ import {
 import { useSession, useConfig, useBallance } from './hooks';
 import { Layout } from './components/_DEPRECATED';
 
-const UIDemo = React.lazy(() => import('./pages/UIDemo/UIDemo'));
+const ProfilePage = React.lazy(() => import('./pages/ProfilePage/ProfilePage'));
 const MainPage = React.lazy(() => import('./pages/MainPage/MainPage'));
 
 const App = () => {
@@ -28,17 +28,18 @@ const App = () => {
 	}, [errorSession, errorConfig]);
 
 	return (
-		<Routes>
-			<Route path="/" element={<Layout />}>
-				{!loadingSession && !loadingConfig && (
-					<>
+		<React.Suspense fallback={<div></div>}>
+			{!loadingSession && !loadingConfig && (
+				<Routes>
+					<Route path="/" element={<Layout />}>
 						<Route path="/" element={<MainPage config={config} />} />
-						<Route path="/ui" element={<UIDemo />} />
+						<Route path="/code/:ref" element={<MainPage config={config} />} />
+						<Route path="/profile" element={<ProfilePage />} />
 						<Route path="*" element={<MainPage config={config} />} />
-					</>
-				)}
-			</Route>
-		</Routes>
+					</Route>
+				</Routes>
+			)}
+		</React.Suspense>
 	);
 };
 

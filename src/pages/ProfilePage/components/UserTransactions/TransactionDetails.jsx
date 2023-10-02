@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useTransactionDetails } from '../../hooks';
 import { LoadingSpinner, Message } from '../../../../components/_DEPRECATED';
 import * as Styled from './styled';
+import { useTransactionDetails } from '../../hooks';
 
 const TransactionDetails = ({ order }) => {
 	const { error, loading, transactionDetails } = useTransactionDetails(order);

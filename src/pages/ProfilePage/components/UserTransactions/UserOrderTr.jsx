@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { ModalService } from '../../../../services';
-import TransactionDetails from '../TransactionDetails/TransactionDetails';
+import TransactionDetails from './TransactionDetails';
 import * as Styled from './styled';
 import { Table, TokenIcon } from '../../../../components/_DEPRECATED';
 

@@ -14,25 +14,46 @@ export const AmountItemWrapper = styled.div`
 	flex-grow: 1;
 	flex-shrink: 1;
 	flex-direction: column;
+	justify-content: space-between;
 	gap: 20px;
 `;
 export const AmountAsset = styled.div`
 	display: flex;
 	justify-content: space-between;
+	height: 20px;
 `;
 
-export const Max = styled.div`
-	margin-left: auto;
-	background: ${COLORS.LIGHT_BLUE};
-	color: ${COLORS.WHITE};
-	padding: 3px 6px;
-	margin-right: 20px;
-	border-radius: 45px;
-	font-size: 14px;
+export const Max = styled.button`
+	background: inherit;
+	border: none;
+
+	margin: -5px -10px 0 0;
+	padding: 5px 10px;
+	cursor: pointer;
+
+	p {
+		color: ${COLORS.PURPLE_BRIGHT};
+	}
 
 	&:hover {
-		cursor: pointer;
-		background: ${COLORS.TRANSPARENT_BRIGHT_BLUE};
-		color: ${COLORS.BRIGHT_BLUE};
+		p {
+			color: ${COLORS.PURPLE_GRAY2};
+		}
+	}
+
+	&:disabled {
+		p {
+			color: ${COLORS.GRAY};
+		}
+	}
+
+	&:focus {
+		p {
+			color: ${COLORS.PURPLE_BRIGHT};
+		}
+		border-radius: 5px;
+		border: 1.5px solid ${COLORS.LIGHT};
+		box-shadow: 0px 0px 3px 0px ${COLORS.LIGHT};
+		padding: 4px 9px;
 	}
 `;

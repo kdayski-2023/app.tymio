@@ -4,7 +4,9 @@ import { COLORS } from '../../models/colors';
 export const BalanceSheet = styled.div`
 	display: flex;
 	background: ${COLORS.BLACK};
-	border: 0.5px solid ${COLORS.LIGHT};
+	border: ${({ errored }) =>
+		errored ? `0.5px solid ${COLORS.WARNINGS}` : `0.5px solid ${COLORS.LIGHT}`};
+	/* border: 0.5px solid ${COLORS.LIGHT}; */
 	border-radius: 5px;
 
 	button {
@@ -26,6 +28,8 @@ export const BalanceSheet = styled.div`
 
 export const WalletBalance = styled.div`
 	padding: 13px 20px 12px;
-	border-right: 0.5px solid ${COLORS.LIGHT};
+	border-right: ${({ errored }) =>
+		errored ? `0.5px solid ${COLORS.WARNINGS}` : `0.5px solid ${COLORS.LIGHT}`};
+	/* border-right: 0.5px solid ${COLORS.LIGHT}; */
 	text-transform: uppercase;
 `;

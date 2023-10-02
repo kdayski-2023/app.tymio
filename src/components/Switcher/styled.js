@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../models/colors';
 
 export const Switcher = styled.div`
+	height: 40px;
 	display: flex;
 	border-radius: 5px;
 	border: 1.5px solid ${COLORS.PURPLE_GRAY};
@@ -13,7 +14,7 @@ export const Option = styled.button`
 	flex-basis: 0;
 	flex-grow: 1;
 	flex-shrink: 1;
-	padding: 14px 20px 13px;
+	padding: 13px 20px;
 	border-radius: 5px;
 	text-align: center;
 	cursor: pointer;

@@ -12,8 +12,15 @@ import { MESSAGES } from '../../models/messages';
 
 const WalletStatus = () => {
 	const [buttonText, setButtonText] = useState('');
-	const { shortAddress, chainId, balance, balanceUSDC, balanceToken, error } =
-		useWallet();
+	const {
+		shortAddress,
+		chainId,
+		balance,
+		balanceUSDC,
+		balanceToken,
+		isNotEnoughBalance,
+		error,
+	} = useWallet();
 	const { config, loading } = useConfig();
 	const { direction: appType } = useDirection();
 
@@ -44,13 +51,13 @@ const WalletStatus = () => {
 	};
 
 	return (
-		<Styled.BalanceSheet>
+		<Styled.BalanceSheet errored={isNotEnoughBalance}>
 			{!loading &&
 				config &&
 				config.CHAIN_LIST &&
 				chainId &&
 				config.CHAIN_LIST.includes(Number(chainId)) && (
-					<Styled.WalletBalance>
+					<Styled.WalletBalance errored={isNotEnoughBalance}>
 						<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
 							{appType === 'sell' &&
 								`${

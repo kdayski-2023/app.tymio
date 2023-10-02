@@ -13,7 +13,7 @@ export const Button = styled.button`
 	opacity: ${({ disabled }) => disabled && '0.7'};
 	color: ${({ active }) => active && COLORS.BLACK};
 
-	padding: ${({ active }) => (active ? '10px 13px' : '12px 15px')};
+	padding: ${({ active }) => (active ? '9.5px 13.5px' : '9.5px 15px')};
 
 	border: ${({ active }) =>
 		active
@@ -26,7 +26,7 @@ export const Button = styled.button`
 	}
 
 	&:hover {
-		padding: 10px 13px;
+		padding: 9.5px 13.5px;
 
 		background: ${({ active }) =>
 			active ? COLORS.PURPLE_BRIGHT : COLORS.DARK};
