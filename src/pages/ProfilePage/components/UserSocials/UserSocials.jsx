@@ -11,7 +11,7 @@ import { useWallet } from '../../../../hooks';
 import { useSubscribe, useAirdrop, useReferral } from '../../hooks';
 
 const UserSocials = () => {
-	const { userAddress, connecting } = useWallet();
+	const { userAddress } = useWallet();
 	const { subscription } = useSubscribe(userAddress);
 	const { airdrop, airdropParticipant } = useAirdrop(userAddress);
 	const { referral, referrals, totals } = useReferral(userAddress);
@@ -21,12 +21,8 @@ const UserSocials = () => {
 			Service.SubscribeService.getData(userAddress);
 			Service.ReferralService.getData(userAddress);
 			Service.AirdropService.getData();
-		} else {
-			if (connecting === false) {
-				Service.MessageDialogService.showWarning('Connect your wallet first');
-			}
 		}
-	}, [userAddress, connecting]);
+	}, [userAddress]);
 
 	useEffect(() => {
 		if (userAddress && airdrop) {

@@ -82,9 +82,44 @@ export const AccordionTrigger = styled.div`
 `;
 
 export const AccordionContent = styled.div`
-	display: ${({ expanded }) => (expanded ? 'block' : 'none')};
+	display: ${({ expanded }) => (expanded ? 'flex' : 'none')};
+	flex-direction: column;
 	padding: 30px;
 	border-radius: 10px;
 	background: ${COLORS.LIME_LEMON};
 	flex-basis: 100%;
+	gap: 10px;
+`;
+
+export const AccordionItem = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 0.5px solid ${COLORS.BLACK};
+	padding-bottom: 5px;
+`;
+
+export const ActiveOrders = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+`;
+
+export const ClosedOrders = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+`;
+
+export const ClosedAccordionTrigger = styled.div`
+	width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	padding: 10px 10px 10px 0;
+	user-select: none;
+	cursor: pointer;
+`;
+export const ClosedAccordionContent = styled.div`
+	display: ${({ expanded }) => (expanded ? 'block' : 'none')};
 `;

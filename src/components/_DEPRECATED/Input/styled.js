@@ -12,7 +12,7 @@ export const InputWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: 12px;
+	gap: 15px;
 `;
 
 export const CheckboxWrapper = styled(InputWrapper)`

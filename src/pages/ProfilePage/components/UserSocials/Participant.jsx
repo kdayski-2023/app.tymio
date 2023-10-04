@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import * as Service from '../../../../services';
-import * as Styled from '../../styled';
+import * as Styled from './styled';
 
 import { useWallet } from '../../../../hooks';
 import { useAirdrop, useAirdropFormik } from '../../hooks';

@@ -15,4 +15,7 @@ export const MESSAGES = {
 		'Network that you try connect to is not supported by Tymio',
 	REFUND_SUCCESS: 'Refund success',
 	DISCONNECT: 'Disconnect',
+	executed: 'Transactions when asset bought or sold',
+	turnoverUSDC: 'Total turnover USDC',
+	daysOnThePlatform: 'Days on the platform'
 };

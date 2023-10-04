@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 class DirectionService {
 	initialState = {
-		direction: 'sell',
+		direction: Cookies.get('direction') || 'sell',
 	};
 
 	state = this.initialState;

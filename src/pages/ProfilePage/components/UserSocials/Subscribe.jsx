@@ -1,27 +1,43 @@
 import React, { useState, useEffect } from 'react';
 
 import * as Service from '../../../../services';
-import * as Styled from '../../styled';
+import * as Styled from './styled';
+import * as TymioUI from '../../../../components';
 import { useWallet } from '../../../../hooks';
 import { useSubscribe, useSubscribeFormik } from '../../hooks';
-import { Card, Input, List } from '../../../../components/_DEPRECATED';
+import {
+	Card,
+	Grid,
+	GridElem,
+	Input,
+} from '../../../../components/_DEPRECATED';
+import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../../../models/types';
+
+const TERMS = process.env.REACT_APP_TERMS;
 
 const Subscribe = ({ subscription }) => {
 	const { userAddress } = useWallet();
 	const { loading } = useSubscribe();
+	const [inputError, setInputError] = useState('');
 	const [error, setError] = useState('');
+	const [showManage, setShowManage] = useState(false);
+	const [showSure, setShowSure] = useState(false);
 
 	const formik = useSubscribeFormik(subscription, async (values) => {
 		setError(null);
-		const { email, transaction_notifications, news } = values;
-		try {
-			Service.SubscribeService.sendData(userAddress, {
-				subsctiptions: { transaction_notifications, news },
-				email,
-			});
-		} catch (e) {
-			if (e.message) {
-				setError(e.message);
+		setInputError(formik.errors.email);
+		if (!formik.errors.email) {
+			const { email, transaction_notifications, news, terms } = values;
+			try {
+				await Service.SubscribeService.sendData(userAddress, {
+					subsctiptions: { transaction_notifications, news, terms },
+					email,
+				});
+				setShowManage(false);
+			} catch (e) {
+				if (e.message) {
+					setError(e.message);
+				}
 			}
 		}
 		formik.setSubmitting(false);
@@ -37,62 +53,166 @@ const Subscribe = ({ subscription }) => {
 		formik.setFieldValue('email', value, true);
 	};
 
-	return (
-		<Card>
-			<Card.Header>Subscribe</Card.Header>
-			<Styled.ProfileInputSheet>
-				<Styled.ProfileInput
-					value={formik.values.email}
-					onChange={(e) => handleEmailChange(e.currentTarget.value)}
-					type={'email'}
-					placeholder={'e-mail'}
-					error={formik.errors.email}
-					disabled={loading}
-				/>
-				<Styled.ProfileButton
-					main
-					onClick={() => formik.handleSubmit(formik.values)}
-					disabled={
-						!formik.isValid ||
-						JSON.stringify(formik.initialValues) ===
-							JSON.stringify(formik.values)
-					}>
-					OK
-				</Styled.ProfileButton>
-			</Styled.ProfileInputSheet>
-			<Card.Body>
-				<List>
-					<List.Item font={'small'}>
-						<Input
-							type="checkbox"
-							value={formik.values.transaction_notifications}
-							checked={formik.values.transaction_notifications}
-							label="Transaction notifications"
-							onChange={(e) =>
-								formik.setFieldValue(
-									'transaction_notifications',
-									e.target.checked,
-									true,
-								)
-							}
-							disabled={loading}
-						/>
-					</List.Item>
+	const handleCancel = async () => {
+		const newValues = {
+			email: '',
+			transaction_notifications: false,
+			news: false,
+			terms: false,
+		};
+		await formik.setValues(newValues);
+		formik.handleSubmit(newValues);
+	};
 
-					<List.Item font={'small'}>
-						<Input
-							type="checkbox"
-							value={formik.values.news}
-							checked={formik.values.news}
-							label="TYMIO news & updates"
-							onChange={(e) =>
-								formik.setFieldValue('news', e.target.checked, true)
-							}
+	return (
+		<Card gap={'30px'}>
+			<Card.Header>
+				<TymioUI.H2>Subscribe</TymioUI.H2>
+			</Card.Header>
+
+			{subscription && !subscription.email && (
+				<>
+					<Styled.ProfileInputSheet>
+						<Styled.ProfileInput
+							value={formik.values.email}
+							onChange={(e) => handleEmailChange(e.currentTarget.value)}
+							type={'email'}
+							placeholder={'Your e-mail'}
+							error={inputError}
 							disabled={loading}
+							onBlur={() => setInputError(formik.errors.email)}
+							onFocus={() => setInputError('')}
 						/>
-					</List.Item>
-				</List>
-			</Card.Body>
+						<Styled.ProfileButton
+							type={BUTTON_TYPE.SECONDARY}
+							onClick={() => formik.handleSubmit(formik.values)}
+							disabled={
+								!formik.isValid ||
+								JSON.stringify(formik.initialValues) ===
+									JSON.stringify(formik.values) ||
+								!formik.values.email
+							}>
+							SEND
+						</Styled.ProfileButton>
+					</Styled.ProfileInputSheet>
+					<Card.Body>
+						<Grid rows={2} columns={2} gap={'15px'}>
+							<GridElem row={1} column={1}>
+								<Input
+									type="checkbox"
+									value={formik.values.transaction_notifications}
+									checked={formik.values.transaction_notifications}
+									label="Transaction notifications"
+									onChange={(e) =>
+										formik.setFieldValue(
+											'transaction_notifications',
+											e.target.checked,
+											true,
+										)
+									}
+									disabled={loading}
+								/>
+							</GridElem>
+
+							<GridElem row={1} column={2}>
+								<Input
+									type="checkbox"
+									value={formik.values.news}
+									checked={formik.values.news}
+									label="Tymio news and updates"
+									onChange={(e) =>
+										formik.setFieldValue('news', e.target.checked, true)
+									}
+									disabled={loading}
+								/>
+							</GridElem>
+
+							<GridElem row={2} column={'span 2'}>
+								<Input
+									type="checkbox"
+									value={formik.values.terms}
+									checked={formik.values.terms}
+									label={'I understand and agree to the'}
+									terms={{
+										content: 'terms of submission & data processing',
+										link: TERMS,
+									}}
+									onChange={(e) =>
+										formik.setFieldValue('terms', e.target.checked, true)
+									}
+									disabled={loading}
+								/>
+							</GridElem>
+						</Grid>
+					</Card.Body>
+				</>
+			)}
+
+			{subscription && subscription.email && (
+				<Card.Body>
+					{!showManage && (
+						<Styled.ManageSub>
+							<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
+								Thanks for getting in touch!
+							</TymioUI.Typography>
+							<Styled.ProfileButton onClick={() => setShowManage(true)}>
+								MANAGE
+							</Styled.ProfileButton>
+						</Styled.ManageSub>
+					)}
+					{showManage && !showSure && (
+						<Styled.ChangeSub>
+							<Styled.ProfileInputSheet flex={'2 1'}>
+								<Styled.ProfileInput
+									value={formik.values.email}
+									onChange={(e) => handleEmailChange(e.currentTarget.value)}
+									type={'email'}
+									placeholder={'New e-mail'}
+									error={inputError}
+									disabled={loading}
+									onBlur={() => setInputError(formik.errors.email)}
+									onFocus={() => setInputError('')}
+								/>
+								<Styled.ProfileButton
+									type={BUTTON_TYPE.SECONDARY}
+									onClick={() => formik.handleSubmit(formik.values)}
+									disabled={
+										!formik.isValid ||
+										!formik.values.email ||
+										subscription.email === formik.values.email
+									}>
+									CHANGE E-MAIL
+								</Styled.ProfileButton>
+							</Styled.ProfileInputSheet>
+							<Styled.ProfileButton border onClick={() => setShowSure(true)}>
+								CANCEL SUBSCRIPTION
+							</Styled.ProfileButton>
+						</Styled.ChangeSub>
+					)}
+
+					{showManage && showSure && (
+						<Styled.SureModal>
+							<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
+								Are you sure you want to cancel subscription?
+							</TymioUI.Typography>
+							<TymioUI.Switcher>
+								<TymioUI.Switcher.Option
+									width={'90px'}
+									active={true}
+									onClick={() => setShowSure(false)}>
+									<TymioUI.Typography>NO</TymioUI.Typography>
+								</TymioUI.Switcher.Option>
+								<TymioUI.Switcher.Option
+									width={'90px'}
+									active={false}
+									onClick={handleCancel}>
+									<TymioUI.Typography>YES</TymioUI.Typography>
+								</TymioUI.Switcher.Option>
+							</TymioUI.Switcher>
+						</Styled.SureModal>
+					)}
+				</Card.Body>
+			)}
 		</Card>
 	);
 };

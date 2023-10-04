@@ -105,7 +105,7 @@ const Agreement = ({
 								type="checkbox"
 								label="I have read the agreement above and"
 								terms={{
-									content: 'Terms & Conditions',
+									content: 'Terms and Conditions',
 									link: TERMS,
 								}}
 								checked={formik.values.agreement}

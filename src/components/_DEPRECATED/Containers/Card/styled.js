@@ -30,7 +30,7 @@ export const CardHeader = styled.div`
 export const CardBody = styled.div`
 	width: 100%;
 	display: grid;
-	gap: ${({ smallGap }) => (smallGap ? '12px' : '20px')};
+	gap: ${({ smallGap, gap }) => gap || (smallGap ? '12px' : '20px')};
 	margin-top: ${({ mt }) => mt && mt};
 `;
 

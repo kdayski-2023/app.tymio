@@ -9,6 +9,7 @@ export const Switcher = styled.div`
 `;
 
 export const Option = styled.button`
+	width: ${({ width }) => width || 'auto'};
 	border: none;
 	margin: 0;
 	flex-basis: 0;
