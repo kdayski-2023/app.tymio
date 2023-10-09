@@ -2,35 +2,78 @@ import styled from 'styled-components';
 import { COLORS } from '../../../../models/colors';
 
 export const OrderInfoWrapper = styled.div`
-	background-color: rgba(19, 3, 35, 0.6);
-	padding: 8px;
-	margin: ${({ margin }) => (margin === 0 ? '0' : '32px 0 0 0')};
+	background-color: ${COLORS.DARK};
+	padding: 60px;
+	margin: ${({ margin }) => (margin === 0 ? '0' : '0')};
 	display: block;
 	font-size: 18px;
 	line-height: 1.4em;
 	color: #bbbbbc;
+
+	@media (max-width: 576px) {
+		padding: 30px 20px;
+	}
 `;
 
 export const TDUl = styled.ul`
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	text-align: center;
+	text-align: left;
 
 	&:before {
+		display: inline-block;
+		margin-bottom: 50px;
 		content: attr(aria-label);
-		font-size: 20px;
-		font-weight: bold;
-		color: ${COLORS.WHITE};
+		font-size: 40px;
+		font-weight: 500;
+		line-height: 40px;
+		letter-spacing: 0.4px;
+		color: ${COLORS.LIGHT};
+	}
+
+	@media (max-width: 576px) {
+		&:before {
+			font-size: 30px;
+			line-height: 30px;
+			margin-bottom: 30px;
+		}
 	}
 `;
 
 export const TDLi = styled.li`
 	padding: 10px 0;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 0.5px solid ${COLORS.GRAY};
+	color: ${COLORS.LIGHT};
+	font-size: 17px;
+	font-weight: 400;
+	line-height: 17px;
+	letter-spacing: 0.34px;
+
+	span {
+		&:nth-child(1) {
+			color: ${COLORS.GRAY};
+		}
+		&:nth-child(2) {
+			text-transform: capitalize;
+		}
+	}
+
+	&:last-child {
+		flex-direction: column;
+		gap: 30px;
+		line-height: 140%;
+	}
 `;
 
 export const Link = styled.a`
-	overflow-wrap: anywhere;
+	text-decoration: none;
+	color: ${COLORS.PURPLE_BRIGHT};
+	align-items: center;
+	display: flex;
+	gap: 10px;
 `;
 
 export const Amount = styled.span`
@@ -64,6 +107,11 @@ export const Status = styled.span`
 
 export const UserTransactions = styled.div`
 	width: 538px;
+
+	@media (max-width: 768px) {
+		max-width: 585px;
+		width: auto;
+	}
 `;
 
 export const AccordionTrigger = styled.div`
@@ -122,4 +170,10 @@ export const ClosedAccordionTrigger = styled.div`
 `;
 export const ClosedAccordionContent = styled.div`
 	display: ${({ expanded }) => (expanded ? 'block' : 'none')};
+`;
+
+export const TransactionsTitle = styled.div`
+	@media (max-width: 576px) {
+		flex-basis: 100%;
+	}
 `;

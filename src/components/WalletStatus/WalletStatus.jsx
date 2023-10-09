@@ -62,13 +62,13 @@ const WalletStatus = () => {
 							{appType === 'sell' &&
 								`${
 									typeof balance === 'number' && balance > 0
-										? balance.toFixed(3)
+										? balance.toFixed(2)
 										: balance
 								} ${balanceToken}`}
 							{appType === 'buy' &&
 								`${
 									typeof balanceUSDC === 'number' && balanceUSDC > 0
-										? balanceUSDC.toFixed(3)
+										? balanceUSDC.toFixed(2)
 										: balanceUSDC
 								} USDC`}
 						</TymioUI.Typography>

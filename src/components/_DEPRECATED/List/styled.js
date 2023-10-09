@@ -9,6 +9,7 @@ export const List = styled.ul`
 	padding: 0;
 	margin: 0;
 	list-style: none;
+	margin-top: ${({ mt }) => mt};
 `;
 
 export const ListItem = styled.li`
@@ -18,6 +19,7 @@ export const ListItem = styled.li`
 	font-weight: ${({ font }) => (font === 'small' ? 'normal' : 'bold')};
 	font-size: ${({ font }) => (font === 'small' ? '16px' : '24px')};
 	text-align: left;
+	gap: ${({ gap }) => gap};
 
 	label {
 		font-size: 16px;

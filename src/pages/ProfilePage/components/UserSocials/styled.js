@@ -7,6 +7,14 @@ export const UserSocials = styled.div`
 	flex-direction: column;
 	gap: 20px;
 	width: 538px;
+
+	@media (max-width: 768px) {
+		max-width: 585px;
+		width: auto;
+	}
+	@media (max-width: 576px) {
+		margin: 0 15px;
+	}
 `;
 
 export const ProfileSheet = styled.div`
@@ -14,17 +22,14 @@ export const ProfileSheet = styled.div`
 	background: ${COLORS.BLACK};
 	border: 1px solid ${COLORS.VERY_DARK};
 	border-radius: 45px;
-
-	@media (max-width: 576px) {
-		max-width: 299px;
-	}
 `;
 
 export const ProfileInputSheet = styled(ProfileSheet)`
-	margin-top: 30px;
+	margin-top: ${({ mt }) => mt || '30px'};
+	margin-left: ${({ ml }) => ml};
 	position: relative;
 	border: none;
-	border-radius: 0;
+	border-radius: 5px;
 	padding: 0;
 
 	div {
@@ -53,6 +58,10 @@ export const ProfileInputSheet = styled(ProfileSheet)`
 		letter-spacing: 0.39px;
 		color: ${COLORS.BLACK};
 	}
+
+	@media (max-width: 576px) {
+		margin: ${({ xsMargin }) => xsMargin};
+	}
 `;
 
 export const ProfileInput = styled(Input)`
@@ -77,6 +86,10 @@ export const ProfileInput = styled(Input)`
 		border-width: 0.5px 0 0.5px 0.5px;
 		color: ${({ error }) => (error ? COLORS.WARNINGS : COLORS.LIGHT)};
 		opacity: ${({ error }) => (error ? '0.6' : '1')};
+	}
+
+	&:disabled {
+		color: ${COLORS.GRAY};
 	}
 `;
 
@@ -154,15 +167,11 @@ export const SubscribeSheet = styled.div`
 `;
 
 export const Conditions = styled.div`
+	margin-top: ${({ mt }) => mt || '30px'};
 	color: ${COLORS.WHITE};
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
-
-	p {
-		margin: 0;
-		padding-left: 12px;
-	}
+	gap: ${({ gap }) => gap || '12px'};
 `;
 
 export const ProfileText = styled.div`
@@ -182,6 +191,7 @@ export const ProfileText = styled.div`
 export const ManageSub = styled.div`
 	margin-top: 30px;
 	display: flex;
+	gap: 30px;
 	justify-content: space-between;
 	align-items: center;
 
@@ -204,4 +214,58 @@ export const SureModal = styled.div`
 	align-items: center;
 	padding: 60px 30px;
 	background-color: ${COLORS.DARK};
+
+	@media (max-width: 576px) {
+		padding: 20px 15px;
+    gap: 20px;
+	}
+`;
+
+export const ReferralBadge = styled.div`
+	border-radius: 5px;
+	padding: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: ${COLORS.BLACK};
+`;
+
+export const AirdropBadge = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	border-radius: 10px;
+	background: ${COLORS.DARK};
+	gap: 10px;
+	p {
+		text-transform: uppercase;
+	}
+
+	@media (max-width: 576px) {
+		width: 100%;
+	}
+`;
+export const Condition = styled.div`
+	display: flex;
+	gap: 20px;
+`;
+export const Number = styled.div`
+	margin-top: 5px;
+	text-align: center;
+	padding: 3px 6px;
+	border-radius: 100%;
+	border: 1px solid ${COLORS.LIGHT};
+	height: 20px;
+	min-width: 20px;
+`;
+
+export const Participant = styled.div`
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 100%;
+	padding: 20px;
+	border-radius: 10px;
+	background: ${COLORS.DARK};
 `;

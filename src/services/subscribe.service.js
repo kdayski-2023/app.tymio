@@ -17,6 +17,19 @@ class SubscribeService {
 		this.apiUrl = process.env.REACT_APP_API_URL;
 	}
 
+	reset() {
+		this.state = {
+			...this.initialState,
+			subscription: {
+				news: false,
+				terms: false,
+				transaction_notifications: false,
+				email: '',
+			},
+		};
+		this.state$.next(this.state);
+	}
+
 	async getData(address) {
 		if (this.state.loading) {
 			return;

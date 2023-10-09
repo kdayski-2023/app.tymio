@@ -27,7 +27,7 @@ export const BalanceSheet = styled.div`
 `;
 
 export const WalletBalance = styled.div`
-	padding: 13px 20px 12px;
+	padding: 12px 20px 11px;
 	border-right: ${({ errored }) =>
 		errored ? `0.5px solid ${COLORS.WARNINGS}` : `0.5px solid ${COLORS.LIGHT}`};
 	/* border-right: 0.5px solid ${COLORS.LIGHT}; */

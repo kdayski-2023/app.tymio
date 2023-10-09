@@ -7,11 +7,12 @@ import {
 	ModalTitle,
 	ButtonLink,
 } from './styled';
-import { Card, Footer } from './styled';
-import { Button } from '../Buttons/Button/styled';
+import { Card } from './styled';
 import { MessageDialogService, WalletService } from '../../../services';
-import { MetaMaskIcon, WalletConnectIcon } from '../';
+import { CloseIcon, MetaMaskIcon, WalletConnectIcon } from '../';
 import { useWallet } from '../../../hooks';
+import * as TymioUI from '../../../components';
+import { TYPOGRAPHY_SIZE } from '../../../models/types';
 
 const WalletModal = () => {
 	const ref = useRef(null);
@@ -61,21 +62,23 @@ const WalletModal = () => {
 				<ModalCardWrapper>
 					<ModalTitle>Connect a wallet</ModalTitle>
 					<Card shadow={true}>
-						{/* <CardBody> */}
 						{!modal.mobile && (
 							<ButtonLink onClick={() => walletHandler('mm')}>
-								<MetaMaskIcon /> MetaMask
+								<MetaMaskIcon />
+								<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
+									MetaMask
+								</TymioUI.Typography>
 							</ButtonLink>
 						)}
 						<ButtonLink onClick={() => walletHandler('wc')}>
-							<WalletConnectIcon /> Wallet Connect
+							<WalletConnectIcon />
+							<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
+								Wallet Connect
+							</TymioUI.Typography>
 						</ButtonLink>
-						{/* </CardBody> */}
 					</Card>
 				</ModalCardWrapper>
-				<Footer>
-					<Button onClick={() => WalletModalService.close()}>Close</Button>
-				</Footer>
+				<CloseIcon onClick={() => WalletModalService.close()} />
 			</ModalWrapper>
 		</>
 	);

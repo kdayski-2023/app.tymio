@@ -9,10 +9,14 @@ export const Table = styled.table`
 	gap: 20px;
 	background: ${({ color }) => color || COLORS.BLACK};
 	border-radius: 10px;
-	padding: 30px;
+	padding: ${({ padding }) => padding || '30px'};
 
 	&:hover {
 		cursor: default;
+	}
+
+	@media (max-width: 576px) {
+		padding: ${({ padding }) => padding || '20px'};
 	}
 `;
 
@@ -28,8 +32,9 @@ export const Tbody = styled.tbody`
 
 export const HeadTr = styled.tr`
 	display: grid;
-	grid-template-columns: ${({ columns }) =>
-		columns ? '1fr '.repeat(columns) : '1fr 2fr 2fr 1fr'};
+	grid-template-columns: ${({ columns, grid_template_columns }) =>
+		grid_template_columns ||
+		(columns ? '1fr '.repeat(columns) : '1fr 2fr 2fr 1fr')};
 	gap: 10px;
 
 	th {
@@ -44,8 +49,9 @@ export const HeadTr = styled.tr`
 
 export const Tr = styled.tr`
 	display: grid;
-	grid-template-columns: ${({ columns }) =>
-		columns ? '1fr '.repeat(columns) : '1fr 2fr 2fr 1fr'};
+	grid-template-columns: ${({ columns, grid_template_columns }) =>
+		grid_template_columns ||
+		(columns ? '1fr '.repeat(columns) : '1fr 2fr 2fr 1fr')};
 	align-items: center;
 	height: 40px;
 	padding: 4.5px 15px;

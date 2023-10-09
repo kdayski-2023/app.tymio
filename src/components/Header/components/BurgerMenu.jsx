@@ -3,13 +3,11 @@ import { NavLink } from 'react-router-dom';
 
 import useRoutes from '../hooks/useRoutes';
 import * as Styled from '../styled';
-import * as TymioUI from '../../_DEPRECATED';
-import SellBuyLink from './SellBuyLink';
-// import { useWallet } from '../../../hooks';
+import Close from '../../../assets/img/icons/cross-purple.svg';
+import { LogoIcon } from '../../_DEPRECATED';
 
 const BurgerMenu = () => {
 	const { allRoutes } = useRoutes();
-	// const { connected, userAddress } = useWallet();
 	const [active, setActive] = useState(false);
 
 	const toggleMenu = () => {
@@ -25,26 +23,24 @@ const BurgerMenu = () => {
 			</Styled.Burger>
 			<Styled.Menu active={active ? 'true' : undefined}>
 				<Styled.Content>
-					<TymioUI.CloseIcon onClick={toggleMenu} />
-					<SellBuyLink />
+					<Styled.Logo onClick={toggleMenu}>
+						<NavLink to={'/'}>
+							<LogoIcon />
+						</NavLink>
+					</Styled.Logo>
+					<Styled.CloseIcon onClick={toggleMenu}>
+						<img src={Close} alt={''} />
+					</Styled.CloseIcon>
 					<Styled.Routes>
-						{allRoutes.map(({ path, title }, i) => (
+						{allRoutes.map(({ path, label }, i) => (
 							<Styled.Route key={i}>
 								<NavLink to={path} onClick={toggleMenu}>
-									{title}
+									{label}
 								</NavLink>
+								<Styled.HR />
 							</Styled.Route>
 						))}
-						{/* {connected && userAddress ? (
-              <Styled.Route>
-                <NavLink to={`/ref`} onClick={toggleMenu}>
-                  Ref
-                </NavLink>
-              </Styled.Route>
-            ) : null} */}
 					</Styled.Routes>
-					<TymioUI.WalletButton />
-					<TymioUI.NetworkButton />
 				</Styled.Content>
 				<Styled.Overlay onClick={toggleMenu} />
 			</Styled.Menu>

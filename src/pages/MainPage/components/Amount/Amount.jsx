@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import {
-	useConfig,
 	useDebounce,
 	useDirection,
 	useFocus,
@@ -29,7 +28,6 @@ const Amount = ({
 	const wallet = useWallet();
 	const { loading: periodsLoading } = Hook.usePeriods();
 	const { loading: priceLoading } = Hook.usePrices();
-	const { config } = useConfig();
 	useFocus(orderLoading || periodsLoading, innerRef);
 	const [amount, setAmount] = useState('10');
 	const debouncedNewValue = useDebounce(amount, 1000);
@@ -79,12 +77,6 @@ const Amount = ({
 	};
 
 	const handleClick = async () => {
-		// await Service.WalletService.changeNetwork(wallet.chainId);
-		// await Service.WalletService.setBalance(
-		// 	config,
-		// 	wallet,
-		// 	formik.values.tokenSymbol,
-		// );
 		const { balance, balanceUSDC } = Service.WalletService.state;
 		if (appType === 'sell') {
 			let availableAmount = parseFloat(balance);

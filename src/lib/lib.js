@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { MessageDialogService, DirectionService } from '../services';
+import { MessageDialogService } from '../services';
 
 export const updateCookies = (sessionInfo) => {
 	const { sessionToken } = sessionInfo;
@@ -8,8 +8,12 @@ export const updateCookies = (sessionInfo) => {
 
 export const spliceAddress = (address) => {
 	return address
-		? address.substr(0, 5) + '..' + address.substr(address.length - 4, 4)
+		? address.substr(0, 5) + '...' + address.substr(address.length - 4, 4)
 		: '';
+};
+
+export const trimAddress = (address) => {
+	return address ? address.substr(0, 4) + '...' : '';
 };
 
 export const isMobile = function () {
@@ -62,6 +66,8 @@ export const formatDate = (date, format = 'default') => {
 	const month = monthNames[new Date(date).getMonth()];
 	const monthNumber = new Date(date).getMonth() + 1;
 	const day = new Date(date).getDate();
+	if (format === 'dot')
+		return `${day < 10 ? `0${day}` : day}.${monthNumber}.${year}`;
 	if (format === 'utc') return `${day}/${monthNumber}/${year}`;
 	return `${day} of ${month} ${year}`;
 };
@@ -129,34 +135,37 @@ export const getTimeLeft = (startDate, endDate) => {
 
 export const parseTransactionDetails = (order, config) => {
 	try {
-		const APP_TYPE = DirectionService.state.direction;
 		let rows = [
 			{
-				name: 'Deal date:',
-				value: `${formatDate(order.createdAt, 'utc')} ${formatTime(
+				name: 'Status',
+				value: order.displayStatus,
+			},
+			{
+				name: 'Deal date',
+				value: `${formatDate(order.createdAt, 'dot')}, ${formatTime(
 					order.createdAt,
 					'utc',
 				)} UTC`,
 			},
 			{
-				name: 'Execute date:',
-				value: `${formatDate(order.execute_date, 'utc')} 08:00 UTC`,
+				name: 'Execute date',
+				value: `${formatDate(order.execute_date, 'dot')}, 08:00 UTC`,
 			},
 			{
-				name: 'Direction:',
+				name: 'Direction',
 				value:
 					order.direction.charAt(0).toUpperCase() + order.direction.slice(1),
 			},
 			{
-				name: 'Price:',
+				name: 'Price',
 				value: `${order.price} USDC`,
 			},
 			{
-				name: 'Chain:',
+				name: 'Chain',
 				value: config.CHAIN_NAMES[order.chain_id],
 			},
 			{
-				name: 'Asset:',
+				name: 'Asset',
 				value:
 					order.direction === 'sell'
 						? `${order.amount} ${order.token_symbol}`
@@ -164,17 +173,17 @@ export const parseTransactionDetails = (order, config) => {
 			},
 			{
 				name: `${order.token_symbol} index price on deal date:`,
-				value: Math.floor(order.start_index_price),
+				value: `${Math.floor(order.start_index_price)} USDC`,
 			},
 			{
-				name: 'Deposit tx:',
+				name: 'Deposit tx',
 				value: `${config.BLOCK_EXPLORERS[order.chain_id]}/tx/${
 					order.user_payment_tx_hash || order.hash
 				}`,
 				type: 'link',
 			},
 			{
-				name: 'Deposit wallet:',
+				name: 'Deposit wallet',
 				value: `${config.BLOCK_EXPLORERS[order.chain_id]}/address/${
 					order.from || order.address
 				}`,
@@ -184,49 +193,39 @@ export const parseTransactionDetails = (order, config) => {
 				name: 'Earn:',
 				value: `${Math.floor(order.recieve)}$`,
 			},
-			{
-				name: 'Status:',
-				value: order.displayStatus,
-			},
 		];
 		if (order.settlement_date) {
 			rows.push(
 				{
-					name: 'Settlement date:',
+					name: 'Settlement date',
 					value: `${formatDate(order.settlement_date, 'utc')} ${formatTime(
 						order.settlement_date,
 						'utc',
 					)} UTC`,
 				},
 				{
-					name: 'Time to settlement:',
+					name: 'Time to settlement',
 					value: getTimeLeft(order.createdAt, order.settlement_date),
 				},
 			);
 		}
 		if (order.end_index_price && order.displayStatus !== 'active') {
 			rows.push({
-				name: 'ETH index price on settlement date:',
+				name: 'ETH index price on settlement date',
 				value: Math.floor(order.end_index_price),
-			});
-		}
-		if (APP_TYPE === 'sell') {
-			rows.push({
-				name: 'Order executed:',
-				value: order.order_executed ? 'Yes' : 'No',
 			});
 		}
 		if (order.displayStatus === 'paid') {
 			rows.push(
 				{
-					name: 'Payout:',
+					name: 'Payout',
 					value:
 						order.payout_currency === 'USDC'
 							? `${smartRound(order.payout_usdc)} USDC`
 							: `${smartRound(order.payout_base)} ${order.token_symbol}`,
 				},
 				{
-					name: 'Payout tx:',
+					name: 'Payout tx',
 					value: `${config.BLOCK_EXPLORERS[order.chain_id]}/tx/${
 						order.payout_tx
 					}`,
@@ -236,7 +235,7 @@ export const parseTransactionDetails = (order, config) => {
 		}
 		if (order.contract_text) {
 			rows.push({
-				name: 'Contract text:',
+				name: 'Agreement',
 				value: order.contract_text,
 			});
 		}

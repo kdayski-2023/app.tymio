@@ -4,9 +4,9 @@ import { COLORS } from '../../../models/colors';
 export const Chat = styled.form`
 	position: fixed;
 	bottom: 30px;
-	right: ${({ open }) => (open ? '30px' : '-320px')};
-	width: 320px;
-	z-index: 1;
+	right: ${({ open }) => (open ? '30px' : '-300px')};
+	width: 300px;
+	z-index: 12;
 	transition: 0.3s;
 `;
 export const Messages = styled.div`
@@ -24,71 +24,123 @@ export const Messages = styled.div`
 `;
 
 export const Message = styled.div`
-	border-radius: 12px;
-	padding: 6px;
+	padding: 10px;
 	width: max-content;
 	max-width: 100%;
-	margin-right: ${({ sender }) => sender === 'user' && 'auto'};
-	margin-left: ${({ sender }) => sender === 'manager' && 'auto'};
+
+	border-radius: ${({ sender }) =>
+		sender === 'manager' ? '20px 20px 20px 0px' : '20px 20px 0px 20px'};
+	margin-right: ${({ sender }) => sender === 'manager' && 'auto'};
+	margin-left: ${({ sender }) => sender === 'user' && 'auto'};
 	overflow-wrap: break-word;
-	color: ${COLORS.WHITE};
 	background: ${({ sender }) => {
 		switch (sender) {
 			case 'user':
-				return COLORS.LIGHT_BLUE;
+				return COLORS.PURPLE_GRAY2;
 			case 'manager':
-				return COLORS.PINK;
+				return COLORS.LIME_LEMON;
 			default:
 				return COLORS.PINK;
 		}
 	}};
 `;
 
+export const IconWrapper = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	background: ${COLORS.LEMON};
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	bottom: 130px;
+	right: 30px;
+	z-index: 11;
+	transition: 0.3s;
+	cursor: pointer;
+
+	&:hover {
+		background: #acc578;
+	}
+`;
+
 export const Icon = styled.svg`
-	width: 64px;
-	fill: ${COLORS.WHITE};
 	transition: 0.3s;
 `;
 
 export const Count = styled.div`
-	color: ${COLORS.LIGHT_BLUE};
+	color: ${COLORS.LIGHT};
 	position: absolute;
-	top: -12px;
-	left: -12px;
-	padding: 3px 9px;
+	top: -10px;
+	right: -10px;
+	padding: 4px 8px;
 	border-radius: 45px;
-	background: ${COLORS.TRANSPARENT_BRIGHT_BLUE};
-`;
-
-export const IconWrapper = styled.div`
-	position: fixed;
-	bottom: ${({ open }) => (open ? '-90px' : '30px')};
-	right: 30px;
-	z-index: 1;
-	transition: 0.3s;
-
-	&:hover {
-		cursor: pointer;
-		svg {
-			fill: ${COLORS.LIGHT_BLUE};
-		}
-	}
+	background: ${COLORS.RED};
 `;
 
 export const Close = styled.div`
-	color: ${COLORS.WHITE};
 	position: absolute;
-	display: inline-block;
-	left: 12px;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 28px;
+	right: 10px;
+	top: 10px;
+	cursor: pointer;
+`;
+
+export const Play = styled.div`
+	position: fixed;
+	width: 40px;
+	height: 40px;
+	right: 30px;
+	bottom: 70px;
+	z-index: 11;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	background: ${COLORS.PURPLE_GRAY2};
+	cursor: pointer;
+	transition: 0.3s;
 
 	&:hover {
-		cursor: pointer;
+		background: ${COLORS.PURPLE_DARK};
 	}
 `;
 
-export const Title = styled.h3`
-	margin: 0;
+export const VideoModal = styled.div`
+	position: fixed;
+	bottom: 30px;
+	right: ${({ open }) => (open ? '30px' : '-750px')};
+	width: 750px;
+	height: 466px;
+	z-index: 12;
+	transition: 0.3s;
+	border-radius: 10px;
+	background: ${COLORS.DARK};
+	padding: 50px;
+
+	@media (max-width: 768px) {
+		right: ${({ open }) => (open ? '30px' : '-405px')};
+		padding: 60px 13px 15px 13px;
+		width: 405px;
+		height: 271px;
+	}
+`;
+
+export const VideoClose = styled.div`
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	cursor: pointer;
+`;
+
+export const IFrame = styled.iframe`
+	display: block;
+	margin: 0 auto;
+	width: 650px;
+	height: 366px;
+
+	@media (max-width: 768px) {
+		width: 380px;
+		height: 200px;
+	}
 `;

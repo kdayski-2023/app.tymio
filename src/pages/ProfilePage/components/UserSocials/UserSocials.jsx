@@ -5,24 +5,27 @@ import * as Styled from './styled';
 import Subscribe from './Subscribe';
 import Airdrop from './Airdrop';
 import ReferralCode from './ReferralCode';
-import ReferralList from './ReferralList';
 
 import { useWallet } from '../../../../hooks';
 import { useSubscribe, useAirdrop, useReferral } from '../../hooks';
 
 const UserSocials = () => {
-	const { userAddress } = useWallet();
+	const { userAddress, connected } = useWallet();
 	const { subscription } = useSubscribe(userAddress);
 	const { airdrop, airdropParticipant } = useAirdrop(userAddress);
 	const { referral, referrals, totals } = useReferral(userAddress);
 
 	useEffect(() => {
-		if (userAddress) {
+		if (connected && userAddress) {
 			Service.SubscribeService.getData(userAddress);
 			Service.ReferralService.getData(userAddress);
 			Service.AirdropService.getData();
+		} else {
+			Service.SubscribeService.reset();
+			Service.ReferralService.reset();
+			Service.AirdropService.reset();
 		}
-	}, [userAddress]);
+	}, [userAddress, connected]);
 
 	useEffect(() => {
 		if (userAddress && airdrop) {
@@ -35,13 +38,8 @@ const UserSocials = () => {
 	return (
 		<Styled.UserSocials>
 			{subscription && <Subscribe subscription={subscription} />}
-			{referral && <ReferralCode referral={referral} />}
-			{referrals && referrals.length ? (
-				<ReferralList referrals={referrals} totals={totals} />
-			) : null}
-			{airdrop && (
-				<Airdrop airdrop={airdrop} airdropParticipant={airdropParticipant} />
-			)}
+			<ReferralCode referral={referral} referrals={referrals} totals={totals} />
+			<Airdrop airdrop={airdrop} airdropParticipant={airdropParticipant} />
 		</Styled.UserSocials>
 	);
 };

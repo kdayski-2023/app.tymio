@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../../models/colors';
 
 export const ModalWrapper = styled.div`
+	text-decoration: underline;
 	overflow: auto;
 	position: fixed;
 	top: 0;
@@ -12,7 +13,7 @@ export const ModalWrapper = styled.div`
 	display: ${({ show }) => (show ? 'flex' : 'none')};
 	justify-content: center;
 	align-items: center;
-	background: #0a131f;
+	background: ${COLORS.DARK};
 	backdrop-filter: blur(28px);
 `;
 
@@ -20,7 +21,7 @@ export const ModalBlur = styled.div`
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: #0a131f;
+	background: ${COLORS.DARK};
 	backdrop-filter: blur(28px);
 
 	@media (max-width: 992px) {
@@ -33,14 +34,14 @@ export const ModalCardWrapper = styled.div`
 	width: 900px;
 	top: 0;
 	position: fixed;
-	margin: 24px 0;
+
+	padding: 0;
+	background: ${COLORS.DARK};
+	margin: 0;
 
 	@media (max-width: 992px) {
-		padding: 24px;
 		width: 100%;
-		background: #0a131f;
 		backdrop-filter: blur(28px);
-		margin: 0;
 	}
 `;
 
@@ -50,11 +51,8 @@ export const Card = styled.div`
 	margin: auto;
 	background: #131823;
 	border-radius: 10px;
-	padding: 32px;
 
-	@media (max-width: 576px) {
-		padding: 24px;
-	}
+	padding: 0;
 `;
 
 export const CardHeader = styled.div`
@@ -69,7 +67,6 @@ export const CardHeader = styled.div`
 `;
 
 export const CardBody = styled.div`
-	padding: 0 0 30px 0;
 	font-weight: 400;
 	font-size: 18px;
 	line-height: 150%;
@@ -77,6 +74,8 @@ export const CardBody = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+
+	padding: 0;
 
 	@media (max-width: 768px) {
 		font-size: 18px;
@@ -104,4 +103,11 @@ export const CardFooter = styled.div`
 			width: 100%;
 		}
 	}
+`;
+
+export const CloseIcon = styled.div`
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	cursor: pointer;
 `;

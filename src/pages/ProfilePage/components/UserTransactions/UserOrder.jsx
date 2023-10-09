@@ -78,7 +78,11 @@ const UserOrder = () => {
 	};
 
 	return (
-		<Card background={COLORS.PURPLE_GRAY2} gap={expanded ? '30px' : '60px'}>
+		<Card
+			background={COLORS.PURPLE_GRAY2}
+			gap={expanded ? '30px' : '60px'}
+			xsGap={'30px'}
+			xsPadding={'30px 15px'}>
 			{loading && <LoadingSpinner />}
 
 			{error && <Message message={error} />}
@@ -115,41 +119,48 @@ const UserOrder = () => {
 						display={'flex'}
 						justify={'space-between'}
 						gap={'30px'}
+						xsGap={'20px'}
 						wrap>
-						<TymioUI.H2 color={COLORS.BLACK} lh={'34px'}>
-							Transactions: {orders.length}
-						</TymioUI.H2>
-						<Styled.AccordionTrigger onClick={handleExpand}>
-							<TymioUI.Typography
-								size={TYPOGRAPHY_SIZE.SMALL}
-								color={COLORS.BLACK}
-								lh={'100%'}>
-								Earned:{' '}
-							</TymioUI.Typography>
-							<TymioUI.Typography lh={'100%'} color={COLORS.BLACK}>
-								${total.earned.toFixed(0)}
-							</TymioUI.Typography>
-							<TymioUI.UserTransactionsArrow expanded={expanded} />
-						</Styled.AccordionTrigger>
-						<Styled.AccordionContent expanded={expanded}>
-							{Object.keys(total).map((key) => (
-								<>
-									{key !== 'earned' && (
-										<Styled.AccordionItem>
-											<TymioUI.Typography
-												color={COLORS.BLACK}
-												size={TYPOGRAPHY_SIZE.SMALL}
-												lh={'100%'}>
-												{MESSAGES[key]}
-											</TymioUI.Typography>
-											<TymioUI.Typography color={COLORS.BLACK} lh={'100%'}>
-												{total[key].toFixed(0)}
-											</TymioUI.Typography>
-										</Styled.AccordionItem>
-									)}
-								</>
-							))}
-						</Styled.AccordionContent>
+						<Styled.TransactionsTitle>
+							<TymioUI.H2 color={COLORS.BLACK} lh={'34px'}>
+								Transactions: {orders.length}
+							</TymioUI.H2>
+						</Styled.TransactionsTitle>
+						{total && (
+							<>
+								<Styled.AccordionTrigger onClick={handleExpand}>
+									<TymioUI.Typography
+										size={TYPOGRAPHY_SIZE.SMALL}
+										color={COLORS.BLACK}
+										lh={'100%'}>
+										Earned:{' '}
+									</TymioUI.Typography>
+									<TymioUI.Typography lh={'100%'} color={COLORS.BLACK}>
+										${total.earned.toFixed(0)}
+									</TymioUI.Typography>
+									<TymioUI.UserTransactionsArrow expanded={expanded} />
+								</Styled.AccordionTrigger>
+								<Styled.AccordionContent expanded={expanded}>
+									{Object.keys(total).map((key) => (
+										<>
+											{key !== 'earned' && (
+												<Styled.AccordionItem>
+													<TymioUI.Typography
+														color={COLORS.BLACK}
+														size={TYPOGRAPHY_SIZE.SMALL}
+														lh={'100%'}>
+														{MESSAGES[key]}
+													</TymioUI.Typography>
+													<TymioUI.Typography color={COLORS.BLACK} lh={'100%'}>
+														{total[key].toFixed(0)}
+													</TymioUI.Typography>
+												</Styled.AccordionItem>
+											)}
+										</>
+									))}
+								</Styled.AccordionContent>
+							</>
+						)}
 					</Card.Header>
 					<Card.Body gap={'30px'}>
 						<Styled.ActiveOrders>
@@ -197,39 +208,43 @@ const UserOrder = () => {
 								<></>
 							)}
 						</Styled.ActiveOrders>
-						<Styled.ClosedOrders>
-							<Styled.ClosedAccordionTrigger onClick={handleClosedExpand}>
-								<TymioUI.Typography color={COLORS.BLACK} lh={'100%'}>
-									CLOSED: {closedOrders.length}
-								</TymioUI.Typography>
-								{closedOrders.length ? (
-									<TymioUI.UserTransactionsArrow expanded={closedExpanded} />
-								) : (
-									<></>
-								)}
-							</Styled.ClosedAccordionTrigger>
-							<Styled.ClosedAccordionContent expanded={closedExpanded}>
-								{closedOrders.length ? (
-									<Table color={COLORS.RICH_PURPLE}>
-										<Table.Head>
-											<Table.Head.Tr>
-												<Table.Th align={'left'}>Sell</Table.Th>
-												<Table.Th />
-												<Table.Th>Earned</Table.Th>
-												<Table.Th align={'right'}>Info</Table.Th>
-											</Table.Head.Tr>
-										</Table.Head>
-										<Table.Body hr>
-											{closedOrders.map((order, i) => (
-												<UserOrderTr key={i} order={order} />
-											))}
-										</Table.Body>
-									</Table>
-								) : (
-									<></>
-								)}
-							</Styled.ClosedAccordionContent>
-						</Styled.ClosedOrders>
+						{closedOrders.length ? (
+							<Styled.ClosedOrders>
+								<Styled.ClosedAccordionTrigger onClick={handleClosedExpand}>
+									<TymioUI.Typography color={COLORS.BLACK} lh={'100%'}>
+										CLOSED: {closedOrders.length}
+									</TymioUI.Typography>
+									{closedOrders.length ? (
+										<TymioUI.UserTransactionsArrow expanded={closedExpanded} />
+									) : (
+										<></>
+									)}
+								</Styled.ClosedAccordionTrigger>
+								<Styled.ClosedAccordionContent expanded={closedExpanded}>
+									{closedOrders.length ? (
+										<Table color={COLORS.RICH_PURPLE}>
+											<Table.Head>
+												<Table.Head.Tr>
+													<Table.Th align={'left'}>Sell</Table.Th>
+													<Table.Th />
+													<Table.Th>Earned</Table.Th>
+													<Table.Th align={'right'}>Info</Table.Th>
+												</Table.Head.Tr>
+											</Table.Head>
+											<Table.Body hr>
+												{closedOrders.map((order, i) => (
+													<UserOrderTr key={i} order={order} />
+												))}
+											</Table.Body>
+										</Table>
+									) : (
+										<></>
+									)}
+								</Styled.ClosedAccordionContent>
+							</Styled.ClosedOrders>
+						) : (
+							<></>
+						)}
 					</Card.Body>
 				</>
 			) : (

@@ -6,6 +6,10 @@ export const Switcher = styled.div`
 	display: flex;
 	border-radius: 5px;
 	border: 1.5px solid ${COLORS.PURPLE_GRAY};
+
+	@media (max-width: 576px) {
+		width: ${({ xsWidth }) => xsWidth};
+	}
 `;
 
 export const Option = styled.button`
@@ -15,7 +19,7 @@ export const Option = styled.button`
 	flex-basis: 0;
 	flex-grow: 1;
 	flex-shrink: 1;
-	padding: 13px 20px;
+	padding: 12px 20px;
 	border-radius: 5px;
 	text-align: center;
 	cursor: pointer;

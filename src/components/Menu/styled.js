@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../models/colors';
 
 export const Menu = styled.div`
+	height: 100%;
 	display: flex;
 	background-color: ${COLORS.BLACK};
 	border-radius: 5px;

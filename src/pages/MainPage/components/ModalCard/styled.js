@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../../../models/colors';
 
 export const Card = styled.div`
-	height: 100%;
+	height: 340px;
 	border-radius: 10px;
 	position: relative;
 	display: flex;
@@ -11,6 +11,15 @@ export const Card = styled.div`
 	flex-direction: column;
 	background: ${COLORS.BLACK};
 	padding: 30px 60px;
+
+	@media (max-width: 768px) {
+		padding: 20px;
+		height: 200px;
+		h2 {
+			font-size: 27px;
+			letter-spacing: 0.28px;
+		}
+	}
 `;
 
 export const Cross = styled.img`

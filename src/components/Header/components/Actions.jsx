@@ -15,11 +15,13 @@ const Header = () => {
 	}, [location]);
 
 	return (
-		<Styled.Actions>
-			<TymioUI.RouteMenu options={header} active={active} />
+		<>
+			<Styled.MobileHidden>
+				<TymioUI.RouteMenu options={header} active={active} />
+			</Styled.MobileHidden>
 			<TymioUI.WalletStatus />
 			<TymioUI.NetworkSelector />
-		</Styled.Actions>
+		</>
 	);
 };
 

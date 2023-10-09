@@ -5,8 +5,8 @@ export const ModalWrapper = styled.div`
 	overflow: auto;
 	position: fixed;
 	top: 0;
-	right: -560px;
-	width: 560px;
+	right: -487px;
+	width: 487px;
 	height: 100%;
 	z-index: 9999999;
 
@@ -14,7 +14,7 @@ export const ModalWrapper = styled.div`
 	backdrop-filter: blur(28px);
 	transition: right 0.3s;
 
-	padding: 32px;
+	padding: 60px;
 	display: flex;
 	flex-direction: column;
 	&.active {
@@ -29,15 +29,12 @@ export const ModalWrapper = styled.div`
 		margin: 0;
 	}
 	@media (max-width: 768px) {
+		right: -100%;
 		width: 100%;
-		height: 40%;
-		bottom: -40%;
-		transition: bottom 0.3s;
-		top: unset;
-		right: 0;
-		&.active {
-			bottom: 0;
-		}
+		padding: 140px 40px 40px;
+		justify-content: flex-start;
+		backdrop-filter: blur(28px);
+		margin: 0;
 	}
 `;
 
@@ -68,22 +65,24 @@ export const Card = styled.div`
 	margin: auto;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 20px;
 `;
 
 export const ButtonLink = styled.div`
 	display: flex;
 	align-items: center;
-	background: #131823;
-	color: ${COLORS.WHITE};
 	width: 100%;
-	padding: 4px 16px;
+	padding: 15px 20px;
 	cursor: pointer;
-	border-radius: 12px;
+	border-radius: 10px;
+	border: 1.5px solid ${COLORS.LIGHT};
+	gap: 20px;
 
 	&:hover {
-		background: ${COLORS.TRANSPARENT_BRIGHT_BLUE};
-		color: ${COLORS.BRIGHT_BLUE};
+		background: ${COLORS.LIGHT};
+		p {
+			color: ${COLORS.RICH_BLACK};
+		}
 	}
 `;
 
@@ -103,12 +102,17 @@ export const Footer = styled.div`
 `;
 
 export const ModalTitle = styled.div`
-	margin: 0 0 32px 0;
-	font-size: 18px;
-	color: ${COLORS.PINK};
-	border-radius: 45px;
-	font-weight: 400;
+	margin: 0 0 60px 0;
+	color: ${COLORS.LIGHT};
+	font-size: 40px;
+	font-weight: 500;
+	line-height: 40px;
+	letter-spacing: 0.4px;
 	@media (max-width: 992px) {
 		margin: 0 0 22px 0;
+	}
+	@media (max-width: 576px) {
+		font-size: 39px;
+		line-height: 39px;
 	}
 `;

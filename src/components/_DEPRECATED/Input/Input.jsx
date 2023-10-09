@@ -27,8 +27,7 @@ const Input = ({
 			{props.type === 'checkbox' ? (
 				<Styled.CheckboxWrapper>
 					<Styled.Checkbox id={label} {...props} onChange={onChange} />
-					<Styled.Label
-						htmlFor={label}>
+					<Styled.Label htmlFor={label}>
 						{icon ? icon : ''}
 						<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
 							{label}{' '}
@@ -45,7 +44,7 @@ const Input = ({
 				</Styled.CheckboxWrapper>
 			) : (
 				<>
-					<Styled.InputWrapper style={style}>
+					<Styled.InputWrapper style={style} type={props.type}>
 						<Styled.Label>
 							{selector ? selector : ''}
 							{icon ? icon : ''}

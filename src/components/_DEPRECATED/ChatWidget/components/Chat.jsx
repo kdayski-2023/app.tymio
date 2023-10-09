@@ -2,9 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import * as TymioUI from '../../../_DEPRECATED';
 import * as Styled from '../styled';
 import useSupportFormik from '../hooks/useFormik';
+import { COLORS } from '../../../../models/colors';
+import Close from '../../../../assets/img/icons/cross-close.svg';
+import { Typography } from '../../../Typography/Typography/styled';
+import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 
 const Chat = ({ messages, sendMessage, open, closeClick, loading }) => {
-	const { formik, error } = useSupportFormik(sendMessage);
+	const { formik } = useSupportFormik(sendMessage);
 	const chatDiv = useRef(null);
 
 	const handleChange = async (e) => {
@@ -18,35 +22,42 @@ const Chat = ({ messages, sendMessage, open, closeClick, loading }) => {
 
 	return (
 		<Styled.Chat open={open} onSubmit={formik.handleSubmit}>
-			<TymioUI.Card>
-				<Styled.Close onClick={closeClick}>&raquo;</Styled.Close>
-				<TymioUI.Card.Header align="center">
-					<Styled.Title>Support</Styled.Title>
+			<TymioUI.Card background={COLORS.RICH_PURPLE} padding={'40px 20px 20px'}>
+				<Styled.Close onClick={closeClick}>
+					<img src={Close} alt="" width={20} height={20} />
+				</Styled.Close>
+				<TymioUI.Card.Header display={'flex'} gap={'10px'} direction={'column'}>
+					<Typography color={COLORS.LEMON}>SUPPORT</Typography>
+					<Typography color={COLORS.GRAY} size={TYPOGRAPHY_SIZE.SMALL}>
+						Working hours from 9:00 am till 7 pm UTC
+					</Typography>
 				</TymioUI.Card.Header>
-				<TymioUI.Card.Body>
-					{loading && <TymioUI.LoadingSpinner />}
-					{!loading && (
+				{messages.length ? (
+					<TymioUI.Card.Body>
 						<Styled.Messages>
 							{messages.map(({ message, sender }, i) => (
 								<Styled.Message key={i} sender={sender}>
-									{message}
+									<Typography size={TYPOGRAPHY_SIZE.SMALL} color={COLORS.BLACK}>
+										{message}
+									</Typography>
 								</Styled.Message>
 							))}
 							<span ref={chatDiv}></span>
 						</Styled.Messages>
-					)}
-				</TymioUI.Card.Body>
+					</TymioUI.Card.Body>
+				) : (
+					<></>
+				)}
 				<TymioUI.Card.Footer>
-					<TymioUI.Grid width={'100%'} gap={'12px'} columns={1}>
+					<TymioUI.Grid width={'100%'} gap={'10px'} columns={1}>
 						<TymioUI.Input
 							type="textarea"
 							value={formik.values.message}
 							onChange={handleChange}
-							placeholder="Write message..."
-							error={formik.errors.message || error}
+							placeholder="Write a message"
 						/>
 						<TymioUI.Button type="submit" disabled={!formik.isValid}>
-							Send
+							<Typography>SEND</Typography>
 						</TymioUI.Button>
 					</TymioUI.Grid>
 				</TymioUI.Card.Footer>

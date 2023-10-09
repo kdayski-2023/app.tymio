@@ -67,7 +67,7 @@ const NetworkButton = () => {
 					</TymioUI.Select.Value>
 
 					{!mobile && (
-						<TymioUI.Select.Options show={show} side={'left'}>
+						<TymioUI.Select.Options zIndex={1000} show={show} side={'left'}>
 							{Object.keys(config.CHAIN_NAMES).map((chain_id, index) => (
 								<TymioUI.Select.Option
 									key={index}

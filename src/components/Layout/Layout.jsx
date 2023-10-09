@@ -7,21 +7,23 @@ import {
 	ChatWidget,
 	WalletModal,
 	Header,
+	Footer,
 } from '../_DEPRECATED';
 import * as Styled from './styled';
 
-const Layout = () => {
+const Layout = ({ sessionInfo }) => {
 	return (
 		<>
 			{/* <Preloader /> */}
 			<Modal />
 			<MessageDialog />
-			<ChatWidget />
+			<ChatWidget sessionInfo={sessionInfo} />
 			<WalletModal />
 
 			<Styled.Main>
 				<Header />
 				<Outlet />
+				<Footer />
 			</Styled.Main>
 		</>
 	);

@@ -17,6 +17,7 @@ export { default as WalletModal } from './WalletModal/WalletModal';
 export { default as Accordion } from './Accordion/Accordion';
 
 export { default as Header } from '../Header/Header';
+export { default as Footer } from '../Footer/Footer';
 export { default as WalletButton } from './WalletButton/WalletButton';
 export { default as NetworkButton } from './NetworkButton/NetworkButton';
 export { default as MessageDialog } from './MessageDialog/MessageDialog';

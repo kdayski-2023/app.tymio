@@ -2,17 +2,19 @@ import styled from 'styled-components';
 import { COLORS } from '../../../models/colors';
 
 export const InputWrapper = styled.div`
-	height: 40px;
+	height: ${({ type }) => (type === 'textarea' ? 'auto' : '40px')};
+	min-height: ${({ type }) => type === 'textarea' && '80px'};
+	max-height: ${({ type }) => type === 'textarea' && '200px'};
 	color: ${COLORS.WHITE};
 	display: flex;
 	border: 0.5px solid ${COLORS.PURPLE_BRIGHT};
 	background: ${COLORS.BLACK};
 	border-radius: 5px;
-	padding: 0 15px 0 0;
+	padding: ${({ type }) => (type === 'textarea' ? '0' : '0 15px 0 0')};
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: 15px;
+	gap: ${({ type }) => (type === 'textarea' ? '0' : '15px')};
 `;
 
 export const CheckboxWrapper = styled(InputWrapper)`
@@ -37,17 +39,28 @@ export const Input = styled.input`
 `;
 
 export const TextArea = styled.textarea`
+	padding: 10px;
 	resize: none;
 	overflow-y: auto;
-	min-height: 33px;
+	min-height: 80px;
 	max-height: 200px;
 	width: 100%;
-	color: ${COLORS.WHITE};
-	font-size: 18px;
+
+	color: ${COLORS.LIGHT};
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 15px;
+	letter-spacing: 0.39px;
+
 	text-align: ${({ align }) => align};
 	background: none;
 	border: none;
 	outline: none;
+
+	&::placeholder {
+		color: ${COLORS.GRAY};
+	}
+
 	@media (max-width: 576px) {
 		max-height: 120px;
 	}

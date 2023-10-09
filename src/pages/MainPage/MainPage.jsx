@@ -153,7 +153,11 @@ const MainPage = ({ config }) => {
 				</>
 			)}
 			{!error && (
-				<Grid columns={2} gap={'20px'} alignItems={'flex-start'}>
+				<Grid
+					margin={'0 15px'}
+					columns={2}
+					gap={'20px'}
+					alignItems={'flex-start'}>
 					<GridElem column={'span 2'} row={1}>
 						<Components.Amount
 							formik={formik}
@@ -165,15 +169,15 @@ const MainPage = ({ config }) => {
 					<GridElem
 						display={success ? 'block' : 'none'}
 						column={'span 2'}
-						row={2}
-						height={'340px'}>
+						row={2}>
 						<Components.ModalCard setSuccess={setSuccess} />
 					</GridElem>
 					<GridElem
 						display={success ? 'none' : 'block'}
 						column={1}
 						row={2}
-						height={'100%'}>
+						height={'100%'}
+						xsColumn={'span 2'}>
 						<Components.Prices
 							formik={formik}
 							loading={loading}
@@ -184,7 +188,9 @@ const MainPage = ({ config }) => {
 						display={success ? 'none' : 'block'}
 						column={2}
 						row={2}
-						height={'100%'}>
+						height={'100%'}
+						xsRow={3}
+						xsColumn={'span 2'}>
 						<Components.Periods
 							formik={formik}
 							loading={loading}
@@ -196,8 +202,9 @@ const MainPage = ({ config }) => {
 					{showAgreement && (
 						<GridElem
 							display={success ? 'none' : 'block'}
-							column={'span 2'}
-							row={3}>
+							row={3}
+							xsRow={4}
+							xsColumn={'span 2'}>
 							<Components.Agreement
 								formik={formik}
 								isNotEnoughBalance={isNotEnoughBalance}

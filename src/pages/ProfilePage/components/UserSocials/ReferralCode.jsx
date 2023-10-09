@@ -3,11 +3,14 @@ import React, { useState, useEffect } from 'react';
 import * as Service from '../../../../services';
 import * as Styled from './styled';
 import * as Hook from '../../hooks';
+import * as TymioUI from '../../../../components';
+import ReferralList from './ReferralList';
 import { Card, LoadingSpinner } from '../../../../components/_DEPRECATED';
+import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../../../models/types';
 
-const ReferralCode = ({ referral }) => {
+const ReferralCode = ({ referral, referrals, totals }) => {
 	const { loading, error } = Hook.useReferral();
-	const [copyText, setCopyText] = useState('Copy');
+	const [copyText, setCopyText] = useState('COPY');
 	let timeout;
 
 	useEffect(() => {
@@ -19,13 +22,13 @@ const ReferralCode = ({ referral }) => {
 	const copyHandler = (e, data) => {
 		e.preventDefault();
 		navigator.clipboard.writeText(data);
-		setCopyText('Copied');
+		setCopyText('COPIED');
 
 		if (timeout) {
 			clearTimeout(timeout);
 		}
 		timeout = setTimeout(() => {
-			setCopyText('Copy');
+			setCopyText('COPY');
 		}, 2000);
 	};
 
@@ -33,25 +36,41 @@ const ReferralCode = ({ referral }) => {
 		<>
 			{loading && <LoadingSpinner />}
 			{!loading && (
-				<Card>
-					<Card.Header>Referral program</Card.Header>
+				<Card gap={'30px'} xsPadding={'30px 20px'}>
+					<Card.Header>
+						<TymioUI.H2>Referral program</TymioUI.H2>
+					</Card.Header>
 					<Styled.Conditions>
-						<p>
+						<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
 							Earn 5% from the yield paid to wallets you have invited with
 							personal referral link below. No time limits. Perpetual stream of
 							passive income.
-						</p>
+						</TymioUI.Typography>
 					</Styled.Conditions>
-					<Styled.ProfileSheet>
-						<Styled.ProfileText>{`${window.location.origin}/code/${referral}`}</Styled.ProfileText>
+					<Styled.ProfileInputSheet mt={'0'}>
+						<Styled.ProfileInput
+							value={
+								referral ? `${window.location.origin}/code/${referral}` : ''
+							}
+							type={'text'}
+							placeholder={'sell-high.io/code/ed2da5'}
+							disabled={true}
+						/>
 						<Styled.ProfileButton
-							main
+							type={BUTTON_TYPE.SECONDARY}
+							disabled={!referral}
 							onClick={(e) =>
 								copyHandler(e, `${window.location.origin}/code/${referral}`)
 							}>
 							{copyText}
 						</Styled.ProfileButton>
-					</Styled.ProfileSheet>
+					</Styled.ProfileInputSheet>
+
+					{referrals && referrals.length ? (
+						<Card.Footer>
+							<ReferralList referrals={referrals} totals={totals} />
+						</Card.Footer>
+					) : null}
 				</Card>
 			)}
 		</>

@@ -16,7 +16,7 @@ import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../../../models/types';
 const TERMS = process.env.REACT_APP_TERMS;
 
 const Subscribe = ({ subscription }) => {
-	const { userAddress } = useWallet();
+	const { userAddress, connected } = useWallet();
 	const { loading } = useSubscribe();
 	const [inputError, setInputError] = useState('');
 	const [error, setError] = useState('');
@@ -49,6 +49,19 @@ const Subscribe = ({ subscription }) => {
 		}
 	}, [error]);
 
+	useEffect(() => {
+		if (!connected) {
+			const newValues = {
+				email: '',
+				transaction_notifications: false,
+				news: false,
+				terms: false,
+			};
+			formik.setValues(newValues);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [connected]);
+
 	const handleEmailChange = (value) => {
 		formik.setFieldValue('email', value, true);
 	};
@@ -65,7 +78,7 @@ const Subscribe = ({ subscription }) => {
 	};
 
 	return (
-		<Card gap={'30px'}>
+		<Card gap={'30px'} xsPadding={'30px 20px'}>
 			<Card.Header>
 				<TymioUI.H2>Subscribe</TymioUI.H2>
 			</Card.Header>
@@ -90,7 +103,8 @@ const Subscribe = ({ subscription }) => {
 								!formik.isValid ||
 								JSON.stringify(formik.initialValues) ===
 									JSON.stringify(formik.values) ||
-								!formik.values.email
+								!formik.values.email ||
+								!connected
 							}>
 							SEND
 						</Styled.ProfileButton>
@@ -181,7 +195,7 @@ const Subscribe = ({ subscription }) => {
 										!formik.values.email ||
 										subscription.email === formik.values.email
 									}>
-									CHANGE E-MAIL
+									CHANGE
 								</Styled.ProfileButton>
 							</Styled.ProfileInputSheet>
 							<Styled.ProfileButton border onClick={() => setShowSure(true)}>
@@ -195,7 +209,7 @@ const Subscribe = ({ subscription }) => {
 							<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
 								Are you sure you want to cancel subscription?
 							</TymioUI.Typography>
-							<TymioUI.Switcher>
+							<TymioUI.Switcher xsWidth={'150px'}>
 								<TymioUI.Switcher.Option
 									width={'90px'}
 									active={true}

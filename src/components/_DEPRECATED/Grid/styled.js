@@ -47,13 +47,17 @@ const getResolutionValidProp = (resolutions, width) => {
 };
 
 export const Grid = styled.div`
-	margin: 0;
+	margin: ${({ margin }) => margin || 0};
 	align-items: ${({ alignItems }) => (alignItems ? alignItems : 'center')};
 	display: grid;
-	grid-template-columns: ${({ columns }) =>
-		columns ? `repeat(${columns}, 1fr)` : 'repeat(12, 1fr)'};
+	grid-template-columns: ${({ columns, template }) =>
+		template || (columns ? `repeat(${columns}, 1fr)` : 'repeat(12, 1fr)')};
 	gap: ${({ gap }) => (gap ? gap : 'initial')};
 	width: ${({ width }) => width};
+
+	@media (max-width: 576px) {
+		grid-template-columns: ${({ xsTemplate }) => xsTemplate};
+	}
 `;
 
 export const GridElem = styled.div`
@@ -130,5 +134,7 @@ export const GridElem = styled.div`
 				},
 				576,
 			) || 'left'};
+
+		width: ${({ xsWidth }) => xsWidth};
 	}
 `;

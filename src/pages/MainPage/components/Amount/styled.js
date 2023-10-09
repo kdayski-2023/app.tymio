@@ -7,6 +7,11 @@ export const AmountContentWrapper = styled.div`
 	flex-grow: 1;
 	flex-shrink: 1;
 	gap: 80px;
+
+	@media (max-width: 576px) {
+		flex-direction: column;
+		gap: 30px;
+	}
 `;
 export const AmountItemWrapper = styled.div`
 	display: flex;

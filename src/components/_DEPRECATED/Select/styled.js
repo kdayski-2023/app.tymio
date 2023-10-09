@@ -20,16 +20,11 @@ export const Select = styled.div`
 	&:hover {
 		background: ${({ custom }) => custom && COLORS.RICH_PURPLE};
 	}
-
-	@media (max-width: 992px) {
-		margin-left: auto;
-		margin-top: ${({ noMargin }) => (noMargin ? '0' : '12px')};
-	}
 `;
 
 export const Value = styled.div`
 	position: inherit;
-	z-index: 2;
+	z-index: 3;
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -62,7 +57,7 @@ const slideIn = keyframes`
 `;
 
 export const Options = styled.div`
-	z-index: 1;
+	z-index: ${({ zIndex }) => zIndex || 2};
 	width: auto;
 	white-space: nowrap;
 	position: absolute;
