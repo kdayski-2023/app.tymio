@@ -42,10 +42,11 @@ const ChatWidget = ({ sessionInfo }) => {
 					<Icon
 						unreadMessages={unreadMessages}
 						openClick={() => setOpen(true)}
+						open={open || show}
 					/>
 				</>
 			)}
-			<Play onClick={handleClick}>
+			<Play onClick={handleClick} open={open || show}>
 				<img src={PlayIcon} alt="" width={30} height={30} />
 			</Play>
 			<VideoModal open={show}>

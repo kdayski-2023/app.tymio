@@ -56,7 +56,8 @@ export const Grid = styled.div`
 	width: ${({ width }) => width};
 
 	@media (max-width: 576px) {
-		grid-template-columns: ${({ xsTemplate }) => xsTemplate};
+		grid-template-columns: ${({ xsColumns, xsTemplate }) =>
+			xsTemplate || (xsColumns && `repeat(${xsColumns}, 1fr)`)};
 	}
 `;
 

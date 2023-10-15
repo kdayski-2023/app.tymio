@@ -8,3 +8,4 @@ export { default as useBallance } from './useBallance';
 export { default as useOuterClick } from './useOuterClick';
 export { default as useTimeout } from './useTimeout';
 export { default as useDirection } from './useDirection';
+export { default as useRoutes } from './useRoutes';

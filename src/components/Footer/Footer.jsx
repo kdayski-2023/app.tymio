@@ -3,8 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 import * as Styled from './styled';
 import FooterLogo from '../../assets/img/icons/footer-logo.png';
+import { useRoutes } from '../../hooks';
 
 const Footer = () => {
+	const { footer, media } = useRoutes();
 	return (
 		<Styled.Footer>
 			<Styled.HR />
@@ -12,44 +14,39 @@ const Footer = () => {
 				<Styled.Logo width={168} height={112} src={FooterLogo} alt={''} />
 				<Styled.Links>
 					<Styled.Column>
-						<NavLink to={'https://tymio.com/'} target="_blank">
-							How it works
-						</NavLink>
-						<NavLink to={'https://tymio.com/'} target="_blank">
-							Use cases
-						</NavLink>
-						<NavLink to={'https://tymio.com/'} target="_blank">
-							Safety
-						</NavLink>
-						<NavLink to={'https://tymio.com/'} target="_blank">
-							FAQ
-						</NavLink>
+						{footer.map(
+							(item, i) =>
+								i < 4 && (
+									<NavLink
+										key={i}
+										to={item.path}
+										target={item.target || '_self'}>
+										{item.label}
+									</NavLink>
+								),
+						)}
 					</Styled.Column>
 					<Styled.Column>
-						<NavLink to={'https://tymio.com/'} target="_blank">
-							Ambassadors
-						</NavLink>
-						<NavLink to={'https://tymio.com/'} target="_blank">
-							White Paper
-						</NavLink>
-						<NavLink to={'https://tymio.com/'} target="_blank">
-							Terms Of Use
-						</NavLink>
+						{footer.length > 4 &&
+							footer.map(
+								(item, i) =>
+									i > 3 && (
+										<NavLink
+											key={i}
+											to={item.path}
+											target={item.target || '_self'}>
+											{item.label}
+										</NavLink>
+									),
+							)}
 					</Styled.Column>
 				</Styled.Links>
 				<Styled.Socials>
-					<NavLink to={'https://tymio.com/'} target="_blank">
-						Medium
-					</NavLink>
-					<NavLink to={'https://tymio.com/'} target="_blank">
-						Telegram
-					</NavLink>
-					<NavLink to={'https://tymio.com/'} target="_blank">
-						Twitter
-					</NavLink>
-					<NavLink to={'https://tymio.com/'} target="_blank">
-						info@Tymio.com
-					</NavLink>
+					{media.map((item, i) => (
+						<NavLink key={i} to={item.path} target={item.target || '_self'}>
+							{item.label}
+						</NavLink>
+					))}
 				</Styled.Socials>
 			</Styled.Content>
 			<Styled.Copyrights>© 2023 Tymio. All rights reserved</Styled.Copyrights>

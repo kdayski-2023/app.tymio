@@ -15,8 +15,6 @@ import { OrderService } from '../../../../services';
 import Actions from '../Actions/Actions';
 import * as Styled from './styled';
 
-const TERMS = process.env.REACT_APP_TERMS;
-
 const Agreement = ({
 	formik,
 	isNotEnoughBalance,
@@ -106,7 +104,7 @@ const Agreement = ({
 								label="I have read the agreement above and"
 								terms={{
 									content: 'Terms and Conditions',
-									link: TERMS,
+									link: 'https://tymio.com/',
 								}}
 								checked={formik.values.agreement}
 								onChange={handleChange}

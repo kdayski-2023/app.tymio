@@ -15,11 +15,7 @@ import * as Styled from './styled';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 import { COLORS } from '../../../../models/colors';
 
-const Prices = ({
-	formik,
-	loading: orderLoading,
-	amountFocused,
-}) => {
+const Prices = ({ formik, loading: orderLoading, amountFocused }) => {
 	const ref = useRef();
 	const {
 		error: priceError,
@@ -42,7 +38,8 @@ const Prices = ({
 				mh={365}
 				gap={'0'}
 				pt={'15px'}
-				flex={true}>
+				flex={true}
+				justify={'flex-start'}>
 				<Card.Header>
 					<Styled.Price>
 						<Styled.CurrencyBadge>

@@ -10,18 +10,20 @@ import {
 	Footer,
 } from '../_DEPRECATED';
 import * as Styled from './styled';
+import { isMobile } from '../../lib/lib';
 
 const Layout = ({ sessionInfo }) => {
+	const mobile = isMobile();
 	return (
 		<>
 			{/* <Preloader /> */}
 			<Modal />
 			<MessageDialog />
-			<ChatWidget sessionInfo={sessionInfo} />
+			{!mobile && <ChatWidget sessionInfo={sessionInfo} />}
 			<WalletModal />
 
 			<Styled.Main>
-				<Header />
+				<Header sessionInfo={sessionInfo} />
 				<Outlet />
 				<Footer />
 			</Styled.Main>

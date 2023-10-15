@@ -40,6 +40,11 @@ export const Content = styled.div`
 export const Logo = styled.img`
 	width: 168px;
 	height: 112px;
+
+	@media (max-width: 768px) {
+		width: 125px;
+		height: 83px;
+	}
 `;
 export const Links = styled.div`
 	display: flex;
@@ -81,6 +86,7 @@ export const Socials = styled.div`
 	}
 
 	@media (max-width: 576px) {
+		gap: 18px;
 		a {
 			font-size: 17px;
 			line-height: 17px;

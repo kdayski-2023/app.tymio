@@ -13,16 +13,26 @@ export const StyledSpinner = styled.div`
 	align-items: center;
 	justify-content: center;
 
+	span {
+		position: absolute;
+		font-size: 13px;
+		font-weight: 400;
+		line-height: 13px;
+		letter-spacing: 0.39px;
+		color: ${COLORS.LIGHT};
+	}
+
 	&:after {
 		content: ' ';
 		display: block;
 		width: ${(props) => props.width}px;
 		height: ${(props) => props.width}px;
 		border-radius: 50%;
-		border: 6px solid ${COLORS.LIGHT_BLUE};
-		border-color: ${COLORS.LIGHT_BLUE} transparent ${COLORS.LIGHT_BLUE}
-			transparent;
+		border: 12px solid ${COLORS.DARK};
+		border-color: ${COLORS.DARK} ${COLORS.PURPLE_GRAY2} ${COLORS.DARK}
+			${COLORS.DARK};
 		animation: lds-dual-ring 1.2s linear infinite;
+		box-shadow: 0 0 10px ${COLORS.BLACK};
 	}
 
 	@keyframes lds-dual-ring {

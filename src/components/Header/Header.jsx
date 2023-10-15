@@ -7,7 +7,7 @@ import * as TymioUI from '../';
 import * as Styled from './styled';
 import { useWallet } from '../../hooks';
 
-const Header = () => {
+const Header = ({sessionInfo}) => {
 	const { connected } = useWallet();
 
 	return (
@@ -41,7 +41,7 @@ const Header = () => {
 				</GridElem>
 				<GridElem floatRight row={1} column={3} xsColumn={2}>
 					<Styled.MobileActions>
-						<Components.BurgerMenu />
+						<Components.BurgerMenu sessionInfo={sessionInfo} />
 					</Styled.MobileActions>
 				</GridElem>
 			</Grid>

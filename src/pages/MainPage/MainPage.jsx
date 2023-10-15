@@ -156,6 +156,7 @@ const MainPage = ({ config }) => {
 				<Grid
 					margin={'0 15px'}
 					columns={2}
+					xsColumns={1}
 					gap={'20px'}
 					alignItems={'flex-start'}>
 					<GridElem column={'span 2'} row={1}>
@@ -204,6 +205,7 @@ const MainPage = ({ config }) => {
 							display={success ? 'none' : 'block'}
 							row={3}
 							xsRow={4}
+							column={'span 2'}
 							xsColumn={'span 2'}>
 							<Components.Agreement
 								formik={formik}

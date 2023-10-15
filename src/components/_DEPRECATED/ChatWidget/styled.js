@@ -8,6 +8,14 @@ export const Chat = styled.form`
 	width: 300px;
 	z-index: 12;
 	transition: 0.3s;
+
+	@media (max-width: 576px) {
+		right: ${({ open }) => (open ? '0' : '-100%')};
+		width: calc(100% - 30px);
+		top: 60px;
+		margin: 15px;
+		height: 534px;
+	}
 `;
 export const Messages = styled.div`
 	margin: 0;
@@ -46,7 +54,7 @@ export const Message = styled.div`
 `;
 
 export const IconWrapper = styled.div`
-	display: flex;
+	display: ${({ open }) => (open ? 'none' : 'flex')};
 	align-items: center;
 	justify-content: center;
 	border-radius: 10px;
@@ -62,6 +70,11 @@ export const IconWrapper = styled.div`
 
 	&:hover {
 		background: #acc578;
+	}
+
+	@media (max-width: 576px) {
+		right: 15px;
+		bottom: 15px;
 	}
 `;
 
@@ -87,13 +100,13 @@ export const Close = styled.div`
 `;
 
 export const Play = styled.div`
+	display: ${({ open }) => (open ? 'none' : 'flex')};
 	position: fixed;
 	width: 40px;
 	height: 40px;
 	right: 30px;
 	bottom: 70px;
 	z-index: 11;
-	display: flex;
 	align-items: center;
 	justify-content: center;
 	border-radius: 10px;
@@ -103,6 +116,11 @@ export const Play = styled.div`
 
 	&:hover {
 		background: ${COLORS.PURPLE_DARK};
+	}
+
+	@media (max-width: 576px) {
+		right: 75px;
+		bottom: 15px;
 	}
 `;
 
@@ -124,6 +142,12 @@ export const VideoModal = styled.div`
 		width: 405px;
 		height: 271px;
 	}
+
+	@media (max-width: 576px) {
+		right: ${({ open }) => (open ? '0' : '-100%')};
+		bottom: 15px;
+		width: 100%;
+	}
 `;
 
 export const VideoClose = styled.div`
@@ -142,5 +166,9 @@ export const IFrame = styled.iframe`
 	@media (max-width: 768px) {
 		width: 380px;
 		height: 200px;
+	}
+	@media (max-width: 576px) {
+		width: 349px;
+		height: 196px;
 	}
 `;

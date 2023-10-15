@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import useRoutes from '../hooks/useRoutes';
 import * as Styled from '../styled';
 import Close from '../../../assets/img/icons/cross-purple.svg';
-import { LogoIcon } from '../../_DEPRECATED';
+import { ChatWidget, LogoIcon } from '../../_DEPRECATED';
+import { isMobile } from '../../../lib/lib';
+import { useRoutes } from '../../../hooks';
 
-const BurgerMenu = () => {
-	const { allRoutes } = useRoutes();
+const BurgerMenu = ({ sessionInfo }) => {
+	const mobile = isMobile();
+	const { burger } = useRoutes();
 	const [active, setActive] = useState(false);
 
 	const toggleMenu = () => {
@@ -32,15 +34,19 @@ const BurgerMenu = () => {
 						<img src={Close} alt={''} />
 					</Styled.CloseIcon>
 					<Styled.Routes>
-						{allRoutes.map(({ path, label }, i) => (
+						{burger.map(({ path, label, target }, i) => (
 							<Styled.Route key={i}>
-								<NavLink to={path} onClick={toggleMenu}>
+								<NavLink
+									to={path}
+									onClick={toggleMenu}
+									target={target || '_self'}>
 									{label}
 								</NavLink>
 								<Styled.HR />
 							</Styled.Route>
 						))}
 					</Styled.Routes>
+					{mobile && <ChatWidget sessionInfo={sessionInfo} />}
 				</Styled.Content>
 				<Styled.Overlay onClick={toggleMenu} />
 			</Styled.Menu>

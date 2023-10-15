@@ -22,7 +22,12 @@ const Chat = ({ messages, sendMessage, open, closeClick, loading }) => {
 
 	return (
 		<Styled.Chat open={open} onSubmit={formik.handleSubmit}>
-			<TymioUI.Card background={COLORS.RICH_PURPLE} padding={'40px 20px 20px'}>
+			<TymioUI.Card
+				background={COLORS.RICH_PURPLE}
+				padding={'40px 20px 20px'}
+				flex
+				justify={'flex-start'}
+				height={'100%'}>
 				<Styled.Close onClick={closeClick}>
 					<img src={Close} alt="" width={20} height={20} />
 				</Styled.Close>

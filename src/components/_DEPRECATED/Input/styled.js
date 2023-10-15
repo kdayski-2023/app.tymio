@@ -53,8 +53,9 @@ export const TextArea = styled.textarea`
 	letter-spacing: 0.39px;
 
 	text-align: ${({ align }) => align};
-	background: none;
-	border: none;
+	background: ${COLORS.RICH_PURPLE};
+	border-radius: 5px;
+	border: 0.5px solid ${COLORS.LIGHT};
 	outline: none;
 
 	&::placeholder {

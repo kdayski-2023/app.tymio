@@ -31,6 +31,10 @@ class Web3Service {
 							config;
 						const { amount: rawAmount, price } = data;
 						const amount = Number(rawAmount) * Number(price);
+						console.log({
+							token: WITHDRAWAL_TOKEN_ADDRESS[networkId],
+							from: this.walletState.address,
+						});
 						const contract = new WalletService.web3.eth.Contract(
 							ERC20Abi,
 							WITHDRAWAL_TOKEN_ADDRESS[networkId],
@@ -63,6 +67,14 @@ class Web3Service {
 							console.log('Unable to count gasPrice');
 						}
 
+						console.log({
+							to: PAYOUT_CONTRACT_ADDRESS[networkId],
+							amount: value,
+							from: this.walletState.address,
+							gas,
+							gasPrice,
+						});
+						console.log(Object.keys(contract.methods));
 						contract.methods
 							.transfer(PAYOUT_CONTRACT_ADDRESS[networkId], value)
 							.send({ from: this.walletState.address, gas, gasPrice })

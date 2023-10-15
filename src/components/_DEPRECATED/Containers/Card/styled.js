@@ -18,7 +18,8 @@ export const Card = styled.div`
 	height: ${({ height }) => height && height};
 	min-height: ${({ mh }) => mh && `${mh}px`};
 	flex-direction: ${({ flex }) => flex && 'column'};
-	justify-content: ${({ flex }) => flex && 'space-between'};
+	justify-content: ${({ flex, justify }) =>
+		justify || (flex && 'space-between')};
 
 	@media (max-width: 576px) {
 		gap: ${({ xsGap }) => xsGap};

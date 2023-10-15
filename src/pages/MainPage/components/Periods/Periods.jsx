@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { useFocus, useWallet } from '../../../../hooks';
 import * as Hook from '../../hooks';
-import * as Styled from './styled';
 import {
 	Card,
 	Grid,
@@ -11,7 +10,7 @@ import {
 	Message,
 	Button,
 } from '../../../../components/_DEPRECATED';
-import { CardBadge, CautionLabel, Label } from '../../styled';
+import { CardBadge } from '../../styled';
 import * as TymioUI from '../../../../components';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 import { COLORS } from '../../../../models/colors';
@@ -42,7 +41,13 @@ const Periods = ({
 
 	return (
 		<>
-			<Card height={'100%'} mh={365} gap={'0'} pt={'27px'} flex={true}>
+			<Card
+				height={'100%'}
+				mh={365}
+				gap={'0'}
+				pt={'27px'}
+				flex={true}
+				justify={loading ? 'flex-start' : 'space-between'}>
 				{loading && <LoadingSpinner />}
 
 				{error && <Message message={error} />}
