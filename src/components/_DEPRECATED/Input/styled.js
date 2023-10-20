@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../../models/colors';
 
 export const InputWrapper = styled.div`
+	position: relative;
 	height: ${({ type }) => (type === 'textarea' ? 'auto' : '40px')};
 	min-height: ${({ type }) => type === 'textarea' && '80px'};
 	max-height: ${({ type }) => type === 'textarea' && '200px'};

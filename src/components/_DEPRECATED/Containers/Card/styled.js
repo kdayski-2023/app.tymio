@@ -1,5 +1,14 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { COLORS } from '../../../../models/colors';
+
+const warningAnimation = keyframes`
+  0% {
+    border: 1px solid ${COLORS.WARNINGS};
+  }
+  100% {
+    border: none;
+  }
+`;
 
 export const Card = styled.div`
 	width: ${({ width }) => width};
@@ -13,13 +22,19 @@ export const Card = styled.div`
 	display: ${({ flex }) => (flex ? 'flex' : 'grid')};
 	gap: ${({ gap }) => (gap ? gap : '20px')};
 	border: ${({ errored }) =>
-		errored ? `2px solid ${COLORS.WARNINGS}` : 'none'};
+		errored ? `1px solid ${COLORS.WARNINGS}` : 'none'};
 	border-radius: 10px;
 	height: ${({ height }) => height && height};
 	min-height: ${({ mh }) => mh && `${mh}px`};
 	flex-direction: ${({ flex }) => flex && 'column'};
 	justify-content: ${({ flex, justify }) =>
 		justify || (flex && 'space-between')};
+
+	${({ errored }) =>
+		errored &&
+		css`
+			animation: ${warningAnimation} 3s forwards;
+		`};
 
 	@media (max-width: 576px) {
 		gap: ${({ xsGap }) => xsGap};

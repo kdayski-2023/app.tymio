@@ -82,8 +82,9 @@ const UserOrder = () => {
 			background={COLORS.PURPLE_GRAY2}
 			gap={expanded ? '30px' : '60px'}
 			xsGap={'30px'}
-			xsPadding={'30px 15px'}>
-			{loading && <LoadingSpinner />}
+			xsPadding={'30px 15px'}
+			mh={357}>
+			{loading && <LoadingSpinner margin={'auto'} />}
 
 			{error && <Message message={error} />}
 

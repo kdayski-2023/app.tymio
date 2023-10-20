@@ -4,7 +4,8 @@ import { COLORS } from '../../../models/colors';
 export const StyledSpinner = styled.div`
 	width: ${(props) => props.width + Math.ceil(props.width / 2)}px;
 	height: ${(props) => props.width + Math.ceil(props.width / 2)}px;
-	margin: ${({ noMargin, waitProcess }) => {
+	margin: ${({ noMargin, waitProcess, margin }) => {
+		if (margin) return margin;
 		if (noMargin) return 0;
 		if (waitProcess === true) return '0 0 0 12px';
 		return '0 auto';

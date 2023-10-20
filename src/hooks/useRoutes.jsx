@@ -20,38 +20,37 @@ const useRoutes = () => {
 		},
 		{
 			label: 'How it works',
-			path: 'http://localhost:5212/how_it_work',
+			path: 'http://tymio.com/how_it_work',
 			target: '_blank',
 		},
 		{
 			label: 'Use cases',
-			path: 'http://localhost:5212/use_cases',
+			path: 'http://tymio.com/use_cases',
 			target: '_blank',
 		},
 		{
 			label: 'Safety',
-			path: 'http://localhost:5212/safety',
+			path: 'http://tymio.com/safety',
 			target: '_blank',
 		},
 		{
 			label: 'FAQ',
-			path: 'http://localhost:5212/faq',
+			path: 'http://tymio.com/faq',
 			target: '_blank',
 		},
 		{
 			label: 'Ambassadors',
-			path: 'http://localhost:5212/ambassadors',
+			path: 'http://tymio.com/ambassadors',
 			target: '_blank',
 		},
 		{
 			label: 'White Paper',
-			path: 'http://localhost:5212/whitepaper',
+			path: 'http://tymio.com/whitepaper',
 			target: '_blank',
 		},
 		{
 			label: 'Terms Of Use',
-			path: 'https://sell-high.io/terms',
-			target: '_blank',
+			path: 'https://app.tymio.com/terms',
 		},
 	];
 	const media = [
@@ -71,30 +70,33 @@ const useRoutes = () => {
 	const footer = [
 		{
 			label: 'How it works',
-			path: 'http://localhost:5212/how_it_work',
+			path: 'http://tymio.com/how_it_work',
 			target: '_blank',
 		},
 		{
 			label: 'Use cases',
-			path: 'http://localhost:5212/use_cases',
+			path: 'http://tymio.com/use_cases',
 			target: '_blank',
 		},
-		{ label: 'Safety', path: 'http://localhost:5212/safety', target: '_blank' },
-		{ label: 'FAQ', path: 'http://localhost:5212/faq', target: '_blank' },
+		{
+			label: 'Safety',
+			path: 'http://tymio.com/safety',
+			target: '_blank',
+		},
+		{ label: 'FAQ', path: 'http://tymio.com/faq', target: '_blank' },
 		{
 			label: 'Ambassadors',
-			path: 'http://localhost:5212/ambassadors',
+			path: 'http://tymio.com/ambassadors',
 			target: '_blank',
 		},
 		{
 			label: 'White Paper',
-			path: 'http://localhost:5212/whitepaper',
+			path: 'http://tymio.com/whitepaper',
 			target: '_blank',
 		},
 		{
 			label: 'Terms Of Use',
-			path: 'https://sell-high.io/terms',
-			target: '_blank',
+			path: 'https://app.tymio.com/terms',
 		},
 	];
 

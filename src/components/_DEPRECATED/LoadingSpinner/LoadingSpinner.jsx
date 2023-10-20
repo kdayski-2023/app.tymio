@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyledSpinner } from './styled';
 
-const LoadingSpinner = ({ size, noMargin, waitProcess }) => {
+const LoadingSpinner = ({ size, noMargin, margin, waitProcess }) => {
 	let width;
 	switch (size) {
 		case 'xs':
@@ -22,7 +22,11 @@ const LoadingSpinner = ({ size, noMargin, waitProcess }) => {
 			break;
 	}
 	return (
-		<StyledSpinner width={width} noMargin={noMargin} waitProcess={waitProcess}>
+		<StyledSpinner
+			width={width}
+			noMargin={noMargin}
+			margin={margin}
+			waitProcess={waitProcess}>
 			<span>Loading</span>
 		</StyledSpinner>
 	);

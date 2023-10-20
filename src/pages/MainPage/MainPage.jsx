@@ -164,7 +164,6 @@ const MainPage = ({ config }) => {
 							formik={formik}
 							loading={loading}
 							setAmountFocused={setAmountFocused}
-							isNotEnoughBalance={isNotEnoughBalance}
 						/>
 					</GridElem>
 					<GridElem

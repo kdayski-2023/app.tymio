@@ -68,7 +68,9 @@ const Modal = () => {
 						<CardHeader>{dialog.header}</CardHeader>
 						<CardBody>
 							<div className="m-0">{icon}</div>
-							<div className="m-0">{dialog.message}</div>
+							<div className="m-0" style={{ width: '100%' }}>
+								{dialog.message}
+							</div>
 						</CardBody>
 					</Card>
 				</ModalCardWrapper>

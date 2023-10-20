@@ -11,6 +11,7 @@ import { Layout } from './components/_DEPRECATED';
 
 const ProfilePage = React.lazy(() => import('./pages/ProfilePage/ProfilePage'));
 const MainPage = React.lazy(() => import('./pages/MainPage/MainPage'));
+const TermsPage = React.lazy(() => import('./pages/TermsPage/TermsPage'));
 
 const App = () => {
 	const {
@@ -39,6 +40,7 @@ const App = () => {
 						<Route path="/" element={<MainPage config={config} />} />
 						<Route path="/code/:ref" element={<MainPage config={config} />} />
 						<Route path="/profile" element={<ProfilePage />} />
+						<Route path="/terms" element={<TermsPage />} />
 						<Route path="*" element={<MainPage config={config} />} />
 					</Route>
 				</Routes>

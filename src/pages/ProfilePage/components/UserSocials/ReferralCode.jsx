@@ -33,20 +33,20 @@ const ReferralCode = ({ referral, referrals, totals }) => {
 	};
 
 	return (
-		<>
-			{loading && <LoadingSpinner />}
+		<Card gap={'30px'} xsPadding={'30px 20px'}>
+			<Card.Header>
+				<TymioUI.H2>Referral program</TymioUI.H2>
+			</Card.Header>
+			<Styled.Conditions>
+				<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
+					Earn 5% from the yield paid to wallets you have invited with personal
+					referral link below. No time limits. Perpetual stream of passive
+					income.
+				</TymioUI.Typography>
+			</Styled.Conditions>
+			{loading && <LoadingSpinner margin={'auto'} />}
 			{!loading && (
-				<Card gap={'30px'} xsPadding={'30px 20px'}>
-					<Card.Header>
-						<TymioUI.H2>Referral program</TymioUI.H2>
-					</Card.Header>
-					<Styled.Conditions>
-						<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
-							Earn 5% from the yield paid to wallets you have invited with
-							personal referral link below. No time limits. Perpetual stream of
-							passive income.
-						</TymioUI.Typography>
-					</Styled.Conditions>
+				<>
 					<Styled.ProfileInputSheet mt={'0'}>
 						<Styled.ProfileInput
 							value={
@@ -71,9 +71,9 @@ const ReferralCode = ({ referral, referrals, totals }) => {
 							<ReferralList referrals={referrals} totals={totals} />
 						</Card.Footer>
 					) : null}
-				</Card>
+				</>
 			)}
-		</>
+		</Card>
 	);
 };
 

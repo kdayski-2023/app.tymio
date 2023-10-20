@@ -6,6 +6,7 @@ import { checkStatus, updateCookies } from '../lib/lib';
 class SubscribeService {
 	initialState = {
 		loading: false,
+		dataLoading: false,
 		error: null,
 		subscription: null,
 	};
@@ -31,12 +32,13 @@ class SubscribeService {
 	}
 
 	async getData(address) {
-		if (this.state.loading) {
+		if (this.state.loading || this.state.dataLoading) {
 			return;
 		}
 
 		this.state = {
 			...this.initialState,
+			dataLoading: true,
 			loading: true,
 		};
 		this.state$.next(this.state);
@@ -52,6 +54,7 @@ class SubscribeService {
 					...this.state,
 					error: null,
 					loading: false,
+					dataLoading: false,
 					subscription: result.data.subscription,
 				};
 				if (result.error) {
@@ -63,6 +66,7 @@ class SubscribeService {
 				this.state = {
 					...this.state,
 					loading: false,
+					dataLoading: false,
 					error: error.message,
 				};
 				this.state$.next(this.state);
@@ -71,7 +75,7 @@ class SubscribeService {
 	}
 
 	async sendData(address, data) {
-		if (this.state.loading) {
+		if (this.state.loading || this.state.dataLoading) {
 			return;
 		}
 

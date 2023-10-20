@@ -16,12 +16,7 @@ import PairSelector from '../PairSelector/PairSelector';
 import { COLORS } from '../../../../models/colors';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 
-const Amount = ({
-	formik,
-	loading: orderLoading,
-	setAmountFocused,
-	isNotEnoughBalance,
-}) => {
+const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 	const directionOptions = ['sell', 'buy'];
 	const { direction } = useDirection();
 	const innerRef = useRef();
@@ -106,6 +101,10 @@ const Amount = ({
 		await Service.DirectionService.setDirection(value);
 	};
 
+	useEffect(() => {
+		console.log(formik.values);
+	}, [formik.values]);
+
 	return (
 		<Card>
 			<Styled.AmountContentWrapper>
@@ -121,14 +120,7 @@ const Amount = ({
 								Start from 1 ETH
 							</TymioUI.Typography>
 						)}
-						{wallet.connected && isNotEnoughBalance && (
-							<TymioUI.Typography
-								size={TYPOGRAPHY_SIZE.SMALL}
-								color={COLORS.WARNINGS}>
-								At least {formik.values.amount} {formik.values.tokenSymbol}
-							</TymioUI.Typography>
-						)}
-						{wallet.connected && !isNotEnoughBalance && (
+						{wallet.connected && (
 							<Styled.Max onClick={handleClick}>
 								<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
 									MAX
@@ -157,7 +149,7 @@ const Amount = ({
 					<TymioUI.Tooltip
 						icon={true}
 						text={
-							'Earn up to XX annualized on your USDC/ETH/BTC by being ready to sell above market price or to buy below market price/setting limit order with yield. Powered by options.'
+							'Set the direction of your time-limit order: either SELL above the current market price or BUY below the current market price. Execution of your order will depend on the exact market price on the date of contract expiration at 8:00 UTC.'
 						}>
 						<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
 							Direction

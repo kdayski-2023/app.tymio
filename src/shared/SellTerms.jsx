@@ -9,8 +9,8 @@ const SellTerms = () => {
       <p>1. Introduction</p>
       <p>
         Welcome to{' '}
-        <a href="https://sell-high.io/" target="_blank" rel="noreferrer">
-          https://sell-high.io
+        <a href="https://app.tymio.com" target="_blank" rel="noreferrer">
+				https://app.tymio.com
         </a>{' '}
         a website-hosted user interface, and any associated software or services
         (collectively the "Interface") provided by TYMIO (“TYMIO”, "we", "our",

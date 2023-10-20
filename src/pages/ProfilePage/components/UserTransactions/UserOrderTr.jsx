@@ -25,7 +25,9 @@ const UserOrderTr = ({ order }) => {
 					{order.price}
 				</Styled.ETHAmount>
 			</Table.Td>
-			<Table.Td>${Math.floor(Number(order.recieve))}</Table.Td>
+			<Table.Td color={COLORS.LEMON}>
+				${Math.floor(Number(order.recieve))}
+			</Table.Td>
 			<Table.Td align={'right'}>
 				<TymioUI.Typography
 					size={TYPOGRAPHY_SIZE.SMALL}

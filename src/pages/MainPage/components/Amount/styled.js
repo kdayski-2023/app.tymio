@@ -14,6 +14,7 @@ export const AmountContentWrapper = styled.div`
 	}
 `;
 export const AmountItemWrapper = styled.div`
+	position: relative;
 	display: flex;
 	flex-basis: 0;
 	flex-grow: 1;

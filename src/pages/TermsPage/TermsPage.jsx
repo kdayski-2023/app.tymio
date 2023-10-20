@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import * as TymioUI from '../../components';
+import * as TymioUI from '../../components/_DEPRECATED';
 import * as Styled from './styled';
 import * as Shared from '../../shared';
-import { useDirection } from '../../../hooks';
+import { useDirection } from '../../hooks';
 
 const TermsPage = () => {
 	const [content, setContent] = useState('');
@@ -23,7 +23,7 @@ const TermsPage = () => {
 	}, [appType]);
 
 	return (
-		<TymioUI.Container withPadding fullWidth>
+		<TymioUI.Container fullWidth>
 			<Styled.Wrapper>{content}</Styled.Wrapper>
 		</TymioUI.Container>
 	);

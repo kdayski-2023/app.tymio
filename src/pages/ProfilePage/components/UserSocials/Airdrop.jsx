@@ -37,58 +37,54 @@ const Airdrop = ({ airdrop, airdropParticipant }) => {
 				</Styled.AirdropBadge>
 			</Card.Header>
 			<TymioUI.Typography>CONDITIONS:</TymioUI.Typography>
-			{loading && <LoadingSpinner />}
-			{!loading && (
-				<>
-					<Card.Body>
-						<Styled.Conditions mt={'0'} gap={'30px'}>
-							<Styled.Condition>
-								<Styled.Number>
-									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL} lh={'100%'}>
-										1
-									</TymioUI.Typography>
-								</Styled.Number>
-								<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
-									Made at least three consecutive deals (next deal should be
-									within one week after previous) on Tymio.
-								</TymioUI.Typography>
-							</Styled.Condition>
-							<Styled.Condition>
-								<Styled.Number>
-									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL} lh={'100%'}>
-										2
-									</TymioUI.Typography>
-								</Styled.Number>
-								<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
-									Posted about Tymio in any well-known social network, using
-									active link →
-								</TymioUI.Typography>
-							</Styled.Condition>
-							<Styled.Condition>
-								<Styled.Number>
-									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL} lh={'100%'}>
-										3
-									</TymioUI.Typography>
-								</Styled.Number>
-								<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
-									Get 10K USDC or equivalent in Tymio tokens, as soon as Tymio
-									valuation hits 150M (our estimation — the end of 2024).
-									Threshold will be determined using last investment round
-									valuation or token market cap.
-								</TymioUI.Typography>
-							</Styled.Condition>
-						</Styled.Conditions>
-					</Card.Body>
-					<Card.Footer>
-						{airdropParticipant && (
-							<Participant
-								airdrop={airdrop}
-								airdropParticipant={airdropParticipant}
-							/>
-						)}
-					</Card.Footer>
-				</>
-			)}
+			<Card.Body>
+				<Styled.Conditions mt={'0'} gap={'30px'}>
+					<Styled.Condition>
+						<Styled.Number>
+							<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL} lh={'100%'}>
+								1
+							</TymioUI.Typography>
+						</Styled.Number>
+						<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
+							Made at least three consecutive deals (next deal should be within
+							one week after previous) on Tymio.
+						</TymioUI.Typography>
+					</Styled.Condition>
+					<Styled.Condition>
+						<Styled.Number>
+							<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL} lh={'100%'}>
+								2
+							</TymioUI.Typography>
+						</Styled.Number>
+						<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
+							Posted about Tymio in any well-known social network, using active
+							link →
+						</TymioUI.Typography>
+					</Styled.Condition>
+					<Styled.Condition>
+						<Styled.Number>
+							<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL} lh={'100%'}>
+								3
+							</TymioUI.Typography>
+						</Styled.Number>
+						<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
+							Get 10K USDC or equivalent in Tymio tokens, as soon as Tymio
+							valuation hits 150M (our estimation — the end of 2024). Threshold
+							will be determined using last investment round valuation or token
+							market cap.
+						</TymioUI.Typography>
+					</Styled.Condition>
+				</Styled.Conditions>
+			</Card.Body>
+			<Card.Footer>
+				{loading && <LoadingSpinner />}
+				{!loading && airdropParticipant && (
+					<Participant
+						airdrop={airdrop}
+						airdropParticipant={airdropParticipant}
+					/>
+				)}
+			</Card.Footer>
 		</Card>
 	);
 };

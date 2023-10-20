@@ -64,8 +64,8 @@ const Agreement = ({
 		<Card
 			gap={'30px'}
 			height={waitSubmit ? '235px' : 'auto'}
-			errored={connected && isNotEnoughBalance}>
-			{loading && <LoadingSpinner />}
+			errored={connected && isNotEnoughBalance && !loading}>
+			{loading && <LoadingSpinner margin={'auto'} />}
 
 			{error && (
 				<>
@@ -94,8 +94,11 @@ const Agreement = ({
 								align={'left'}
 								size={TYPOGRAPHY_SIZE.SMALL}
 								color={COLORS.WARNINGS}>
-								You need at least {formik.values.amount}{' '}
-								{formik.values.tokenSymbol} in your wallet to make a transaction
+								You need at least{' '}
+								{formik.values.direction === 'sell'
+									? `${formik.values.amount} ${formik.values.tokenSymbol}`
+									: `${formik.values.amount * formik.values.price} USDC`}{' '}
+								in your wallet to make a transaction
 							</TymioUI.Typography>
 						)}
 						{connected && !isNotEnoughBalance && (

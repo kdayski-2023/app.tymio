@@ -13,7 +13,7 @@ export const ModalWrapper = styled.div`
 	display: ${({ show }) => (show ? 'flex' : 'none')};
 	justify-content: center;
 	align-items: center;
-	background: ${COLORS.DARK};
+	background: rgba(43, 28, 77, 0.5);
 	backdrop-filter: blur(28px);
 `;
 
@@ -21,8 +21,6 @@ export const ModalBlur = styled.div`
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: ${COLORS.DARK};
-	backdrop-filter: blur(28px);
 
 	@media (max-width: 992px) {
 		display: none;
@@ -31,17 +29,17 @@ export const ModalBlur = styled.div`
 
 export const ModalCardWrapper = styled.div`
 	z-index: 1;
-	width: 900px;
-	top: 0;
+	border-radius: 10px;
+	width: 557px;
+	top: 50%;
+	transform: translateY(-50%);
 	position: fixed;
-
 	padding: 0;
 	background: ${COLORS.DARK};
 	margin: 0;
 
-	@media (max-width: 992px) {
+	@media (max-width: 768px) {
 		width: 100%;
-		backdrop-filter: blur(28px);
 	}
 `;
 
@@ -49,9 +47,7 @@ export const Card = styled.div`
 	width: 100%;
 	height: 100%;
 	margin: auto;
-	background: #131823;
 	border-radius: 10px;
-
 	padding: 0;
 `;
 

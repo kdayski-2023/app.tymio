@@ -3,6 +3,7 @@ import { COLORS } from '../../../../models/colors';
 
 export const OrderInfoWrapper = styled.div`
 	background-color: ${COLORS.DARK};
+	border-radius: 10px;
 	padding: 60px;
 	margin: ${({ margin }) => (margin === 0 ? '0' : '0')};
 	display: block;
@@ -65,6 +66,9 @@ export const TDLi = styled.li`
 		flex-direction: column;
 		gap: 30px;
 		line-height: 140%;
+		span {
+			text-transform: unset;
+		}
 	}
 `;
 
