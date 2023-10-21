@@ -6,7 +6,7 @@ const warningAnimation = keyframes`
     border: 1px solid ${COLORS.WARNINGS};
   }
   100% {
-    border: none;
+    border: 1px solid transparent;
   }
 `;
 
@@ -22,7 +22,7 @@ export const Card = styled.div`
 	display: ${({ flex }) => (flex ? 'flex' : 'grid')};
 	gap: ${({ gap }) => (gap ? gap : '20px')};
 	border: ${({ errored }) =>
-		errored ? `1px solid ${COLORS.WARNINGS}` : 'none'};
+		errored ? `1px solid ${COLORS.WARNINGS}` : '1px solid transparent'};
 	border-radius: 10px;
 	height: ${({ height }) => height && height};
 	min-height: ${({ mh }) => mh && `${mh}px`};

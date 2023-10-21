@@ -1,1 +1,1 @@
-serve -s build -p 5310
+serve -s build-serve -p 5310
