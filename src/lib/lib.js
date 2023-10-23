@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { MessageDialogService } from '../services';
+import { COLORS } from '../models/colors';
 
 export const updateCookies = (sessionInfo) => {
 	const { sessionToken } = sessionInfo;
@@ -192,6 +193,7 @@ export const parseTransactionDetails = (order, config) => {
 			{
 				name: 'Earn:',
 				value: `${Math.floor(order.recieve)}$`,
+				styles: { color: COLORS.LEMON },
 			},
 		];
 		if (order.settlement_date) {
@@ -211,8 +213,8 @@ export const parseTransactionDetails = (order, config) => {
 		}
 		if (order.end_index_price && order.displayStatus !== 'active') {
 			rows.push({
-				name: 'ETH index price on settlement date',
-				value: Math.floor(order.end_index_price),
+				name: `${order.token_symbol} index price on settlement date`,
+				value: `${Math.floor(order.end_index_price)} USDC`,
 			});
 		}
 		if (order.displayStatus === 'paid') {

@@ -3,6 +3,7 @@ import { COLORS } from '../../../models/colors';
 
 const SelectorArrow = ({ expanded }) => {
 	const iconStyle = {
+		flexShrink: 0,
 		transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
 	};
 	return (

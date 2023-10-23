@@ -45,10 +45,9 @@ const Periods = ({
 				height={'100%'}
 				mh={365}
 				gap={'0'}
-				pt={'27px'}
 				flex={true}
 				justify={loading ? 'flex-start' : 'space-between'}>
-				{loading && <LoadingSpinner />}
+				{loading && <LoadingSpinner margin={'auto'} />}
 
 				{error && <Message message={error} />}
 

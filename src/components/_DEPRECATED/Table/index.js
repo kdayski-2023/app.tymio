@@ -1,4 +1,4 @@
-import { HeadTr, Table, Tbody, Td, Th, Thead, Tr } from './styled';
+import { HeadTr, Table, Tbody, Td, Th, Thead, Tr, TFooter } from './styled';
 
 const all = Table;
 
@@ -8,5 +8,6 @@ all.Tr = Tr;
 all.Th = Th;
 all.Head = Thead;
 all.Head.Tr = HeadTr;
+all.Footer = TFooter;
 
 export default all;

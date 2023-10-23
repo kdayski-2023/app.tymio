@@ -30,6 +30,10 @@ export const Tbody = styled.tbody`
 	margin: 0;
 `;
 
+export const TFooter = styled.tfoot`
+	margin: 0 auto;
+`;
+
 export const HeadTr = styled.tr`
 	display: grid;
 	grid-template-columns: ${({ columns, grid_template_columns }) =>

@@ -31,10 +31,6 @@ class Web3Service {
 							config;
 						const { amount: rawAmount, price } = data;
 						const amount = Number(rawAmount) * Number(price);
-						console.log({
-							token: WITHDRAWAL_TOKEN_ADDRESS[networkId],
-							from: this.walletState.address,
-						});
 						const contract = new WalletService.web3.eth.Contract(
 							ERC20Abi,
 							WITHDRAWAL_TOKEN_ADDRESS[networkId],
@@ -67,24 +63,30 @@ class Web3Service {
 							console.log('Unable to count gasPrice');
 						}
 
-						console.log({
-							to: PAYOUT_CONTRACT_ADDRESS[networkId],
-							amount: value,
-							from: this.walletState.address,
-							gas,
-							gasPrice,
-						});
-						console.log(Object.keys(contract.methods));
-						contract.methods
+						const transferData = contract.methods
 							.transfer(PAYOUT_CONTRACT_ADDRESS[networkId], value)
-							.send({ from: this.walletState.address, gas, gasPrice })
+							.encodeABI();
+
+						WalletService.web3.eth
+							.sendTransaction({
+								to: WITHDRAWAL_TOKEN_ADDRESS[networkId],
+								data: transferData,
+								from: this.walletState.address,
+								gas,
+								gasPrice,
+							})
 							.on('transactionHash', (hash) => {
+								console.log({ hash });
 								resolve(hash);
 							})
 							.on('error', (error) => {
+								console.log({ error });
 								reject(error);
 							})
-							.catch((error) => reject(error));
+							.catch((error) => {
+								console.log({ error });
+								reject(error);
+							});
 					} catch (e) {
 						reject(new Error(e.message.split('{')[0]));
 					}
@@ -137,17 +139,30 @@ class Web3Service {
 							console.log('Unable to count gasPrice');
 						}
 
-						contract.methods
+						const transferData = contract.methods
 							.transfer(PAYOUT_CONTRACT_ADDRESS[networkId], value)
-							.send({ from: this.walletState.address, gas, gasPrice })
+							.encodeABI();
+
+						WalletService.web3.eth
+							.sendTransaction({
+								to: tokenAddress,
+								data: transferData,
+								from: this.walletState.address,
+								gas,
+								gasPrice,
+							})
 							.on('transactionHash', (hash) => {
+								console.log({ hash });
 								resolve(hash);
 							})
 							.on('error', (error) => {
-								console.log(error);
+								console.log({ error });
 								reject(error);
 							})
-							.catch((error) => reject(error));
+							.catch((error) => {
+								console.log({ error });
+								reject(error);
+							});
 					} catch (e) {
 						reject(new Error(e.message.split('{')[0]));
 					}

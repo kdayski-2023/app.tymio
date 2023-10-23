@@ -7,15 +7,14 @@ import {
 	LoadingSpinner,
 	Message,
 	Card,
-	Table,
 } from '../../../../components/_DEPRECATED';
 import * as TymioUI from '../../../../components';
-import UserOrderTr from './UserOrderTr';
 import { useUserOrders } from '../../hooks';
 import { COLORS } from '../../../../models/colors';
 import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../../../models/types';
 import * as Styled from './styled';
 import { MESSAGES } from '../../../../models/messages';
+import UserOrdersTable from './UserOrdersTable';
 
 const UserOrder = () => {
 	const navigate = useNavigate();
@@ -26,8 +25,10 @@ const UserOrder = () => {
 		total,
 		activeOrders,
 		closedOrders,
-		sellOrders,
-		buyOrders,
+		activeSellOrders,
+		activeBuyOrders,
+		closedSellOrders,
+		closedBuyOrders,
 	} = useUserOrders();
 	const { connected, userAddress } = useWallet();
 	const [expanded, setExpanded] = useState(false);
@@ -57,7 +58,7 @@ const UserOrder = () => {
 			clearInterval(interval);
 		};
 		//	eslint-disable-next-line
-	}, []);
+	}, [userAddress]);
 
 	useEffect(() => {
 		if (connected && userAddress) {
@@ -169,45 +170,8 @@ const UserOrder = () => {
 								ACTIVE: {activeOrders.length}
 							</TymioUI.Typography>
 
-							{sellOrders.length ? (
-								<Table>
-									<Table.Head>
-										<Table.Head.Tr>
-											<Table.Th align={'left'}>Sell</Table.Th>
-											<Table.Th />
-											<Table.Th>Earn</Table.Th>
-											<Table.Th align={'right'}>Info</Table.Th>
-										</Table.Head.Tr>
-									</Table.Head>
-									<Table.Body hr>
-										{sellOrders.map((order, i) => (
-											<UserOrderTr key={i} order={order} />
-										))}
-									</Table.Body>
-								</Table>
-							) : (
-								<></>
-							)}
-
-							{buyOrders.length ? (
-								<Table>
-									<Table.Head>
-										<Table.Head.Tr>
-											<Table.Th align={'left'}>Buy</Table.Th>
-											<Table.Th />
-											<Table.Th>Earn</Table.Th>
-											<Table.Th align={'right'}>Info</Table.Th>
-										</Table.Head.Tr>
-									</Table.Head>
-									<Table.Body hr>
-										{buyOrders.map((order, i) => (
-											<UserOrderTr key={i} order={order} />
-										))}
-									</Table.Body>
-								</Table>
-							) : (
-								<></>
-							)}
+							<UserOrdersTable orders={activeSellOrders} direction={'Sell'} />
+							<UserOrdersTable orders={activeBuyOrders} direction={'Buy'} />
 						</Styled.ActiveOrders>
 						{closedOrders.length ? (
 							<Styled.ClosedOrders>
@@ -222,25 +186,11 @@ const UserOrder = () => {
 									)}
 								</Styled.ClosedAccordionTrigger>
 								<Styled.ClosedAccordionContent expanded={closedExpanded}>
-									{closedOrders.length ? (
-										<Table color={COLORS.RICH_PURPLE}>
-											<Table.Head>
-												<Table.Head.Tr>
-													<Table.Th align={'left'}>Sell</Table.Th>
-													<Table.Th />
-													<Table.Th>Earned</Table.Th>
-													<Table.Th align={'right'}>Info</Table.Th>
-												</Table.Head.Tr>
-											</Table.Head>
-											<Table.Body hr>
-												{closedOrders.map((order, i) => (
-													<UserOrderTr key={i} order={order} />
-												))}
-											</Table.Body>
-										</Table>
-									) : (
-										<></>
-									)}
+									<UserOrdersTable
+										orders={closedSellOrders}
+										direction={'Sell'}
+									/>
+									<UserOrdersTable orders={closedBuyOrders} direction={'Buy'} />
 								</Styled.ClosedAccordionContent>
 							</Styled.ClosedOrders>
 						) : (

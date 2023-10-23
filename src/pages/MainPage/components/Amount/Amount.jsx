@@ -101,10 +101,6 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 		await Service.DirectionService.setDirection(value);
 	};
 
-	useEffect(() => {
-		console.log(formik.values);
-	}, [formik.values]);
-
 	return (
 		<Card>
 			<Styled.AmountContentWrapper>
@@ -117,7 +113,7 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 							<TymioUI.Typography
 								size={TYPOGRAPHY_SIZE.SMALL}
 								color={COLORS.GRAY_DARK}>
-								Start from 1 ETH
+								Start from 0.01 {formik.values.tokenSymbol}
 							</TymioUI.Typography>
 						)}
 						{wallet.connected && (

@@ -173,7 +173,9 @@ export const ClosedAccordionTrigger = styled.div`
 	cursor: pointer;
 `;
 export const ClosedAccordionContent = styled.div`
-	display: ${({ expanded }) => (expanded ? 'block' : 'none')};
+	display: ${({ expanded }) => (expanded ? 'flex' : 'none')};
+	flex-direction: column;
+	gap: 20px;
 `;
 
 export const TransactionsTitle = styled.div`

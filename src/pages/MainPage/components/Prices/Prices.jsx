@@ -37,7 +37,7 @@ const Prices = ({ formik, loading: orderLoading, amountFocused }) => {
 				height={'100%'}
 				mh={365}
 				gap={'0'}
-				pt={'15px'}
+				pt={'25px'}
 				flex={true}
 				justify={'flex-start'}>
 				<Card.Header>
@@ -52,11 +52,11 @@ const Prices = ({ formik, loading: orderLoading, amountFocused }) => {
 					</Styled.Price>
 				</Card.Header>
 				<>
-					{priceLoading && <LoadingSpinner />}
+					{priceLoading && <LoadingSpinner margin={'auto'} />}
 					{priceError && <Message message={priceError} />}
 					{!priceLoading && !priceError && (
 						<>
-							<Card.Body mt={'5px'}>
+							<Card.Body mt={'20px'}>
 								{prices.map((price, index) => (
 									<Button
 										disabled={orderLoading || periodsLoading || amountFocused}

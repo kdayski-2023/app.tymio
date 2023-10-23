@@ -122,7 +122,6 @@ const useMainPageFormik = ({
 						Service.MessageDialogService.showError(state.error);
 					} else {
 						setSuccess(true);
-						Service.OrderService.getUserOrders(wallet.userAddress);
 					}
 				} catch (e) {
 					if (state) {

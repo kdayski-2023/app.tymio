@@ -9,8 +9,10 @@ const useUserOrders = () => {
 	const [total, setTotal] = useState(null);
 	const [activeOrders, setActiveOrders] = useState([]);
 	const [closedOrders, setClosedOrders] = useState([]);
-	const [sellOrders, setSellOrders] = useState([]);
-	const [buyOrders, setBuyOrders] = useState([]);
+	const [activeSellOrders, setActiveSellOrders] = useState([]);
+	const [activeBuyOrders, setActiveBuyOrders] = useState([]);
+	const [closedSellOrders, setClosedSellOrders] = useState([]);
+	const [closedBuyOrders, setClosedBuyOrders] = useState([]);
 
 	useEffect(() => {
 		const userOrders$ = OrderService.userOrderState$.subscribe((state) => {
@@ -34,16 +36,18 @@ const useUserOrders = () => {
 			orders.sort((a, b) => {
 				return new Date(b.id) - new Date(a.id);
 			});
-
 			const active = orders.filter((item) => item.status !== 'approved');
 			const closed = orders.filter((item) => item.status === 'approved');
-			const buy = active.filter((item) => item.direction === 'buy');
-			const sell = active.filter((item) => item.direction === 'sell');
-
+			const activeBuy = active.filter((item) => item.direction === 'buy');
+			const activeSell = active.filter((item) => item.direction === 'sell');
+			const closedBuy = closed.filter((item) => item.direction === 'buy');
+			const closedSell = closed.filter((item) => item.direction === 'sell');
 			setActiveOrders(active);
 			setClosedOrders(closed);
-			setBuyOrders(buy);
-			setSellOrders(sell);
+			setActiveBuyOrders(activeBuy);
+			setActiveSellOrders(activeSell);
+			setClosedBuyOrders(closedBuy);
+			setClosedSellOrders(closedSell);
 			setOrders(orders);
 			setTotal(state.total);
 			setLoading(state.loading);
@@ -61,8 +65,10 @@ const useUserOrders = () => {
 		total,
 		activeOrders,
 		closedOrders,
-		sellOrders,
-		buyOrders,
+		activeSellOrders,
+		activeBuyOrders,
+		closedSellOrders,
+		closedBuyOrders,
 	};
 };
 

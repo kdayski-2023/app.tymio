@@ -14,8 +14,8 @@ const TransactionDetails = ({ order }) => {
 
 			{!loading && !error && (
 				<Styled.TDUl aria-label="Transaction details">
-					{transactionDetails.map(({ name, value, type }, i) => (
-						<Styled.TDLi key={i}>
+					{transactionDetails.map(({ name, value, type, styles }, i) => (
+						<Styled.TDLi key={i} style={styles}>
 							<span>{name}</span>
 							<span>
 								{type === 'link' ? (

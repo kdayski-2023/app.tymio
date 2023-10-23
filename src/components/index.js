@@ -13,6 +13,7 @@ export { default as WalletConnectButton } from './WalletConnectButton/WalletConn
 export { default as NetworkSelector } from './NetworkSelector/NetworkSelector';
 export { default as Tooltip } from './Tooltip/Tooltip';
 export { default as Switcher } from './Switcher';
+export { default as Pagination } from './Pagination/Pagination';
 
 //Icons
 export { default as NetworkMenuArrow } from './Icons/NetworkMenuArrow/NetworkMenuArrow';

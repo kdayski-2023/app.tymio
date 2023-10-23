@@ -76,7 +76,7 @@ const PairSelector = ({ formik, disabled }) => {
 	}, [config, wallet.chainId, wallet.balanceToken]);
 
 	return (
-		<Select custom noMargin ref={ref} width={130} show={show}>
+		<Select custom noMargin ref={ref} width={140} show={show}>
 			<Select.Value custom onClick={handleClick}>
 				<TokenIcon size={'xs'} token={formik.values.tokenSymbol} />
 				<TymioUI.Typography>{formik.values.tokenSymbol}</TymioUI.Typography>

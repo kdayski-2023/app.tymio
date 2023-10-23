@@ -68,7 +68,7 @@ export const Options = styled.div`
 	top: ${({ custom }) => (custom ? '16px' : '51.6px')};
 	left: ${({ side }) => (side === 'left' ? 'unset' : '0')};
 	right: ${({ side }) => (side === 'right' ? 'unset' : '0')};
-	min-width: ${({ custom }) => (custom ? '130px' : '148px')};
+	min-width: ${({ custom }) => (custom ? '140px' : '148px')};
 	background: ${({ custom }) => (custom ? COLORS.RICH_PURPLE : COLORS.LIGHT)};
 	animation: ${({ show }) =>
 		show
