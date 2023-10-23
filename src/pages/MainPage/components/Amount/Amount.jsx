@@ -113,7 +113,8 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 							<TymioUI.Typography
 								size={TYPOGRAPHY_SIZE.SMALL}
 								color={COLORS.GRAY_DARK}>
-								Start from 0.01 {formik.values.tokenSymbol}
+								Minimum {formik.values.tokenSymbol === 'ETH' ? '0.05' : '0.01'}{' '}
+								{formik.values.tokenSymbol}
 							</TymioUI.Typography>
 						)}
 						{wallet.connected && (

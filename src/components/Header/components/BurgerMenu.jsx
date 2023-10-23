@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import * as Styled from '../styled';
@@ -15,6 +15,11 @@ const BurgerMenu = ({ sessionInfo }) => {
 	const toggleMenu = () => {
 		setActive((prevState) => !prevState);
 	};
+
+	useEffect(() => {
+		const html = document.getElementsByTagName('html')[0];
+		html.style.overflowY = active ? 'hidden' : 'auto';
+	}, [active]);
 
 	return (
 		<>

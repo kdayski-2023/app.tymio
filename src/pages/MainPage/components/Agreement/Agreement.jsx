@@ -107,7 +107,7 @@ const Agreement = ({
 								label="I have read the agreement above and"
 								terms={{
 									content: 'Terms and Conditions',
-									link: 'https://tymio.com/',
+									link: 'https://tymio.com/terms',
 								}}
 								checked={formik.values.agreement}
 								onChange={handleChange}
