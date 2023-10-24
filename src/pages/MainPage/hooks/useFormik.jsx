@@ -130,7 +130,19 @@ const useMainPageFormik = ({
 							error: e,
 						});
 					}
-					if (e.code !== 100) Service.MessageDialogService.showError(e.message);
+					if (
+						e.code !== 100 &&
+						e.name !== 'TransactionBlockTimeoutError' &&
+						e.code !== 432
+					) {
+						Service.MessageDialogService.showError(e.message);
+					}
+
+					if (e.name === 'TransactionBlockTimeoutError' && e.code === 432) {
+						await formik.setFieldValue('period', formik.initialValues.period);
+						await formik.setFieldValue('price', formik.initialValues.price);
+					}
+
 					setSubmitError(e.message);
 				}
 			} else {
