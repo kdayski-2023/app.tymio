@@ -30,7 +30,8 @@ class Web3Service {
 						const { PAYOUT_CONTRACT_ADDRESS, WITHDRAWAL_TOKEN_ADDRESS } =
 							config;
 						const { amount: rawAmount, price } = data;
-						const amount = Number(rawAmount) * Number(price);
+						const amount =
+							Math.round(Number(rawAmount) * Number(price) * 100) / 100;
 						const contract = new WalletService.web3.eth.Contract(
 							ERC20Abi,
 							WITHDRAWAL_TOKEN_ADDRESS[networkId],

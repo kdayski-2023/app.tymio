@@ -97,7 +97,11 @@ const Agreement = ({
 								You need at least{' '}
 								{formik.values.direction === 'sell'
 									? `${formik.values.amount} ${formik.values.tokenSymbol}`
-									: `${formik.values.amount * formik.values.price} USDC`}{' '}
+									: `${
+											Math.round(
+												formik.values.amount * formik.values.price * 100,
+											) / 100
+									  } USDC`}{' '}
 								in your wallet to make a transaction
 							</TymioUI.Typography>
 						)}
@@ -157,7 +161,10 @@ const Agreement = ({
 							{'→'}
 						</TymioUI.Typography>
 						<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG} color={COLORS.LEMON}>
-							{`${formik.values.price * formik.values.amount} USDC`}
+							{`${
+								Math.round(formik.values.amount * formik.values.price * 100) /
+								100
+							} USDC`}
 						</TymioUI.Typography>
 					</div>
 					<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG} color={COLORS.LEMON}>
