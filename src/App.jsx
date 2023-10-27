@@ -33,7 +33,17 @@ const App = () => {
 	}, [errorSession, errorConfig]);
 
 	return (
-		<React.Suspense fallback={<div></div>}>
+		<React.Suspense
+			fallback={
+				<div
+					style={{
+						background:
+							'linear-gradient(115deg, rgb(28, 16, 47) 0%, rgb(43, 28, 77) 52.09%, rgb(28, 16, 47) 100%)',
+						height: '100vh',
+						width: '100vw',
+					}}
+				/>
+			}>
 			{!loadingSession && !loadingConfig && (
 				<Routes>
 					<Route path="/" element={<Layout sessionInfo={sessionInfo} />}>
