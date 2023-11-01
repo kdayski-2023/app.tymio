@@ -15,6 +15,9 @@ export const ModalWrapper = styled.div`
 	align-items: center;
 	background: rgba(43, 28, 77, 0.5);
 	backdrop-filter: blur(28px);
+	@media (max-width: 576px) {
+		overflow: hidden;
+	}
 `;
 
 export const ModalBlur = styled.div`
@@ -86,6 +89,15 @@ export const CardBody = styled.div`
 	}
 `;
 
+export const CardContent = styled.div`
+	margin: 0;
+	width: 100%;
+	max-height: 100vh;
+	@media (max-width: 576px) {
+		overflow-y: scroll;
+	}
+`;
+
 export const CardFooter = styled.div`
 	display: flex;
 	justify-content: ${({ justify }) => (justify ? justify : 'center')};
@@ -99,11 +111,4 @@ export const CardFooter = styled.div`
 			width: 100%;
 		}
 	}
-`;
-
-export const CloseIcon = styled.div`
-	position: absolute;
-	right: 30px;
-	top: 30px;
-	cursor: pointer;
 `;

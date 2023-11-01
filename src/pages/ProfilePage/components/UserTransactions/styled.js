@@ -12,7 +12,7 @@ export const OrderInfoWrapper = styled.div`
 	color: #bbbbbc;
 
 	@media (max-width: 576px) {
-		padding: 30px 20px;
+		padding: 60px 20px;
 	}
 `;
 
@@ -21,11 +21,16 @@ export const TDUl = styled.ul`
 	margin: 0;
 	padding: 0;
 	text-align: left;
+`;
 
-	&:before {
+export const Header = styled.div`
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+	h3 {
+		margin: 0;
 		display: inline-block;
-		margin-bottom: 50px;
-		content: attr(aria-label);
 		font-size: 40px;
 		font-weight: 500;
 		line-height: 40px;
@@ -34,12 +39,13 @@ export const TDUl = styled.ul`
 	}
 
 	@media (max-width: 576px) {
-		&:before {
+		margin-bottom: 30px;
+		h3 {
 			font-size: 30px;
 			line-height: 30px;
-			margin-bottom: 30px;
 		}
 	}
+	
 `;
 
 export const TDLi = styled.li`
@@ -52,22 +58,24 @@ export const TDLi = styled.li`
 	font-weight: 400;
 	line-height: 17px;
 	letter-spacing: 0.34px;
-
+	gap: 10px;
 	span {
 		&:nth-child(1) {
 			color: ${COLORS.GRAY};
 		}
 		&:nth-child(2) {
 			text-transform: capitalize;
+			flex-shrik: 0;
+			text-align: right;
 		}
 	}
 
 	&:last-child {
 		flex-direction: column;
-		gap: 30px;
 		line-height: 140%;
 		span {
 			text-transform: unset;
+			text-align: left;
 		}
 	}
 `;
@@ -181,5 +189,17 @@ export const ClosedAccordionContent = styled.div`
 export const TransactionsTitle = styled.div`
 	@media (max-width: 576px) {
 		flex-basis: 100%;
+	}
+`;
+
+export const CloseIcon = styled.div`
+	cursor: pointer;
+	position: absolute;
+	top: -30px;
+	right: -30px;
+	@media (max-width: 576px) {
+		position: unset;
+		top: unset;
+		right: unset;
 	}
 `;

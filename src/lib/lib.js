@@ -200,7 +200,7 @@ export const parseTransactionDetails = (order, config) => {
 			rows.push(
 				{
 					name: 'Settlement date',
-					value: `${formatDate(order.settlement_date, 'utc')} ${formatTime(
+					value: `${formatDate(order.settlement_date, 'dot')}, ${formatTime(
 						order.settlement_date,
 						'utc',
 					)} UTC`,

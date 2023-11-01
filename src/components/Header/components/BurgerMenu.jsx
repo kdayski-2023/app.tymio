@@ -17,8 +17,7 @@ const BurgerMenu = ({ sessionInfo }) => {
 	};
 
 	useEffect(() => {
-		const html = document.getElementsByTagName('html')[0];
-		html.style.overflowY = active ? 'hidden' : 'auto';
+		document.body.style.overflowY = active ? 'hidden' : 'auto';
 	}, [active]);
 
 	return (
