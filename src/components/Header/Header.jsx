@@ -7,7 +7,7 @@ import * as TymioUI from '../';
 import * as Styled from './styled';
 import { useWallet } from '../../hooks';
 
-const Header = ({sessionInfo}) => {
+const Header = ({ sessionInfo }) => {
 	const { connected } = useWallet();
 
 	return (

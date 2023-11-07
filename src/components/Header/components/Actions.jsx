@@ -5,7 +5,7 @@ import * as Styled from './styled';
 import * as TymioUI from '../../';
 import { useRoutes } from '../../../hooks';
 
-const Header = () => {
+const Actions = () => {
 	const { header } = useRoutes();
 	const [active, setActive] = useState('');
 	const location = useLocation();
@@ -25,4 +25,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default Actions;
