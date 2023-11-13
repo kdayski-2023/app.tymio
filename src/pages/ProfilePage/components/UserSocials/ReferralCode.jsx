@@ -8,7 +8,7 @@ import ReferralList from './ReferralList';
 import { Card, LoadingSpinner } from '../../../../components/_DEPRECATED';
 import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../../../models/types';
 
-const ReferralCode = ({ referral, referrals, totals }) => {
+const ReferralCode = ({ referral, referrals, totals, balance }) => {
 	const { loading, error } = Hook.useReferral();
 	const [copyText, setCopyText] = useState('COPY');
 	let timeout;
@@ -68,7 +68,11 @@ const ReferralCode = ({ referral, referrals, totals }) => {
 
 					{referrals && referrals.length ? (
 						<Card.Footer>
-							<ReferralList referrals={referrals} totals={totals} />
+							<ReferralList
+								referrals={referrals}
+								totals={totals}
+								balance={balance}
+							/>
 						</Card.Footer>
 					) : null}
 				</>

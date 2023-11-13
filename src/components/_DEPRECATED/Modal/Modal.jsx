@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ModalService from '../../../services/modal.service';
 import { ModalWrapper, ModalBlur, ModalCardWrapper } from './styled';
-import { Card, CardBody, CardHeader, CloseIcon, CardContent } from './styled';
+import { Card, CardBody, CardHeader, CardContent } from './styled';
 
 import { WarningIcon } from '../Icons/WarningIcon';
 import { ErrorIcon } from '../Icons/ErrorIcon';
@@ -46,15 +46,10 @@ const Modal = () => {
 			setTimeout(() => {
 				document.body.style.overflowY = dialog.show ? 'hidden' : 'auto';
 			});
-			
-		
-
-		
 		}
-		
+
 		return () => {
 			document.body.style.overflowY = 'auto';
-
 		};
 	}, [dialog]);
 
@@ -67,9 +62,7 @@ const Modal = () => {
 						<CardHeader>{dialog.header}</CardHeader>
 						<CardBody>
 							<div className="m-0">{icon}</div>
-							<CardContent>
-								{dialog.message}
-							</CardContent>
+							<CardContent>{dialog.message}</CardContent>
 						</CardBody>
 					</Card>
 				</ModalCardWrapper>

@@ -217,7 +217,7 @@ export const SureModal = styled.div`
 
 	@media (max-width: 576px) {
 		padding: 20px 15px;
-    gap: 20px;
+		gap: 20px;
 	}
 `;
 
@@ -268,4 +268,16 @@ export const Participant = styled.div`
 	padding: 20px;
 	border-radius: 10px;
 	background: ${COLORS.DARK};
+`;
+
+export const Withdraw = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+
+	button {
+		flex: 0 1 0%;
+		border-radius: 5px;
+	}
 `;

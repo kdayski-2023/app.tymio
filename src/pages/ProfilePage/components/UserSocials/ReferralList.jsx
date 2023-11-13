@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import * as Hook from '../../hooks';
 
-import { formatDate, trimAddress } from '../../../../lib/lib';
+import { spliceAddress } from '../../../../lib/lib';
 import {
 	Card,
 	LoadingSpinner,
@@ -12,9 +12,24 @@ import { COLORS } from '../../../../models/colors';
 import * as TymioUI from '../../../../components';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 import * as Styled from './styled';
+import { ReferralService, Web3Service } from '../../../../services';
+import { useWallet } from '../../../../hooks';
 
-const ReferralList = ({ referrals, totals }) => {
+const ReferralList = ({ referrals, totals, balance }) => {
+	const { userAddress } = useWallet();
 	const { loading } = Hook.useReferral();
+	const [sending, setSending] = useState(false);
+
+	const handleWithdraw = async (amount) => {
+		setSending(true);
+		try {
+			await Web3Service.withdraw(amount);
+			ReferralService.getData(userAddress);
+		} catch (e) {
+			console.log(e);
+		}
+		setSending(false);
+	};
 
 	return (
 		<>
@@ -42,29 +57,27 @@ const ReferralList = ({ referrals, totals }) => {
 						<Card.Body>
 							<Table padding={'0'} color={'inherit'}>
 								<Table.Head>
-									<Table.Head.Tr grid_template_columns={'2fr 2fr 2fr 1fr'}>
+									<Table.Head.Tr grid_template_columns={'2fr 1fr 1fr'}>
 										<Table.Th align={'left'}>Address</Table.Th>
 										<Table.Th>Earn</Table.Th>
-										<Table.Th>Paid</Table.Th>
-										<Table.Th align={'right'}>Info</Table.Th>
+										<Table.Th align={'right'}>Paid</Table.Th>
 									</Table.Head.Tr>
 								</Table.Head>
 								<Table.Body hr>
 									{referrals.map((referral, i) => (
-										<Table.Tr key={i} grid_template_columns={'2fr 2fr 2fr 1fr'}>
-											<Table.Td align={'left'}>
-												{trimAddress(referral.address)}
+										<Table.Tr key={i} grid_template_columns={'2fr 1fr 1fr'}>
+											<Table.Td align={'left'} mono>
+												{spliceAddress(referral.address, 8)}
 											</Table.Td>
-											<Table.Td>${referral.earn.toFixed(2)}</Table.Td>
-											<Table.Td
-												color={referral.paid > 0 ? COLORS.LEMON : COLORS.GRAY}>
-												${referral.paid.toFixed(2)}
-											</Table.Td>
+											<Table.Td>${referral.earn}</Table.Td>
 											<Table.Td align={'right'}>
 												<TymioUI.Typography
-													size={TYPOGRAPHY_SIZE.SMALL}
-													color={COLORS.PURPLE_BRIGHT}>
-													Details
+													color={
+														Number(referral.paid) > 0
+															? COLORS.LEMON
+															: COLORS.GRAY
+													}>
+													${referral.paid}
 												</TymioUI.Typography>
 											</Table.Td>
 										</Table.Tr>
@@ -75,11 +88,16 @@ const ReferralList = ({ referrals, totals }) => {
 
 						{totals && (
 							<Card.Footer>
-								<TymioUI.Typography
-									size={TYPOGRAPHY_SIZE.SMALL}
-									style={{ marginLeft: 'auto' }}>
-									Update: {`${formatDate(totals.nextUpdate, 'dot')}`}
-								</TymioUI.Typography>
+								<Styled.Withdraw>
+									<TymioUI.Typography size={TYPOGRAPHY_SIZE.BIG}>
+										Available: ${balance}
+									</TymioUI.Typography>
+									<Styled.ProfileButton
+										onClick={() => handleWithdraw(balance)}
+										disabled={sending || !balance || !Number(balance)}>
+										WITHDRAW
+									</Styled.ProfileButton>
+								</Styled.Withdraw>
 							</Card.Footer>
 						)}
 					</Card>
