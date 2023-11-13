@@ -36,6 +36,9 @@ export const GET = (url = '', params = {}) => {
 		};
 		fetch(url, options)
 			.then(async (response) => {
+				if (response.status === 418) {
+					reject(new Error(response.status));
+				}
 				if (!response.ok) {
 					reject(
 						new Error(
@@ -78,6 +81,9 @@ export const POST = (url = '', data = {}) => {
 
 		fetch(url, options)
 			.then((response) => {
+				if (response.status === 418) {
+					reject(new Error(response.status));
+				}
 				if (!response.ok) {
 					reject(
 						new Error(
@@ -90,7 +96,9 @@ export const POST = (url = '', data = {}) => {
 
 				resolve(response.json());
 			})
-			.catch((e) => reject(new Error(`${e.message}\n${url}`)));
+			.catch((e) => {
+				reject(new Error(`${e.message}\n${url}`));
+			});
 	});
 };
 
@@ -118,10 +126,13 @@ export const PUT = async (url = '', data = {}) => {
 		};
 		fetch(url, options)
 			.then((response) => {
+				if (response.status === 418) {
+					reject(new Error(response.status));
+				}
 				resolve(response.json());
 			})
-			.catch((err) => {
-				reject(new Error(err.message));
+			.catch((e) => {
+				reject(new Error(e.message));
 			});
 	});
 };
