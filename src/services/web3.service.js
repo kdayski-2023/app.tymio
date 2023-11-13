@@ -1,6 +1,8 @@
 import WalletService from './wallet.service';
 import ERC20Abi from '../abi/ERC20.json';
+import ReferralAbi from '../abi/Referral.json';
 import { convertFloatToBnString } from '../lib/lib';
+import { ConfigService } from '.';
 
 class Web3Service {
 	constructor() {
@@ -18,6 +20,36 @@ class Web3Service {
 					throw new Error(e.message);
 				}
 			}
+		}
+	};
+
+	withdraw = async (amount) => {
+		if (
+			!ConfigService.state.config ||
+			!this.walletState ||
+			!this.walletState.connected
+		)
+			return;
+		const { REFERRAL_CONTRACT_ADDRESS, CHAIN_NETWORKS, MODE, DECIMALS } =
+			ConfigService.state.config;
+		const chain_id =
+			MODE === 'production' ? CHAIN_NETWORKS.Arbitrum : CHAIN_NETWORKS.Mumbai;
+
+		try {
+			await this.checkNetwork(chain_id);
+			const contract = new WalletService.web3.eth.Contract(
+				ReferralAbi,
+				REFERRAL_CONTRACT_ADDRESS[chain_id],
+			);
+			const value = convertFloatToBnString(amount, DECIMALS.USDC);
+			const inputData = contract.methods.withdraw(value).encodeABI();
+			await WalletService.web3.eth.sendTransaction({
+				to: REFERRAL_CONTRACT_ADDRESS[chain_id],
+				data: inputData,
+				from: this.walletState.address,
+			});
+		} catch (e) {
+			throw e;
 		}
 	};
 

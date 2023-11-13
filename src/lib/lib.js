@@ -7,9 +7,9 @@ export const updateCookies = (sessionInfo) => {
 	Cookies.set('sessionToken', sessionToken);
 };
 
-export const spliceAddress = (address) => {
+export const spliceAddress = (address, symbols = 5) => {
 	return address
-		? address.substr(0, 5) + '...' + address.substr(address.length - 4, 4)
+		? address.substr(0, symbols) + '...' + address.substr(address.length - 4, 4)
 		: '';
 };
 

@@ -42,10 +42,7 @@ export const HeadTr = styled.tr`
 	gap: 10px;
 
 	th {
-		&:nth-child(2) {
-			padding-left: 15px;
-		}
-		&:nth-child(3) {
+		&:last-child {
 			padding-right: 15px;
 		}
 	}
@@ -98,6 +95,7 @@ export const Th = styled.th`
 `;
 
 export const Td = styled.td`
+	font-family: ${({ mono }) => mono && 'monospace !important'};
 	width: 100%;
 	text-align: ${({ align }) => align || 'center'};
 	vertical-align: top;

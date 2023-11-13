@@ -9,6 +9,7 @@ class ReferralService {
 		referral: null,
 		referrals: [],
 		totals: null,
+		balance: 0,
 	};
 
 	state = this.initialState;
@@ -56,6 +57,7 @@ class ReferralService {
 					referral: result.data.ref,
 					referrals: result.data.referrals,
 					totals: result.data.totals,
+					balance: result.data.balance,
 				};
 
 				this.state$.next(this.state);

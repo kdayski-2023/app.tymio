@@ -13,7 +13,7 @@ const UserSocials = () => {
 	const { userAddress, connected } = useWallet();
 	const { subscription } = useSubscribe(userAddress);
 	const { airdrop, airdropParticipant } = useAirdrop(userAddress);
-	const { referral, referrals, totals } = useReferral(userAddress);
+	const { referral, referrals, totals, balance } = useReferral(userAddress);
 
 	useEffect(() => {
 		if (connected && userAddress) {
@@ -38,7 +38,12 @@ const UserSocials = () => {
 	return (
 		<Styled.UserSocials>
 			{subscription && <Subscribe subscription={subscription} />}
-			<ReferralCode referral={referral} referrals={referrals} totals={totals} />
+			<ReferralCode
+				referral={referral}
+				referrals={referrals}
+				totals={totals}
+				balance={balance}
+			/>
 			<Airdrop airdrop={airdrop} airdropParticipant={airdropParticipant} />
 		</Styled.UserSocials>
 	);
