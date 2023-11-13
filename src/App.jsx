@@ -12,6 +12,7 @@ import { Layout } from './components/_DEPRECATED';
 const ProfilePage = React.lazy(() => import('./pages/ProfilePage/ProfilePage'));
 const MainPage = React.lazy(() => import('./pages/MainPage/MainPage'));
 const TermsPage = React.lazy(() => import('./pages/TermsPage/TermsPage'));
+const IPBlockMessage = React.lazy(() => import('./shared/IPBlockMessage'));
 
 const App = () => {
 	const {
@@ -44,7 +45,8 @@ const App = () => {
 					}}
 				/>
 			}>
-			{!loadingSession && !loadingConfig && (
+			{(errorSession === '418' || errorConfig === '418') && <IPBlockMessage />}
+			{!loadingSession && !loadingConfig && !errorSession && !errorConfig && (
 				<Routes>
 					<Route path="/" element={<Layout sessionInfo={sessionInfo} />}>
 						<Route path="/" element={<MainPage config={config} />} />
