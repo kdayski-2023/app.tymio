@@ -42,11 +42,27 @@ class Web3Service {
 				REFERRAL_CONTRACT_ADDRESS[chain_id],
 			);
 			const value = convertFloatToBnString(amount, DECIMALS.USDC);
+			let gas, gasPrice;
+			gas = (
+				await contract.methods
+					.withdraw(value)
+					.estimateGas({ from: this.walletState.address })
+			).toString();
+			try {
+				gasPrice =
+					chain_id === 42161
+						? WalletService.web3.utils.toWei('0.1', 'gwei').toString()
+						: undefined;
+			} catch (e) {
+				console.log('Unable to count gasPrice');
+			}
 			const inputData = contract.methods.withdraw(value).encodeABI();
 			await WalletService.web3.eth.sendTransaction({
 				to: REFERRAL_CONTRACT_ADDRESS[chain_id],
 				data: inputData,
 				from: this.walletState.address,
+				gas,
+				gasPrice,
 			});
 		} catch (e) {
 			throw e;
