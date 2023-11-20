@@ -155,6 +155,7 @@ const parseActiveDetails = (order, config) => {
 		{
 			name: 'Status',
 			value: order.displayStatus,
+			styles: { textTransform: 'capitalize' },
 		},
 		{
 			name: 'APR',
@@ -249,6 +250,7 @@ const parsePaidDetails = (order, config) => {
 		{
 			name: 'Status',
 			value: order.displayStatus,
+			styles: { textTransform: 'capitalize' },
 		},
 		{
 			name: 'APR',
@@ -311,6 +313,7 @@ const parsePaidDetails = (order, config) => {
 		{
 			name: 'Limit order executed',
 			value: `${order.order_executed ? 'yes' : 'no'}`,
+			styles: { textTransform: 'capitalize' },
 		},
 		{
 			name: 'Payout',
