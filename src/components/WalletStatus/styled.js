@@ -33,3 +33,7 @@ export const WalletBalance = styled.div`
 	/* border-right: 0.5px solid ${COLORS.LIGHT}; */
 	text-transform: uppercase;
 `;
+
+export const ButtonText = styled.div`
+	font-weight: 500;
+`;

@@ -11,6 +11,7 @@ import {
 	Button,
 } from '../../../../components/_DEPRECATED';
 import { CardBadge } from '../../styled';
+import * as Styled from './styled';
 import * as TymioUI from '../../../../components';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 import { COLORS } from '../../../../models/colors';
@@ -89,57 +90,59 @@ const Periods = ({
 								</GridElem>
 							</Grid>
 						</Card.Header>
-						<Card.Body mt={'16px'}>
-							{periods.map((period, index) => (
-								<React.Fragment key={index}>
-									{period.recieve && period.apr ? (
-										<Button
-											disabled={orderLoading || amountFocused}
-											ref={ref}
-											key={index}
-											type="button"
-											active={
-												formik.values.period === period.timestamp
-													? 'true'
-													: undefined
-											}
-											onClick={() => chosePeriod(period)}>
-											<Grid columns={3} rows={1}>
-												<GridElem textAlign={'left'} column={1} inline>
-													<TymioUI.Typography lh={'100%'}>
-														{period.title}
-													</TymioUI.Typography>
-												</GridElem>
-												<GridElem textAlign={'center'} column={2}>
-													<TymioUI.Typography lh={'100%'}>
-														{period.apr}%
-													</TymioUI.Typography>
-												</GridElem>
-												<GridElem textAlign={'right'} column={3} inline>
-													<TymioUI.Typography lh={'100%'}>
-														${Math.floor(parseFloat(period.recieve))}
-													</TymioUI.Typography>
-												</GridElem>
-											</Grid>
-										</Button>
-									) : (
-										<></>
-									)}
-								</React.Fragment>
-							))}
-							{!periods.filter((period) => period.recieve).length ? (
-								<TymioUI.Typography
-									size={TYPOGRAPHY_SIZE.BIG}
-									color={COLORS.WARNINGS}
-									style={{ textAlign: 'center' }}>
-									No dates found.
-									<br />
-									Please select a different price.
-								</TymioUI.Typography>
-							) : (
-								<></>
-							)}
-						</Card.Body>
+						<Styled.CardWrapper>
+							<Card.Body mt={'16px'}>
+								{periods.map((period, index) => (
+									<React.Fragment key={index}>
+										{period.recieve && period.apr ? (
+											<Button
+												disabled={orderLoading || amountFocused}
+												ref={ref}
+												key={index}
+												type="button"
+												active={
+													formik.values.period === period.timestamp
+														? 'true'
+														: undefined
+												}
+												onClick={() => chosePeriod(period)}>
+												<Grid columns={3} rows={1}>
+													<GridElem textAlign={'left'} column={1} inline>
+														<TymioUI.Typography lh={'100%'}>
+															{period.title}
+														</TymioUI.Typography>
+													</GridElem>
+													<GridElem textAlign={'center'} column={2}>
+														<TymioUI.Typography lh={'100%'}>
+															{period.apr}%
+														</TymioUI.Typography>
+													</GridElem>
+													<GridElem textAlign={'right'} column={3} inline>
+														<TymioUI.Typography lh={'100%'}>
+															${Math.floor(parseFloat(period.recieve))}
+														</TymioUI.Typography>
+													</GridElem>
+												</Grid>
+											</Button>
+										) : (
+											<></>
+										)}
+									</React.Fragment>
+								))}
+								{!periods.filter((period) => period.recieve).length ? (
+									<TymioUI.Typography
+										size={TYPOGRAPHY_SIZE.BIG}
+										color={COLORS.WARNINGS}
+										style={{ textAlign: 'center' }}>
+										No dates found.
+										<br />
+										Please select a different price.
+									</TymioUI.Typography>
+								) : (
+									<></>
+								)}
+							</Card.Body>
+						</Styled.CardWrapper>
 						<Card.Footer mt={'20px'}>
 							{periods.filter((period) => period.recieve).length ? (
 								<CardBadge>

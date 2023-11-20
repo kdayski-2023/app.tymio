@@ -7,3 +7,7 @@ export const PeriodButtonText = styled.span`
 	font-weight: 700;
 	color: ${COLORS.LIGHT_BLUE};
 `;
+
+export const CardWrapper = styled.div`
+	height: 100%;
+`;

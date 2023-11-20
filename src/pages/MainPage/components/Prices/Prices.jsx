@@ -14,8 +14,14 @@ import * as TymioUI from '../../../../components';
 import * as Styled from './styled';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 import { COLORS } from '../../../../models/colors';
+import { isMobile } from '../../../../lib/lib';
 
-const Prices = ({ formik, loading: orderLoading, amountFocused }) => {
+const Prices = ({
+	formik,
+	loading: orderLoading,
+	amountFocused,
+	periodsTop,
+}) => {
 	const ref = useRef();
 	const {
 		error: priceError,
@@ -27,8 +33,15 @@ const Prices = ({ formik, loading: orderLoading, amountFocused }) => {
 	useFocus(orderLoading || periodsLoading, ref);
 
 	const chosePrice = async (e) => {
-		await formik.setFieldValue('period', 0, true);
-		await formik.setFieldValue('price', e, true);
+		isMobile() &&
+			(await new Promise((resolve) => {
+				window.scroll({ top: periodsTop, behavior: 'smooth' });
+				setTimeout(resolve, 300);
+			}));
+		await Promise.all([
+			formik.setFieldValue('period', 0, true),
+			formik.setFieldValue('price', e, true),
+		]);
 	};
 
 	return (

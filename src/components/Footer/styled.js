@@ -108,3 +108,28 @@ export const Copyrights = styled.div`
 		bottom: 31px;
 	}
 `;
+
+export const RoutesLinks = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	flex-wrap: wrap;
+	height: 100px;
+
+	@media (max-width: 1439px) {
+		height: 130px;
+	}
+
+	@media (max-width: 767px) {
+		display: none;
+	}
+`;
+
+export const Route = styled.div`
+	margin-left: 60px;
+	cursor: pointer;
+
+	@media (max-width: 1439px) {
+		margin-left: 20px;
+	}
+`;

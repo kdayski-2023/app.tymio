@@ -84,7 +84,7 @@ const WalletStatus = () => {
 				<TymioUI.Typography
 					size={TYPOGRAPHY_SIZE.SMALL}
 					color={COLORS.RICH_BLACK}>
-					{buttonText}
+					<Styled.ButtonText>{buttonText}</Styled.ButtonText>
 				</TymioUI.Typography>
 			</TymioUI.Button>
 		</Styled.BalanceSheet>
