@@ -35,7 +35,6 @@ const MainPage = ({ config }) => {
 	const [submitError, setSubmitError] = useState(null);
 	const [amountFocused, setAmountFocused] = useState(false);
 	const [success, setSuccess] = useState(false);
-	const [periodsTop, setPeriodsTop] = useState(0);
 
 	const {
 		formik,
@@ -55,11 +54,6 @@ const MainPage = ({ config }) => {
 		config,
 		setSuccess,
 	});
-	useEffect(() => {
-		if (periodsRef.current) {
-			setPeriodsTop(periodsRef.current.offsetTop);
-		}
-	}, []);
 
 	useEffect(() => {
 		const utm = searchParams.get('utm');
@@ -197,7 +191,7 @@ const MainPage = ({ config }) => {
 						height={'100%'}
 						xsColumn={'span 2'}>
 						<Components.Prices
-							periodsTop={periodsTop}
+							periodsRef={periodsRef}
 							formik={formik}
 							loading={loading}
 							amountFocused={amountFocused}
@@ -209,9 +203,9 @@ const MainPage = ({ config }) => {
 						row={2}
 						height={'100%'}
 						xsRow={3}
-						xsColumn={'span 2'}
-						ref={periodsRef}>
+						xsColumn={'span 2'}>
 						<Components.Periods
+							forwardedRef={periodsRef}
 							formik={formik}
 							loading={loading}
 							price={price}

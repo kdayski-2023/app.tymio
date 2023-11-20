@@ -22,6 +22,7 @@ const Periods = ({
 	amountFocused,
 	price,
 	amount,
+	forwardedRef
 }) => {
 	const ref = useRef();
 	useFocus(orderLoading, ref);
@@ -43,15 +44,13 @@ const Periods = ({
 	return (
 		<>
 			<Card
+			ref={forwardedRef}
+				pt={'25px'}
 				height={'100%'}
 				mh={365}
 				gap={'0'}
 				flex={true}
 				justify={loading ? 'flex-start' : 'space-between'}>
-				{loading && <LoadingSpinner margin={'auto'} />}
-
-				{error && <Message message={error} />}
-
 				{!loading && !error && !showPeriod && (
 					<>
 						<Card.Header>
@@ -68,30 +67,34 @@ const Periods = ({
 						</Card.Body>
 					</>
 				)}
+				{showPeriod && (
+					<Card.Header>
+						<Grid columns={3} rows={1} style={{ height: '25px' }}>
+							<GridElem textAlign={'left'} column={1} inline>
+								<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+									Time
+								</TymioUI.Typography>
+							</GridElem>
+							<GridElem textAlign={'center'} column={2} inline>
+								<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+									APR
+								</TymioUI.Typography>
+							</GridElem>
+							<GridElem textAlign={'right'} column={3} inline>
+								<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+									You earn
+								</TymioUI.Typography>
+							</GridElem>
+						</Grid>
+					</Card.Header>
+				)}
+				{loading && <LoadingSpinner margin={'auto'} />}
 
+				{error && <Message message={error} />}
 				{!loading && !error && showPeriod && (
 					<>
-						<Card.Header>
-							<Grid columns={3} rows={1}>
-								<GridElem textAlign={'left'} column={1} inline>
-									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
-										Time
-									</TymioUI.Typography>
-								</GridElem>
-								<GridElem textAlign={'center'} column={2} inline>
-									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
-										APR
-									</TymioUI.Typography>
-								</GridElem>
-								<GridElem textAlign={'right'} column={3} inline>
-									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
-										You earn
-									</TymioUI.Typography>
-								</GridElem>
-							</Grid>
-						</Card.Header>
 						<Styled.CardWrapper>
-							<Card.Body mt={'16px'}>
+							<Card.Body mt={'20px'}>
 								{periods.map((period, index) => (
 									<React.Fragment key={index}>
 										{period.recieve && period.apr ? (

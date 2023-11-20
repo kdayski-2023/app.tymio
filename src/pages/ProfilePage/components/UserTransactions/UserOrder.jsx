@@ -153,7 +153,7 @@ const UserOrder = () => {
 														{MESSAGES[key]}
 													</TymioUI.Typography>
 													<TymioUI.Typography color={COLORS.BLACK} lh={'100%'}>
-														{total[key].toFixed(0)}
+														{Number(total[key]).toFixed(0)}
 													</TymioUI.Typography>
 												</Styled.AccordionItem>
 											)}

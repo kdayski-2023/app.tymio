@@ -34,10 +34,14 @@ export const isMobile = function () {
 	return isMobile;
 };
 
-export const smartRound = (target) => {
-	if (!target) return 0;
-	const rounded = String(target.toFixed(Math.max(-Math.log10(target) + 2, 2)));
-	if (rounded.length > 4)
+export const smartRound = (target, decimals = 2) => {
+	if (!target || target === '0') return 0;
+	const rounded = String(
+		parseFloat(target).toFixed(
+			Math.max(-Math.log10(target) + decimals, decimals),
+		),
+	);
+	if (rounded.length > 2 + decimals)
 		return parseFloat(rounded.substring(0, rounded.length - 1));
 	return parseFloat(rounded);
 };
@@ -134,114 +138,211 @@ export const getTimeLeft = (startDate, endDate) => {
 	return `${days} days, ${hours} hours, ${minutes} minutes`;
 };
 
+const parseActiveDetails = (order, config) => {
+	let rows = [
+		{
+			name: 'Earn',
+			value: `$${Math.floor(order.recieve)}`,
+			styles: { color: COLORS.LEMON },
+		},
+		{
+			name: 'Earn, %',
+			value: `+${
+				Math.round((order.recieve / (order.amount * order.price)) * 100 * 100) /
+				100
+			}`,
+			styles: { color: COLORS.LEMON },
+		},
+		{
+			name: 'Status',
+			value: order.displayStatus,
+		},
+		{
+			name: 'ARP',
+			value: order.apr ? `${order.apr.toFixed(2)}%` : '',
+		},
+		{
+			name: 'Order created',
+			value: `${formatDate(order.createdAt, 'dot')}, ${formatTime(
+				order.createdAt,
+				'utc',
+			)} UTC`,
+		},
+		{
+			name: 'Order',
+			value: `${order.direction.toUpperCase()} ${order.amount} ${
+				order.token_symbol
+			} for ${Math.floor(Number(order.amount) * Number(order.price))} USDC`,
+		},
+		{
+			name: 'Deposited',
+			value:
+				order.direction === 'sell'
+					? `${order.amount} ${order.token_symbol}`
+					: `${Number(order.amount) * order.price} USDC`,
+		},
+		{
+			name: 'Expected result',
+			value: `${
+				Math.round(
+					(parseFloat(order.amount) * parseFloat(order.price) +
+						Math.floor(parseFloat(order.recieve))) *
+						100,
+				) / 100
+			} USDC or ${smartRound(
+				parseFloat(order.amount) +
+					smartRound(
+						parseFloat(order.recieve) / parseFloat(order.start_index_price),
+					),
+				3,
+			)} ${order.token_symbol}`,
+		},
+		{
+			name: 'Settlement date',
+			value: `${formatDate(order.execute_date, 'dot')}, 08:00 UTC`,
+		},
+		{
+			name: `${order.token_symbol} index price when order created`,
+			value: `${Math.floor(order.start_index_price)} USDC`,
+		},
+		{
+			name: 'Chain',
+			value: config.CHAIN_NAMES[order.chain_id],
+		},
+		{
+			name: 'Deposit tx',
+			value: `${config.BLOCK_EXPLORERS[order.chain_id]}/tx/${
+				order.user_payment_tx_hash || order.hash
+			}`,
+			type: 'link',
+		},
+		{
+			name: 'Deposit wallet',
+			value: `${config.BLOCK_EXPLORERS[order.chain_id]}/address/${
+				order.from || order.address
+			}`,
+			type: 'link',
+		},
+	];
+	if (order.contract_text) {
+		rows.push({
+			name: 'Agreement',
+			value: order.contract_text,
+		});
+	}
+	return rows;
+};
+
+const parsePaidDetails = (order, config) => {
+	let rows = [
+		{
+			name: 'Earned',
+			value: `$${Math.floor(order.recieve)}`,
+			styles: { color: COLORS.LEMON },
+		},
+		{
+			name: 'Earned, %',
+			value: `+${
+				Math.round((order.recieve / (order.amount * order.price)) * 100 * 100) /
+				100
+			}`,
+			styles: { color: COLORS.LEMON },
+		},
+		{
+			name: 'Status',
+			value: order.displayStatus,
+		},
+		{
+			name: 'ARP',
+			value: order.apr ? `${order.apr.toFixed(2)}%` : '',
+		},
+		{
+			name: 'Deal duration',
+			value: getTimeLeft(order.createdAt, order.settlement_date),
+		},
+		{
+			name: 'Order created',
+			value: `${formatDate(order.createdAt, 'dot')}, ${formatTime(
+				order.createdAt,
+				'utc',
+			)} UTC`,
+		},
+		{
+			name: 'Order',
+			value: `${order.direction.toUpperCase()} ${order.amount} ${
+				order.token_symbol
+			} for ${Math.floor(Number(order.amount) * Number(order.price))} USDC`,
+		},
+		{
+			name: 'Deposited',
+			value:
+				order.direction === 'sell'
+					? `${order.amount} ${order.token_symbol}`
+					: `${Number(order.amount) * order.price} USDC`,
+		},
+		{
+			name: 'Settlement date',
+			value: `${formatDate(order.execute_date, 'dot')}, 08:00 UTC`,
+		},
+		{
+			name: `${order.token_symbol} index price when order created`,
+			value: `${Math.floor(order.start_index_price)} USDC`,
+		},
+		{
+			name: 'Chain',
+			value: config.CHAIN_NAMES[order.chain_id],
+		},
+		{
+			name: 'Deposit tx',
+			value: `${config.BLOCK_EXPLORERS[order.chain_id]}/tx/${
+				order.user_payment_tx_hash || order.hash
+			}`,
+			type: 'link',
+		},
+		{
+			name: 'Deposit wallet',
+			value: `${config.BLOCK_EXPLORERS[order.chain_id]}/address/${
+				order.from || order.address
+			}`,
+			type: 'link',
+		},
+		{
+			name: `${order.token_symbol} index price on settlement date`,
+			value: `${Math.floor(order.end_index_price)} USDC`,
+		},
+		{
+			name: 'Limit order executed',
+			value: `${order.order_executed ? 'yes' : 'no'}`,
+		},
+		{
+			name: 'Payout',
+			value:
+				order.payout_currency === 'USDC'
+					? `${smartRound(order.payout_usdc)} USDC`
+					: `${smartRound(order.payout_base)} ${order.token_symbol}`,
+		},
+		{
+			name: 'Payout tx',
+			value: `${config.BLOCK_EXPLORERS[order.chain_id]}/tx/${order.payout_tx}`,
+			type: 'link',
+		},
+	];
+	if (order.contract_text) {
+		rows.push({
+			name: 'Agreement',
+			value: order.contract_text,
+		});
+	}
+	return rows;
+};
+
 export const parseTransactionDetails = (order, config) => {
 	try {
-		let rows = [
-			{
-				name: 'Status',
-				value: order.displayStatus,
-			},
-			{
-				name: 'Deal date',
-				value: `${formatDate(order.createdAt, 'dot')}, ${formatTime(
-					order.createdAt,
-					'utc',
-				)} UTC`,
-			},
-			{
-				name: 'Execute date',
-				value: `${formatDate(order.execute_date, 'dot')}, 08:00 UTC`,
-			},
-			{
-				name: 'Direction',
-				value:
-					order.direction.charAt(0).toUpperCase() + order.direction.slice(1),
-			},
-			{
-				name: 'Price',
-				value: `${order.price} USDC`,
-			},
-			{
-				name: 'Chain',
-				value: config.CHAIN_NAMES[order.chain_id],
-			},
-			{
-				name: 'Asset',
-				value:
-					order.direction === 'sell'
-						? `${order.amount} ${order.token_symbol}`
-						: `${Number(order.amount) * order.price} USDC`,
-			},
-			{
-				name: `${order.token_symbol} index price on deal date:`,
-				value: `${Math.floor(order.start_index_price)} USDC`,
-			},
-			{
-				name: 'Deposit tx',
-				value: `${config.BLOCK_EXPLORERS[order.chain_id]}/tx/${
-					order.user_payment_tx_hash || order.hash
-				}`,
-				type: 'link',
-			},
-			{
-				name: 'Deposit wallet',
-				value: `${config.BLOCK_EXPLORERS[order.chain_id]}/address/${
-					order.from || order.address
-				}`,
-				type: 'link',
-			},
-			{
-				name: 'Earn:',
-				value: `${Math.floor(order.recieve)}$`,
-				styles: { color: COLORS.LEMON },
-			},
-		];
-		if (order.settlement_date) {
-			rows.push(
-				{
-					name: 'Settlement date',
-					value: `${formatDate(order.settlement_date, 'dot')}, ${formatTime(
-						order.settlement_date,
-						'utc',
-					)} UTC`,
-				},
-				{
-					name: 'Time to settlement',
-					value: getTimeLeft(order.createdAt, order.settlement_date),
-				},
-			);
-		}
-		if (order.end_index_price && order.displayStatus !== 'active') {
-			rows.push({
-				name: `${order.token_symbol} index price on settlement date`,
-				value: `${Math.floor(order.end_index_price)} USDC`,
-			});
-		}
 		if (order.displayStatus === 'paid') {
-			rows.push(
-				{
-					name: 'Payout',
-					value:
-						order.payout_currency === 'USDC'
-							? `${smartRound(order.payout_usdc)} USDC`
-							: `${smartRound(order.payout_base)} ${order.token_symbol}`,
-				},
-				{
-					name: 'Payout tx',
-					value: `${config.BLOCK_EXPLORERS[order.chain_id]}/tx/${
-						order.payout_tx
-					}`,
-					type: 'link',
-				},
-			);
+			return parsePaidDetails(order, config);
+		} else {
+			return parseActiveDetails(order, config);
 		}
-		if (order.contract_text) {
-			rows.push({
-				name: 'Agreement',
-				value: order.contract_text,
-			});
-		}
-		return rows;
 	} catch (e) {
 		throw e;
 	}

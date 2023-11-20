@@ -68,23 +68,24 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 
 	const handleClick = async () => {
 		const { balance, balanceUSDC } = Service.WalletService.state;
-		if (formik.direction === 'sell') {
+		if (formik.values.direction === 'sell') {
 			let availableAmount = parseFloat(balance);
 			availableAmount = Math.floor(availableAmount * 100) / 100;
 			changeAmount(String(availableAmount));
+			setDisabled(true);
 		}
 
-		if (formik.direction === 'buy' && !formik.values.price) {
+		if (formik.values.direction === 'buy' && !formik.values.price) {
 			Service.MessageDialogService.showError('Choose price first');
 		}
 
-		if (formik.direction === 'buy' && formik.values.price) {
+		if (formik.values.direction === 'buy' && formik.values.price) {
 			let availableAmount =
 				parseFloat(balanceUSDC) / parseFloat(formik.values.price);
 			availableAmount = Math.floor(availableAmount * 100) / 100;
 			changeAmount(String(availableAmount));
+			setDisabled(true);
 		}
-		setDisabled(true);
 		setAmountFocused(false);
 	};
 
@@ -94,6 +95,7 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 			direction: value,
 			price: formik.initialValues.price,
 		});
+		setDisabled(false);
 		await Service.WalletStatusService.setDirection(value);
 	};
 
