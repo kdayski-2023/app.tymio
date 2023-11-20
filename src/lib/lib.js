@@ -147,18 +147,17 @@ const parseActiveDetails = (order, config) => {
 		},
 		{
 			name: 'Earn, %',
-			value: `+${
+			value: `${
 				Math.round((order.recieve / (order.amount * order.price)) * 100 * 100) /
 				100
 			}`,
-			styles: { color: COLORS.LEMON },
 		},
 		{
 			name: 'Status',
 			value: order.displayStatus,
 		},
 		{
-			name: 'ARP',
+			name: 'APR',
 			value: order.apr ? `${order.apr.toFixed(2)}%` : '',
 		},
 		{
@@ -242,18 +241,17 @@ const parsePaidDetails = (order, config) => {
 		},
 		{
 			name: 'Earned, %',
-			value: `+${
+			value: `${
 				Math.round((order.recieve / (order.amount * order.price)) * 100 * 100) /
 				100
 			}`,
-			styles: { color: COLORS.LEMON },
 		},
 		{
 			name: 'Status',
 			value: order.displayStatus,
 		},
 		{
-			name: 'ARP',
+			name: 'APR',
 			value: order.apr ? `${order.apr.toFixed(2)}%` : '',
 		},
 		{
