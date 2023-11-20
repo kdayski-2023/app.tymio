@@ -17,7 +17,7 @@ export const MessageDialogBlur = styled.div`
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: #0a131f;
+	background: linear-gradient(115deg, #1c102f 0%, #2b1c4d 52.09%, #1c102f 100%);
 	backdrop-filter: blur(28px);
 `;
 
@@ -35,7 +35,7 @@ export const Card = styled.div`
 	width: 100%;
 	height: 100%;
 	margin: auto;
-	background: #131823;
+	background: ${COLORS.BLACK};
 	border-radius: 10px;
 	padding: 32px;
 
@@ -48,7 +48,7 @@ export const CardHeader = styled.div`
 	font-weight: 700;
 	font-size: 30px;
 	line-height: 150%;
-	color: ${COLORS.WHITE};
+	color: ${COLORS.LIGHT};
 
 	@media (max-width: 576px) {
 		font-size: 22px;

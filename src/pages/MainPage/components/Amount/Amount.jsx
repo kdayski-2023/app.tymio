@@ -20,6 +20,7 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 	useFocus(orderLoading || periodsLoading, innerRef);
 	const [amount, setAmount] = useState('10');
 	const debouncedNewValue = useDebounce(amount, 1000);
+	const [disabled, setDisabled] = useState(false);
 
 	useEffect(() => {
 		formik.setFieldValue('amount', debouncedNewValue);
@@ -61,6 +62,7 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 		// /^([1-9][0-9]*|0(\.[0-9]{0,2})?|1)$/
 		if (String(value).match(/^(0|[1-9][0-9]*)(\.[0-9]{0,2})?$/)) {
 			setAmount(value);
+			setDisabled(false);
 		}
 	};
 
@@ -82,6 +84,7 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 			availableAmount = Math.floor(availableAmount * 100) / 100;
 			changeAmount(String(availableAmount));
 		}
+		setDisabled(true);
 		setAmountFocused(false);
 	};
 
@@ -111,7 +114,7 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 							</TymioUI.Typography>
 						)}
 						{wallet.connected && (
-							<Styled.Max onClick={handleClick}>
+							<Styled.Max disabled={disabled} onClick={handleClick}>
 								<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
 									MAX
 								</TymioUI.Typography>

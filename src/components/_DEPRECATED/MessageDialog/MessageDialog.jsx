@@ -7,6 +7,7 @@ import {
 } from './styled';
 import { Card, CardFooter, CardBody, CardHeader } from './styled';
 import { Button } from '../Buttons/Button/styled';
+import { Typography } from '../../Typography/Typography/styled';
 
 import { WarningIcon } from '../Icons/WarningIcon';
 import { ErrorIcon } from '../Icons/ErrorIcon';
@@ -80,13 +81,15 @@ const MessageDialog = () => {
 									dangerouslySetInnerHTML={{ __html: dialog.message }}
 								/>
 							) : (
-								<div className="m-0">{dialog.message}</div>
+								<Typography size="large" className="m-0">
+									{dialog.message}
+								</Typography>
 							)}
 						</CardBody>
 						<CardFooter>
 							{dialog.type !== 'permanent' && (
 								<Button onClick={() => MessageDialogService.hide()}>
-									Close
+									<Typography lh={'100%'}>Close</Typography>
 								</Button>
 							)}
 						</CardFooter>

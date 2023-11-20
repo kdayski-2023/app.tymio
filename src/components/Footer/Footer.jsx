@@ -7,39 +7,25 @@ import { useRoutes } from '../../hooks';
 
 const Footer = () => {
 	const { footer, media } = useRoutes();
+
 	return (
 		<Styled.Footer>
 			<Styled.HR />
 			<Styled.Content>
 				<Styled.Logo width={168} height={112} src={FooterLogo} alt={''} />
 				<Styled.Links>
-					<Styled.Column>
-						{footer.map(
-							(item, i) =>
-								i < 4 && (
-									<NavLink
-										key={i}
-										to={item.path}
-										target={item.target || '_self'}>
-										{item.label}
-									</NavLink>
-								),
-						)}
-					</Styled.Column>
-					<Styled.Column>
-						{footer.length > 4 &&
-							footer.map(
-								(item, i) =>
-									i > 3 && (
-										<NavLink
-											key={i}
-											to={item.path}
-											target={item.target || '_self'}>
-											{item.label}
-										</NavLink>
-									),
-							)}
-					</Styled.Column>
+					<Styled.RoutesLinks>
+						{footer.map((item, index) => (
+							<Styled.Route key={index}>
+								<NavLink
+									key={index}
+									to={item.path}
+									target={item.target || '_self'}>
+									{item.label}
+								</NavLink>
+							</Styled.Route>
+						))}
+					</Styled.RoutesLinks>
 				</Styled.Links>
 				<Styled.Socials>
 					{media.map((item, i) => (
