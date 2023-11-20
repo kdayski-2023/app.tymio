@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import {
-	useDebounce,
-	useDirection,
-	useFocus,
-	useWallet,
-} from '../../../../hooks';
+import { useDebounce, useFocus, useWallet } from '../../../../hooks';
 
 import { Card, Input } from '../../../../components/_DEPRECATED';
 import * as Styled from './styled';
@@ -18,15 +13,13 @@ import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 
 const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 	const directionOptions = ['sell', 'buy'];
-	const { direction } = useDirection();
 	const innerRef = useRef();
 	const wallet = useWallet();
 	const { loading: periodsLoading } = Hook.usePeriods();
-	const { loading: priceLoading } = Hook.usePrices();
+	const { loading: priceLoading } = Hook.usePrices(formik.values.direction);
 	useFocus(orderLoading || periodsLoading, innerRef);
 	const [amount, setAmount] = useState('10');
 	const debouncedNewValue = useDebounce(amount, 1000);
-	const { direction: appType } = useDirection();
 
 	useEffect(() => {
 		formik.setFieldValue('amount', debouncedNewValue);
@@ -73,17 +66,17 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 
 	const handleClick = async () => {
 		const { balance, balanceUSDC } = Service.WalletService.state;
-		if (appType === 'sell') {
+		if (formik.direction === 'sell') {
 			let availableAmount = parseFloat(balance);
 			availableAmount = Math.floor(availableAmount * 100) / 100;
 			changeAmount(String(availableAmount));
 		}
 
-		if (appType === 'buy' && !formik.values.price) {
+		if (formik.direction === 'buy' && !formik.values.price) {
 			Service.MessageDialogService.showError('Choose price first');
 		}
 
-		if (appType === 'buy' && formik.values.price) {
+		if (formik.direction === 'buy' && formik.values.price) {
 			let availableAmount =
 				parseFloat(balanceUSDC) / parseFloat(formik.values.price);
 			availableAmount = Math.floor(availableAmount * 100) / 100;
@@ -98,7 +91,7 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 			direction: value,
 			price: formik.initialValues.price,
 		});
-		await Service.DirectionService.setDirection(value);
+		await Service.WalletStatusService.setDirection(value);
 	};
 
 	return (
@@ -156,7 +149,7 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 						{directionOptions.map((option, index) => (
 							<TymioUI.Switcher.Option
 								key={index}
-								active={option === direction}
+								active={option === formik.values.direction}
 								onClick={() => handleSwitch(option)}
 								disabled={orderLoading || periodsLoading || priceLoading}>
 								<TymioUI.Typography uppercase>{option}</TymioUI.Typography>

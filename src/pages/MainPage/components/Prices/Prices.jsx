@@ -22,7 +22,7 @@ const Prices = ({ formik, loading: orderLoading, amountFocused }) => {
 		loading: priceLoading,
 		prices,
 		currentPrice,
-	} = Hook.usePrices();
+	} = Hook.usePrices(formik.values.direction);
 	const { loading: periodsLoading } = Hook.usePeriods();
 	useFocus(orderLoading || periodsLoading, ref);
 

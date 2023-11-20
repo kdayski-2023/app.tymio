@@ -13,7 +13,7 @@ import {
 	GridElem,
 } from '../../components/_DEPRECATED';
 
-import { useDirection, useWallet } from '../../hooks';
+import { useWallet } from '../../hooks';
 import { useMainPage } from './hooks';
 
 const MainPage = ({ config }) => {
@@ -26,7 +26,6 @@ const MainPage = ({ config }) => {
 		balanceUSDC,
 		isNotEnoughBalance,
 	} = useWallet();
-	const { direction } = useDirection();
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const [error, setError] = useState(null);
@@ -101,16 +100,28 @@ const MainPage = ({ config }) => {
 	}, [price, period, amount, tokenSymbol]);
 
 	useEffect(() => {
-		if (price && period && amount && tokenSymbol && direction) {
-			Service.WalletService.isNotEnoughBalance(price, amount, direction);
+		if (price && period && amount && tokenSymbol && formik.values.direction) {
+			Service.WalletService.isNotEnoughBalance(
+				price,
+				amount,
+				formik.values.direction,
+			);
 		}
-	}, [price, period, amount, tokenSymbol, direction, balance, balanceUSDC]);
+	}, [
+		price,
+		period,
+		amount,
+		tokenSymbol,
+		formik.values.direction,
+		balance,
+		balanceUSDC,
+	]);
 
 	useEffect(() => {
 		if (tokenSymbol) {
-			Service.PricesService.getData(tokenSymbol, direction);
+			Service.PricesService.getData(tokenSymbol, formik.values.direction);
 		}
-	}, [tokenSymbol, direction]);
+	}, [tokenSymbol, formik.values.direction]);
 
 	useEffect(() => {
 		if (price && parseFloat(amount) > 0 && tokenSymbol) {

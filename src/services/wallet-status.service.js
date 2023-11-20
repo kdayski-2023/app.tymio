@@ -1,16 +1,14 @@
-import Cookies from 'js-cookie';
 import { Subject } from 'rxjs';
 
-class DirectionService {
+class WalletStatusService {
 	initialState = {
-		direction: Cookies.get('direction') || 'sell',
+		direction: 'sell',
 	};
 
 	state = this.initialState;
 	state$ = new Subject();
 
 	async setDirection(direction = 'sell') {
-		Cookies.set('direction', direction);
 		this.state = {
 			...this.state,
 			direction,
@@ -20,5 +18,5 @@ class DirectionService {
 	}
 }
 
-const DirectionServiceInstance = new DirectionService();
-export default DirectionServiceInstance;
+const WalletStatusServiceInstance = new WalletStatusService();
+export default WalletStatusServiceInstance;

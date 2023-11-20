@@ -44,7 +44,7 @@ const useMainPageFormik = ({
 
 	const formik = useFormik({
 		initialValues: {
-			direction: Service.DirectionService.state.direction,
+			direction: 'sell',
 			tokenSymbol: 'ETH',
 			tokenAddress: '0x0000000000000000000000000000000000000000',
 			price: 0,
