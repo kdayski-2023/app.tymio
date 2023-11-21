@@ -144,15 +144,6 @@ const MainPage = ({ config }) => {
 
 	return (
 		<Container grid>
-			{showUnsupportedNetwork ? (
-				''
-			) : (
-				<Styled.Blur>
-					<ErrorIcon />
-					<span>Unsupported Network</span>
-				</Styled.Blur>
-			)}
-
 			{error && (
 				<>
 					{walletError && <Message message={walletError} />}
@@ -165,7 +156,8 @@ const MainPage = ({ config }) => {
 					columns={2}
 					xsColumns={1}
 					gap={'20px'}
-					alignItems={'flex-start'}>
+					alignItems={'flex-start'}
+					style={{ position: 'relative' }}>
 					<GridElem column={'span 2'} row={1}>
 						<Components.Amount
 							formik={formik}
@@ -224,6 +216,14 @@ const MainPage = ({ config }) => {
 								amountFocused={amountFocused}
 							/>
 						</GridElem>
+					)}
+					{showUnsupportedNetwork ? (
+						''
+					) : (
+						<Styled.Blur>
+							<ErrorIcon />
+							<span>Unsupported Network</span>
+						</Styled.Blur>
 					)}
 				</Grid>
 			)}
