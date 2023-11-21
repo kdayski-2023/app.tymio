@@ -45,7 +45,7 @@ export const Header = styled.div`
 			line-height: 30px;
 		}
 	}
-	
+
 `;
 
 export const TDLi = styled.li`
@@ -64,7 +64,6 @@ export const TDLi = styled.li`
 			color: ${COLORS.GRAY};
 		}
 		&:nth-child(2) {
-			text-transform: capitalize;
 			flex-shrik: 0;
 			text-align: right;
 		}

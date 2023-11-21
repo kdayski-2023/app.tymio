@@ -26,6 +26,7 @@ const PairSelector = ({ formik, disabled }) => {
 	const handleSelect = async ({ tokenAddress, tokenSymbol }) => {
 		await formik.setValues({
 			...formik.initialValues,
+			direction: formik.values.direction,
 			tokenSymbol,
 			tokenAddress,
 		});

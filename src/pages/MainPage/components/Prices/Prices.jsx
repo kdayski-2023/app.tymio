@@ -15,12 +15,13 @@ import * as Styled from './styled';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 import { COLORS } from '../../../../models/colors';
 import { isMobile } from '../../../../lib/lib';
+import { useEffect } from 'react';
 
 const Prices = ({
 	formik,
 	loading: orderLoading,
 	amountFocused,
-	periodsTop,
+	periodsRef,
 }) => {
 	const ref = useRef();
 	const {
@@ -28,21 +29,21 @@ const Prices = ({
 		loading: priceLoading,
 		prices,
 		currentPrice,
-	} = Hook.usePrices();
-	const { loading: periodsLoading } = Hook.usePeriods();
+	} = Hook.usePrices(formik.values.direction);
+	const { loading: periodsLoading, periods } = Hook.usePeriods();
 	useFocus(orderLoading || periodsLoading, ref);
 
 	const chosePrice = async (e) => {
-		isMobile() &&
-			(await new Promise((resolve) => {
-				window.scroll({ top: periodsTop, behavior: 'smooth' });
-				setTimeout(resolve, 300);
-			}));
-		await Promise.all([
-			formik.setFieldValue('period', 0, true),
-			formik.setFieldValue('price', e, true),
-		]);
+		await formik.setFieldValue('period', 0, true);
+		await formik.setFieldValue('price', e, true);
 	};
+
+	useEffect(() => {
+		if (periods.length && !periodsLoading && isMobile()) {
+			periodsRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [periods, periodsLoading]);
 
 	return (
 		<>

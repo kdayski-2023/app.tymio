@@ -1,26 +1,24 @@
 import { useEffect, useState } from 'react';
 import PricesService from '../../../services/prices.service';
-import { useDirection } from '../../../hooks';
 
-const usePrice = () => {
+const usePrice = (direction) => {
 	const [loading, setLoading] = useState(false);
 	const [prices, setPrices] = useState([]);
 	const [currentPrice, setCurrentPrice] = useState(0);
 	const [error, setError] = useState(null);
-	const { direction: APP_TYPE } = useDirection();
 
 	useEffect(() => {
 		const prices$ = PricesService.state$.subscribe((state) => {
 			setError(state.error);
 			setCurrentPrice(state.currentPrice);
 			setLoading(state.loading);
-			setPrices(APP_TYPE === 'sell' ? state.prices : state.prices.reverse());
+			setPrices(direction === 'sell' ? state.prices : state.prices.reverse());
 		});
 
 		return () => {
 			prices$.unsubscribe();
 		};
-	}, [APP_TYPE]);
+	}, [direction]);
 
 	return {
 		loading,

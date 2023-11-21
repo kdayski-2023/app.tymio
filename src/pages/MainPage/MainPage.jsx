@@ -13,7 +13,7 @@ import {
 	GridElem,
 } from '../../components/_DEPRECATED';
 
-import { useDirection, useWallet } from '../../hooks';
+import { useWallet } from '../../hooks';
 import { useMainPage } from './hooks';
 
 const MainPage = ({ config }) => {
@@ -27,7 +27,6 @@ const MainPage = ({ config }) => {
 		balanceUSDC,
 		isNotEnoughBalance,
 	} = useWallet();
-	const { direction } = useDirection();
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
 	const [error, setError] = useState(null);
@@ -36,7 +35,6 @@ const MainPage = ({ config }) => {
 	const [submitError, setSubmitError] = useState(null);
 	const [amountFocused, setAmountFocused] = useState(false);
 	const [success, setSuccess] = useState(false);
-	const [periodsTop, setPeriodsTop] = useState(0);
 
 	const {
 		formik,
@@ -56,11 +54,6 @@ const MainPage = ({ config }) => {
 		config,
 		setSuccess,
 	});
-	useEffect(() => {
-		if (periodsRef.current) {
-			setPeriodsTop(periodsRef.current.offsetTop);
-		}
-	}, []);
 
 	useEffect(() => {
 		const utm = searchParams.get('utm');
@@ -108,16 +101,28 @@ const MainPage = ({ config }) => {
 	}, [price, period, amount, tokenSymbol]);
 
 	useEffect(() => {
-		if (price && period && amount && tokenSymbol && direction) {
-			Service.WalletService.isNotEnoughBalance(price, amount, direction);
+		if (price && period && amount && tokenSymbol && formik.values.direction) {
+			Service.WalletService.isNotEnoughBalance(
+				price,
+				amount,
+				formik.values.direction,
+			);
 		}
-	}, [price, period, amount, tokenSymbol, direction, balance, balanceUSDC]);
+	}, [
+		price,
+		period,
+		amount,
+		tokenSymbol,
+		formik.values.direction,
+		balance,
+		balanceUSDC,
+	]);
 
 	useEffect(() => {
 		if (tokenSymbol) {
-			Service.PricesService.getData(tokenSymbol, direction);
+			Service.PricesService.getData(tokenSymbol, formik.values.direction);
 		}
-	}, [tokenSymbol, direction]);
+	}, [tokenSymbol, formik.values.direction]);
 
 	useEffect(() => {
 		if (price && parseFloat(amount) > 0 && tokenSymbol) {
@@ -178,7 +183,7 @@ const MainPage = ({ config }) => {
 						height={'100%'}
 						xsColumn={'span 2'}>
 						<Components.Prices
-							periodsTop={periodsTop}
+							periodsRef={periodsRef}
 							formik={formik}
 							loading={loading}
 							amountFocused={amountFocused}
@@ -190,9 +195,9 @@ const MainPage = ({ config }) => {
 						row={2}
 						height={'100%'}
 						xsRow={3}
-						xsColumn={'span 2'}
-						ref={periodsRef}>
+						xsColumn={'span 2'}>
 						<Components.Periods
+							forwardedRef={periodsRef}
 							formik={formik}
 							loading={loading}
 							price={price}

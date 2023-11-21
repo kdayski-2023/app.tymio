@@ -5,7 +5,7 @@ import * as Styled from './styled';
 
 import { MessageDialogService, WalletService } from '../../services';
 
-import { useConfig, useDirection, useWallet } from '../../hooks';
+import { useConfig, useWalletStatus, useWallet } from '../../hooks';
 import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../models/types';
 import { COLORS } from '../../models/colors';
 import { MESSAGES } from '../../models/messages';
@@ -22,7 +22,7 @@ const WalletStatus = () => {
 		error,
 	} = useWallet();
 	const { config, loading } = useConfig();
-	const { direction: appType } = useDirection();
+	const { direction } = useWalletStatus();
 
 	useEffect(() => {
 		setButtonText(shortAddress);
@@ -59,13 +59,13 @@ const WalletStatus = () => {
 				config.CHAIN_LIST.includes(Number(chainId)) && (
 					<Styled.WalletBalance errored={isNotEnoughBalance}>
 						<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
-							{appType === 'sell' &&
+							{direction === 'sell' &&
 								`${
 									typeof balance === 'number' && balance > 0
 										? balance.toFixed(2)
 										: balance
 								} ${balanceToken}`}
-							{appType === 'buy' &&
+							{direction === 'buy' &&
 								`${
 									typeof balanceUSDC === 'number' && balanceUSDC > 0
 										? balanceUSDC.toFixed(2)

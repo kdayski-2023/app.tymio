@@ -10,10 +10,10 @@ import {
 	WalletModalService,
 } from '../../../services';
 
-import { useConfig, useDirection, useWallet } from '../../../hooks';
+import { useConfig, useWallet } from '../../../hooks';
 import { isMobile } from '../../../lib/lib';
 
-const WalletButton = () => {
+const WalletButton = ({ direction }) => {
 	const {
 		connected,
 		shortAddress,
@@ -24,7 +24,6 @@ const WalletButton = () => {
 		error,
 	} = useWallet();
 	const { config, loading } = useConfig();
-	const { direction: appType } = useDirection();
 
 	useEffect(() => {
 		if (error) {
@@ -61,8 +60,8 @@ const WalletButton = () => {
 				chainId &&
 				config.CHAIN_LIST.includes(Number(chainId)) && (
 					<Styled.WalletBalance>
-						{appType === 'sell' && `${balance} ${balanceToken}`}
-						{appType === 'buy' && `${balanceUSDC} USDC`}
+						{direction === 'sell' && `${balance} ${balanceToken}`}
+						{direction === 'buy' && `${balanceUSDC} USDC`}
 					</Styled.WalletBalance>
 				)}
 

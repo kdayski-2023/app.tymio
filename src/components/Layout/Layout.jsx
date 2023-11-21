@@ -1,7 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import {
-	// Preloader,
 	Modal,
 	MessageDialog,
 	ChatWidget,
@@ -16,7 +15,6 @@ const Layout = ({ sessionInfo }) => {
 	const mobile = isMobile();
 	return (
 		<>
-			{/* <Preloader /> */}
 			<Modal />
 			<MessageDialog />
 			{!mobile && <ChatWidget sessionInfo={sessionInfo} />}
