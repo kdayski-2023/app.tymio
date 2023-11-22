@@ -25,6 +25,7 @@ const MainPage = ({ config }) => {
 		userAddress,
 		balance,
 		balanceUSDC,
+		balanceToken,
 		isNotEnoughBalance,
 	} = useWallet();
 	const [searchParams] = useSearchParams();
@@ -42,6 +43,7 @@ const MainPage = ({ config }) => {
 		price,
 		period,
 		amount,
+		direction,
 		walletError,
 		userOrderLoading,
 		orderAvailableError,
@@ -101,37 +103,21 @@ const MainPage = ({ config }) => {
 	}, [price, period, amount, tokenSymbol]);
 
 	useEffect(() => {
-		if (price && period && amount && tokenSymbol && formik.values.direction) {
-			Service.WalletService.isNotEnoughBalance(
-				price,
-				amount,
-				formik.values.direction,
-			);
+		if (price && period && amount && tokenSymbol && direction) {
+			Service.WalletService.isNotEnoughBalance(price, amount, direction);
 		}
-	}, [
-		price,
-		period,
-		amount,
-		tokenSymbol,
-		formik.values.direction,
-		balance,
-		balanceUSDC,
-	]);
+	}, [price, period, amount, tokenSymbol, direction, balance, balanceUSDC]);
 
 	useEffect(() => {
-		if (tokenSymbol) {
-			Service.PricesService.getData(tokenSymbol, formik.values.direction);
+		console.log({ tokenSymbol, direction });
+		if (tokenSymbol && balanceToken && tokenSymbol === balanceToken) {
+			Service.PricesService.getData(tokenSymbol, direction);
 		}
-	}, [tokenSymbol, formik.values.direction]);
+	}, [tokenSymbol, direction, balanceToken]);
 
 	useEffect(() => {
 		if (price && parseFloat(amount) > 0 && tokenSymbol) {
-			Service.PeriodsService.getPricePeriods(
-				formik.values.price,
-				formik.values.amount,
-				formik.values.tokenSymbol,
-				true,
-			);
+			Service.PeriodsService.getPricePeriods(price, amount, tokenSymbol, true);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [tokenSymbol, price, amount, userAddress]);

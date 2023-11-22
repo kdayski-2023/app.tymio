@@ -49,6 +49,7 @@ const PairSelector = ({ formik, disabled }) => {
 
 	useEffect(() => {
 		if (config && wallet.chainId && wallet.balanceToken) {
+			console.log(wallet.balanceToken);
 			const isSupportedNetwork =
 				config &&
 				config.CHAIN_LIST &&

@@ -66,6 +66,10 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 		}
 	};
 
+	useEffect(() => {
+		Service.WalletStatusService.setDirection(formik.values.direction);
+	}, [formik.values.direction]);
+
 	const handleClick = async () => {
 		const { balance, balanceUSDC } = Service.WalletService.state;
 		if (formik.values.direction === 'sell') {
@@ -96,7 +100,6 @@ const Amount = ({ formik, loading: orderLoading, setAmountFocused }) => {
 			price: formik.initialValues.price,
 		});
 		setDisabled(false);
-		await Service.WalletStatusService.setDirection(value);
 	};
 
 	return (
