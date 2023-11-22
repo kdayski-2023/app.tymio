@@ -13,7 +13,7 @@ const PROJECT_ID = process.env.REACT_APP_PROJECT_ID;
 
 class WalletService {
 	initialState = {
-		chainId: null,
+		chainId: 1,
 		balance: 0,
 		balanceUSDC: 0,
 		balanceETH: 0,
@@ -144,6 +144,21 @@ class WalletService {
 		return Math.floor(num * precision) / precision;
 	};
 
+	setBalanceToken = async (config, targetSymbol) => {
+		const { CHAIN_LIST, PAYIN_TOKEN_ADDRESS_LIST } = config;
+		const currentToken = PAYIN_TOKEN_ADDRESS_LIST[CHAIN_LIST[0]].find(
+			(item) => item.tokenSymbol === targetSymbol,
+		);
+		targetSymbol = currentToken ? currentToken.tokenSymbol : 'ETH';
+
+		this.state = {
+			...this.state,
+			balanceToken: targetSymbol,
+		};
+
+		this.state$.next(this.state);
+	};
+
 	setBalance = async (config, wallet, targetSymbol) => {
 		if (!this.state.connected) {
 			return;
@@ -270,7 +285,11 @@ class WalletService {
 			this.web3.eth.currentProvider.disconnect();
 		window.localStorage.removeItem('wallet');
 
-		this.state = this.initialState;
+		this.state = {
+			...this.initialState,
+			chainId: this.state.chainId,
+			balanceToken: this.state.balanceToken,
+		};
 		this.state$.next(this.state);
 	};
 
@@ -449,10 +468,6 @@ class WalletService {
 				networkName: this.state.networkName,
 				deviceType: this.state.deviceType,
 				providerType: this.state.providerType,
-				balance: this.state.balance,
-				balanceToken: this.state.balanceToken,
-				balanceETH: this.state.balanceETH,
-				balanceUSDC: this.state.balanceUSDC,
 			}),
 		);
 	}

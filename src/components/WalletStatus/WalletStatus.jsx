@@ -50,10 +50,6 @@ const WalletStatus = () => {
 		);
 	};
 
-	useEffect(() => {
-		console.log(direction);
-	}, [direction]);
-
 	return (
 		<Styled.BalanceSheet errored={isNotEnoughBalance}>
 			{!loading &&

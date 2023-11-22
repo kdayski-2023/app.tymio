@@ -109,7 +109,6 @@ const MainPage = ({ config }) => {
 	}, [price, period, amount, tokenSymbol, direction, balance, balanceUSDC]);
 
 	useEffect(() => {
-		console.log({ tokenSymbol, direction });
 		if (tokenSymbol && balanceToken && tokenSymbol === balanceToken) {
 			Service.PricesService.getData(tokenSymbol, direction);
 		}

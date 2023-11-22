@@ -30,7 +30,7 @@ const PairSelector = ({ formik, disabled }) => {
 			tokenSymbol,
 			tokenAddress,
 		});
-		await Service.WalletService.setBalance(config, wallet, tokenSymbol);
+		await Service.WalletService.setBalanceToken(config, tokenSymbol);
 		setShow(false);
 	};
 
@@ -49,7 +49,6 @@ const PairSelector = ({ formik, disabled }) => {
 
 	useEffect(() => {
 		if (config && wallet.chainId && wallet.balanceToken) {
-			console.log(wallet.balanceToken);
 			const isSupportedNetwork =
 				config &&
 				config.CHAIN_LIST &&

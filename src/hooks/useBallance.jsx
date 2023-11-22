@@ -4,15 +4,21 @@ import useWallet from './useWallet';
 import useConfig from './useConfig';
 
 const useBallance = () => {
-  const wallet = useWallet();
-  const { config } = useConfig();
+	const wallet = useWallet();
+	const { config } = useConfig();
 
-  useEffect(() => {
-    if (config && wallet.connected) {
-      WalletService.setBalance(config, wallet, 'ETH');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, wallet.connected, wallet.chainId, wallet.userAddress]);
+	useEffect(() => {
+		if (config && wallet.connected) {
+			WalletService.setBalance(config, wallet, wallet.balanceToken);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [
+		config,
+		wallet.connected,
+		wallet.chainId,
+		wallet.userAddress,
+		wallet.balanceToken,
+	]);
 };
 
 export default useBallance;
