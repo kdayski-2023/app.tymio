@@ -16,7 +16,8 @@ export const TooltipText = styled.div`
 	left: 0;
 	border-radius: 10px;
 	padding: 20px;
-	background-color: ${COLORS.PURPLE_BRIGHT};
+	background-color: ${({ secondary }) =>
+		secondary ? COLORS.LIME_LEMON : COLORS.PURPLE_BRIGHT};
 	color: ${COLORS.BLACK};
 	font-size: 13px;
 	font-weight: 400;
@@ -30,10 +31,11 @@ export const TooltipText = styled.div`
 
 export const TitleWrapper = styled.div`
 	display: flex;
-	gap: 10px;
 	align-items: center;
+	gap: ${({ gap }) => (gap ? gap : '10px')};
 
 	p {
-		color: ${({ show }) => show && COLORS.PURPLE_BRIGHT};
+		color: ${({ show, secondary }) =>
+			(secondary && COLORS.BLACK) || (show && COLORS.PURPLE_BRIGHT)};
 	}
 `;

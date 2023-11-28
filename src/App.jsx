@@ -11,6 +11,7 @@ import { Layout } from './components/_DEPRECATED';
 
 const ProfilePage = React.lazy(() => import('./pages/ProfilePage/ProfilePage'));
 const MainPage = React.lazy(() => import('./pages/MainPage/MainPage'));
+const Leaderboard = React.lazy(() => import('./pages/Leaderboard/Leaderboard'));
 const IPBlockPage = React.lazy(() => import('./pages/IPBlockPage/IPBlockPage'));
 
 const App = () => {
@@ -51,6 +52,7 @@ const App = () => {
 						<Route path="/" element={<MainPage config={config} />} />
 						<Route path="/code/:ref" element={<MainPage config={config} />} />
 						<Route path="/profile" element={<ProfilePage />} />
+						<Route path="/leaderboard" element={<Leaderboard />} />
 						<Route path="*" element={<MainPage config={config} />} />
 					</Route>
 				</Routes>

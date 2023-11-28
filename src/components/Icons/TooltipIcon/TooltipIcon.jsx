@@ -1,13 +1,24 @@
 import React from 'react';
 import { COLORS } from '../../../models/colors';
 
-const TooltipIcon = ({ show }) => {
+const TooltipIcon = ({ show, secondary }) => {
 	const circle1InlineStyle = {
-		fill: show ? COLORS.LIGHT : COLORS.PURPLE_GRAY2,
+		fill: secondary ? COLORS.BLACK : show ? COLORS.LIGHT : COLORS.PURPLE_GRAY2,
 	};
 	const circle2InlineStyle = {
-		fill: show ? COLORS.PURPLE_BRIGHT : COLORS.PURPLE_GRAY2,
+		fill: secondary
+			? COLORS.BLACK
+			: show
+			? COLORS.PURPLE_BRIGHT
+			: COLORS.PURPLE_GRAY2,
 	};
+
+	// const circle3InlineStyle = {
+	// 	fill: COLORS.BLACK,
+	// };
+	// const circle4InlineStyle = {
+	// 	fill: COLORS.BLACK,
+	// };
 
 	return (
 		<svg
@@ -18,8 +29,20 @@ const TooltipIcon = ({ show }) => {
 			fill="none">
 			<circle cx="5" cy="5" r="5" {...circle1InlineStyle} />
 			<circle cx="5" cy="5" r="5" {...circle2InlineStyle} />
-			<rect x="4.25" y="4.25" width="1.5" height="3.75" fill={COLORS.BLACK} />
-			<rect x="4.25" y="2" width="1.5" height="1.5" fill={COLORS.BLACK} />
+			<rect
+				x="4.25"
+				y="4.25"
+				width="1.5"
+				height="3.75"
+				fill={secondary ? COLORS.LIME_LEMON : COLORS.BLACK}
+			/>
+			<rect
+				x="4.25"
+				y="2"
+				width="1.5"
+				height="1.5"
+				fill={secondary ? COLORS.LIME_LEMON : COLORS.BLACK}
+			/>
 		</svg>
 	);
 };

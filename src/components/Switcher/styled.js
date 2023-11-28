@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import { COLORS } from '../../models/colors';
 
 export const Switcher = styled.div`
+	box-sizing: border-box;
+	outline: 1.5px solid ${COLORS.PURPLE_GRAY};
+	outline-offset: -1.5px;
 	height: 40px;
 	display: flex;
 	border-radius: 5px;
-	border: 1.5px solid ${COLORS.PURPLE_GRAY};
-
 	@media (max-width: 576px) {
 		width: ${({ xsWidth }) => xsWidth};
 	}
@@ -35,12 +36,13 @@ export const Option = styled.button`
 	}
 
 	&:focus {
-		border: ${({ active }) =>
+		box-sizing: border-box;
+		outline-offset: ${({ active }) => (active ? 'none' : `-1.5px`)};
+		outline: ${({ active }) =>
 			active ? 'none' : `1.5px solid ${COLORS.LIGHT}`};
 		box-shadow: ${({ active }) =>
 			active ? 'none' : `0px 0px 3px 0px ${COLORS.LIGHT}`};
 		background: ${({ active }) => (active ? COLORS.PURPLE_GRAY : COLORS.BLACK)};
-		padding: ${({ active }) =>
-			active ? '14px 20px 13px' : '13px 19.5px 12px'};
+		padding: '14px 20px 13px';
 	}
 `;
