@@ -19,7 +19,8 @@ const TooltipIcon = ({ show, circleFill, iconFill, secondary }) => {
 			width="10"
 			height="10"
 			viewBox="0 0 10 10"
-			fill="none">
+			fill="none"
+			style={{ marginBottom: '1px' }}>
 			<circle
 				cx="5"
 				cy="5"

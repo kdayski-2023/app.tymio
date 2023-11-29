@@ -18,6 +18,7 @@ export const AprContainer = styled.div`
 	width: 100%;
 	gap: 6px;
 	align-items: center;
+	justify-content: center;
 `;
 
 export const AprBadge = styled.div`

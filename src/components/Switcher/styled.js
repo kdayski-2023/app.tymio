@@ -18,7 +18,7 @@ export const Option = styled.button`
 	border: none;
 	margin: 0;
 	flex-basis: 0;
-	flex-grow: 1;
+	flex-grow: ${({ grow = true }) => (grow ? '1' : '0')};
 	flex-shrink: 1;
 	padding: 12px 20px;
 	border-radius: 5px;

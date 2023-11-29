@@ -52,6 +52,16 @@ export const convertUSDCToETH = (amount, rate) => {
 	return 0;
 };
 
+export const getPastDate = (days = 0, months = 0) => {
+	const now = new Date();
+
+	return new Date(
+		now.getFullYear(),
+		now.getMonth() - months,
+		now.getDate() - days,
+	).getTime();
+};
+
 export const formatDate = (date, format = 'default') => {
 	const monthNames = [
 		'January',

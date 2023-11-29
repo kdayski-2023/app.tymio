@@ -8,6 +8,10 @@ const useRoutes = () => {
 			label: 'Profile',
 			path: '/profile',
 		},
+		{
+			label: 'Leaderboard',
+			path: '/leaderboard',
+		},
 	];
 	const burger = [
 		{
@@ -17,6 +21,10 @@ const useRoutes = () => {
 		{
 			label: 'Profile',
 			path: '/profile',
+		},
+		{
+			label: 'Leaderboard',
+			path: '/leaderboard',
 		},
 		{
 			label: 'How it works',

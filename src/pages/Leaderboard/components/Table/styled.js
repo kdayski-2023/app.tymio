@@ -28,8 +28,14 @@ export const Thead = styled.thead`
 export const Tbody = styled.tbody`
 	display: grid;
 	margin: 0;
-	background-image: url(${TableGradient});
-	background-repeat: no-repeat;
+	${({ loading }) =>
+		!loading &&
+		`
+		background-image: url(${TableGradient});
+		background-repeat: no-repeat;
+		background-size: contain;
+	`}
+	height: 520px;
 `;
 
 export const TFooter = styled.tfoot`
@@ -41,6 +47,11 @@ export const HeadTr = styled.tr`
 	grid-template-columns: ${({ columns, grid_template_columns }) =>
 		grid_template_columns ||
 		(columns ? '1fr '.repeat(columns) : '1fr 2fr 2fr 1fr')};
+
+	@media (max-width: 768px) {
+		grid-template-columns: ${({ mobile_grid_template_columns }) =>
+			mobile_grid_template_columns};
+	}
 `;
 
 export const Tr = styled.tr`
@@ -58,10 +69,14 @@ export const Tr = styled.tr`
 		user
 			? 'linear-gradient(90deg, rgba(252, 7, 122, 0.40) 0%, rgba(219, 63, 248, 0.40) 110.75%);'
 			: 'transparent'};
-	/* МБ разкоментить */
-	/* :first-child {
-		border-top: 0px solid ${COLORS.GRAY};
-	} */
+
+	@media (max-width: 768px) {
+		grid-template-columns: ${({ mobile_grid_template_columns }) =>
+			mobile_grid_template_columns};
+
+		padding: 17px 0px 15px 10px;
+		gap: 5px;
+	}
 `;
 
 export const Th = styled.th`
@@ -82,9 +97,17 @@ export const Th = styled.th`
 	&:nth-child(2) {
 		padding-left: 20px;
 	}
+
+	@media (max-width: 768px) {
+		&:nth-child(2) {
+			padding-left: 14px;
+		}
+		padding-left: 6px;
+	}
 `;
 
 export const Td = styled.td`
+	position: ${({ position }) => position};
 	font-family: ${({ mono }) => mono && 'monospace !important'};
 	width: 100%;
 	text-align: ${({ align }) => align || 'center'};
@@ -96,4 +119,14 @@ export const Td = styled.td`
 	line-height: 14px;
 	letter-spacing: 0.32px;
 	padding: 0;
+
+	${({ adaptive }) =>
+		adaptive &&
+		`
+		@media (max-width: 767px) {
+			font-size: 13px;
+			font-weight: 400;
+			letter-spacing: 0.39px;
+		}
+	`}
 `;
