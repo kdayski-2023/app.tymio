@@ -1,12 +1,16 @@
 import React from 'react';
 import { COLORS } from '../../../models/colors';
 
-const TooltipIcon = ({ show, circleFill, iconFill }) => {
+const TooltipIcon = ({ show, circleFill, iconFill, secondary }) => {
 	const circle1InlineStyle = {
-		fill: show ? COLORS.LIGHT : COLORS.PURPLE_GRAY2,
+		fill: secondary ? COLORS.BLACK : show ? COLORS.LIGHT : COLORS.PURPLE_GRAY2,
 	};
 	const circle2InlineStyle = {
-		fill: show ? COLORS.PURPLE_BRIGHT : COLORS.PURPLE_GRAY2,
+		fill: secondary
+			? COLORS.BLACK
+			: show
+			? COLORS.PURPLE_BRIGHT
+			: COLORS.PURPLE_GRAY2,
 	};
 
 	return (
@@ -33,14 +37,14 @@ const TooltipIcon = ({ show, circleFill, iconFill }) => {
 				y="4.25"
 				width="1.5"
 				height="3.75"
-				fill={iconFill || COLORS.BLACK}
+				fill={iconFill || secondary ? COLORS.LIME_LEMON : COLORS.BLACK}
 			/>
 			<rect
 				x="4.25"
 				y="2"
 				width="1.5"
 				height="1.5"
-				fill={iconFill || COLORS.BLACK}
+				fill={iconFill || secondary ? COLORS.LIME_LEMON : COLORS.BLACK}
 			/>
 		</svg>
 	);
