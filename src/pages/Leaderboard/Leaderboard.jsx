@@ -98,7 +98,7 @@ const Leaderboard = () => {
 												mobile_grid_template_columns={'1fr 2.5fr 1.5fr 1.5fr'}>
 												<Table.Td align={'left'} position={'relative'} adaptive>
 													<Styled.Wrapper>
-														<span>{index + 1}</span> <Star />
+														<span>{index + 1}</span> {index < 3 && <Star />}
 														{userAddress.toLocaleLowerCase() ===
 															data.address.toLocaleLowerCase() && (
 															<Styled.UserBadge>You</Styled.UserBadge>
