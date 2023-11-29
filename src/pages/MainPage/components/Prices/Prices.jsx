@@ -49,7 +49,7 @@ const Prices = ({
 		<>
 			<Card
 				height={'100%'}
-				mh={365}
+				mh={378}
 				gap={'0'}
 				pt={'25px'}
 				flex={true}

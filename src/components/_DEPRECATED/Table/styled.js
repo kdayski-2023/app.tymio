@@ -61,17 +61,18 @@ export const Tr = styled.tr`
 	background: ${COLORS.DARK};
 	width: 100%;
 	cursor: pointer;
-	border: 0.5px solid ${COLORS.PURPLE_BRIGHT};
+	outline: 0.5px solid ${COLORS.PURPLE_BRIGHT};
+	outline-offset: -0.5px;
 
 	&:focus {
-		padding: 3.5px 13px;
-		border: 1.5px solid ${COLORS.LIGHT};
+		outline: 1.5px solid ${COLORS.LIGHT};
+		outline-offset: -1.5px;
 		box-shadow: 0px 0px 3px 0px ${COLORS.BOX_SHADOW};
 	}
 
 	&:hover {
-		padding: 3.5px 13px;
-		border: 2.5px solid ${COLORS.PURPLE_GRAY2};
+		outline: 2.5px solid ${COLORS.PURPLE_GRAY2};
+		outline-offset: -2.5px;
 		td {
 			color: ${COLORS.PURPLE_GRAY2};
 			p {
