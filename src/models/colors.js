@@ -40,6 +40,7 @@ const light = '#E6E2EE';
 
 const lemon = '#C9E68C';
 const limeLemon = '#DDF0B5';
+const lemonDark = '#ACC578';
 const warnings = '#FF7996';
 const red = '#FC087C';
 const pink = '#DF39EA';
@@ -70,6 +71,7 @@ export const COLORS = {
 
 	LEMON: lemon,
 	LIME_LEMON: limeLemon,
+	LEMON_DARK: lemonDark,
 	WARNINGS: warnings,
 	RED: red,
 	PINK: pink,

@@ -16,6 +16,7 @@ const ChatWidget = ({ sessionInfo }) => {
 		setOpen,
 		loading,
 		error,
+		localError,
 	} = Hook.useChat(sessionInfo.sessionToken);
 
 	useEffect(() => {
@@ -38,6 +39,7 @@ const ChatWidget = ({ sessionInfo }) => {
 						sendMessage={sendMessage}
 						open={open}
 						closeClick={() => setOpen(false)}
+						localError={localError}
 					/>
 					<Icon
 						unreadMessages={unreadMessages}

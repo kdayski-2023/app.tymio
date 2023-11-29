@@ -4,11 +4,13 @@ import * as Service from '../services';
 
 const NEW_CHAT_MESSAGE_EVENT = 'newChatMessage';
 const OPEN_CHAT = 'openChat';
+const ERROR = 'error';
 const SOCKET_SERVER_URL = process.env.REACT_APP_SOCKET_URL;
 
 const useChat = (sessionToken) => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const [localError, setLocalError] = useState(null);
 	const [open, setOpen] = useState(false);
 	const [messages, setMessages] = useState([]);
 	const [newMessage, setNewMessage] = useState(null);
@@ -81,6 +83,10 @@ const useChat = (sessionToken) => {
 				}
 			});
 
+			socketRef.current.on(ERROR, (error) => {
+				setLocalError(error);
+			});
+
 			socketRef.current.on(OPEN_CHAT, (messages) => {
 				setAllMessages(messages);
 			});
@@ -101,6 +107,7 @@ const useChat = (sessionToken) => {
 		setOpen,
 		loading,
 		error,
+		localError,
 	};
 };
 

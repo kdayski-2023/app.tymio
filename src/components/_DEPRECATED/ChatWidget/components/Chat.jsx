@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as TymioUI from '../../../_DEPRECATED';
 import * as Styled from '../styled';
 import useSupportFormik from '../hooks/useFormik';
@@ -7,9 +7,17 @@ import Close from '../../../../assets/img/icons/cross-close.svg';
 import { Typography } from '../../../Typography/Typography/styled';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 
-const Chat = ({ messages, sendMessage, open, closeClick, loading }) => {
-	const { formik } = useSupportFormik(sendMessage);
+const Chat = ({
+	messages,
+	sendMessage,
+	open,
+	localError,
+	closeClick,
+	loading,
+}) => {
+	const { formik, error: submitError } = useSupportFormik(sendMessage);
 	const chatDiv = useRef(null);
+	const [error, setError] = useState(null);
 
 	const handleChange = async (e) => {
 		await formik.setFieldValue('message', e.target.value);
@@ -19,6 +27,10 @@ const Chat = ({ messages, sendMessage, open, closeClick, loading }) => {
 	useEffect(() => {
 		chatDiv.current?.scrollIntoView();
 	}, [messages]);
+
+	useEffect(() => {
+		setError(localError || submitError);
+	}, [submitError, localError]);
 
 	return (
 		<Styled.Chat open={open} onSubmit={formik.handleSubmit}>
@@ -54,7 +66,19 @@ const Chat = ({ messages, sendMessage, open, closeClick, loading }) => {
 					<></>
 				)}
 				<TymioUI.Card.Footer>
-					<TymioUI.Grid width={'100%'} gap={'10px'} columns={1}>
+					<TymioUI.Grid
+						width={'100%'}
+						gap={'10px'}
+						columns={1}
+						style={{ position: 'relative' }}>
+						{error && (
+							<Typography
+								color={COLORS.RED}
+								size={TYPOGRAPHY_SIZE.SMALL}
+								style={{ position: 'absolute', top: '-20px', right: '0' }}>
+								{error}
+							</Typography>
+						)}
 						<TymioUI.Input
 							type="textarea"
 							value={formik.values.message}

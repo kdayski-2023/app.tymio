@@ -21,3 +21,4 @@ export { default as UserTransactionsArrow } from './Icons/UserTransactionsArrow/
 export { default as SelectorArrow } from './Icons/SelectorArrow/SelectorArrow';
 export { default as TooltipIcon } from './Icons/TooltipIcon/TooltipIcon';
 export { default as TransactionIcon } from './Icons/TransactionIcon/TransactionIcon';
+export { default as CrossClose } from './Icons/CrossClose/CrossClose';

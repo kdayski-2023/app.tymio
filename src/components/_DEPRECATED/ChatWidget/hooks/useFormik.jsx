@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 const useSupportFormik = (sendMessage) => {
 	const [error, setError] = useState('');
-	const [requestPeriod] = useState(2000);
+	const [requestPeriod] = useState(3000);
 	const [lastSubmitTime, setLastSubmitTime] = useState(0);
 
 	const PERIOD_ERROR = `Send only once per ${requestPeriod / 1000} seconds`;

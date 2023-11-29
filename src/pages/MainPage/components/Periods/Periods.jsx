@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { useFocus, useWallet } from '../../../../hooks';
+import { useFocus, useOuterClick, useWallet } from '../../../../hooks';
 import * as Hook from '../../hooks';
 import {
 	Card,
@@ -22,21 +22,41 @@ const Periods = ({
 	amountFocused,
 	price,
 	amount,
-	forwardedRef
+	forwardedRef,
 }) => {
 	const ref = useRef();
 	useFocus(orderLoading, ref);
 	const { connected } = useWallet();
-	const { error, loading, periods } = Hook.usePeriods();
+	const { error, loading, periods, aprBonus } = Hook.usePeriods();
 	const [earnPercent, setEarnPercent] = useState(0);
+	const [showBadge, setShowBadge] = useState(false);
+	const [toggleFocused, setToggleFocused] = useState(false);
 
 	useEffect(() => {
 		setEarnPercent(0);
 	}, [formik.values.price]);
 
+	const contentRef = useOuterClick(() => {
+		if (showBadge && !toggleFocused) {
+			setShowBadge(false);
+		} else {
+			setToggleFocused(false);
+		}
+	});
+
 	const chosePeriod = (period) => {
 		formik.setFieldValue('period', period.timestamp);
 		setEarnPercent(period.earnPercent);
+	};
+
+	const toggleShowBadge = () => {
+		setShowBadge((prevState) => !prevState);
+		setToggleFocused(true);
+	};
+
+	const handleClose = () => {
+		setShowBadge(false);
+		setToggleFocused(false);
 	};
 
 	const showPeriod = price && parseFloat(amount) > 0 ? true : false;
@@ -44,7 +64,7 @@ const Periods = ({
 	return (
 		<>
 			<Card
-			ref={forwardedRef}
+				ref={forwardedRef}
 				pt={'25px'}
 				height={'100%'}
 				mh={365}
@@ -76,9 +96,26 @@ const Periods = ({
 								</TymioUI.Typography>
 							</GridElem>
 							<GridElem textAlign={'center'} column={2} inline>
-								<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
-									APR
-								</TymioUI.Typography>
+								<Styled.AprContainer>
+									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
+										APR
+									</TymioUI.Typography>
+									{aprBonus && (
+										<Styled.AprBadge
+											onClick={toggleShowBadge}
+											focus={showBadge}>
+											<TymioUI.Typography
+												size={TYPOGRAPHY_SIZE.SMALL}
+												color={COLORS.BLACK}>
+												+%
+											</TymioUI.Typography>
+											<TymioUI.TooltipIcon
+												circleFill={COLORS.BLACK}
+												iconFill={COLORS.LEMON}
+											/>
+										</Styled.AprBadge>
+									)}
+								</Styled.AprContainer>
 							</GridElem>
 							<GridElem textAlign={'right'} column={3} inline>
 								<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
@@ -95,6 +132,19 @@ const Periods = ({
 					<>
 						<Styled.CardWrapper>
 							<Card.Body mt={'20px'}>
+								{showBadge && (
+									<Styled.AprBonus ref={contentRef}>
+										<Styled.Cross onClick={handleClose}>
+											<TymioUI.CrossClose color={COLORS.BLACK} />
+										</Styled.Cross>
+										<TymioUI.Typography
+											size={TYPOGRAPHY_SIZE.SMALL}
+											color={COLORS.BLACK}>
+											You are our privilege client, we offer you +% to the
+											average APR.
+										</TymioUI.Typography>
+									</Styled.AprBonus>
+								)}
 								{periods.map((period, index) => (
 									<React.Fragment key={index}>
 										{period.recieve && period.apr ? (
