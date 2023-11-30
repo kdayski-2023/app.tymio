@@ -34,7 +34,6 @@ const Leaderboard = () => {
 	return (
 		<Styled.Leaderboard>
 			<Styled.Title>
-				<TymioUI.H1>LEADERBOARD</TymioUI.H1>
 				<TymioUI.H2>Top-10 wallets with the highest earnings.</TymioUI.H2>
 			</Styled.Title>
 			<Styled.Container>
