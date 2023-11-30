@@ -107,7 +107,7 @@ const Periods = ({
 											<TymioUI.Typography
 												size={TYPOGRAPHY_SIZE.SMALL}
 												color={COLORS.BLACK}>
-												+%
+												Club
 											</TymioUI.Typography>
 											<TymioUI.TooltipIcon
 												circleFill={COLORS.BLACK}
