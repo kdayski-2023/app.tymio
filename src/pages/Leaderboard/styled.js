@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../models/colors';
 
 export const Leaderboard = styled.div`
-	padding: 45px 60px 200px;
+	padding: 0px 60px 200px;
 	h1 {
 		color: rgba(215, 203, 250, 0.25);
 	}
@@ -15,29 +15,10 @@ export const Leaderboard = styled.div`
 	}
 `;
 
-export const Title = styled.div`
-	h1 {
-		margin-bottom: 60px;
-	}
-	h2 {
-		width: 500px;
-	}
-
-	@media (max-width: 1439px) {
-		h1 {
-			margin-bottom: 30px;
-		}
-	}
-	@media (max-width: 767px) {
-		padding: 0 15px;
-		h2 {
-			width: auto;
-		}
-	}
-`;
+export const Title = styled.div``;
 
 export const Container = styled.div`
-	margin: 60px auto 160px;
+	margin: 10px auto 160px;
 	max-width: 650px;
 
 	@media (max-width: 1439px) {
