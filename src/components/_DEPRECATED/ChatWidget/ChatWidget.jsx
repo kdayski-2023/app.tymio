@@ -56,7 +56,7 @@ const ChatWidget = ({ sessionInfo }) => {
 					<img src={CloseIcon} alt="" width={25} height={25} />
 				</VideoClose>
 				<IFrame
-					src={`https://www.youtube.com/embed/kE0TBjPMox4`}
+					src={`https://www.youtube.com/embed/${process.env.REACT_APP_ABOUT_VIDEO}`}
 					frameBorder="0"
 					allow="autoplay; encrypted-media"
 					allowFullScreen
