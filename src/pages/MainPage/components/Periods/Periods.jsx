@@ -140,8 +140,7 @@ const Periods = ({
 										<TymioUI.Typography
 											size={TYPOGRAPHY_SIZE.SMALL}
 											color={COLORS.BLACK}>
-											You are our privilege client, we offer you +% to the
-											average APR.
+											Enjoy increased ARP rate as a TYMIO club member
 										</TymioUI.Typography>
 									</Styled.AprBonus>
 								)}
