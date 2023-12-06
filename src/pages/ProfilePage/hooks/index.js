@@ -5,3 +5,4 @@ export { default as useAirdrop } from './useAirdrop';
 export { default as useReferral } from './useReferral';
 export { default as useTransactionDetails } from './useTransactionDetails';
 export { default as useUserOrders } from './useUserOrders';
+export { default as useUserPoints } from './useUserPoints';

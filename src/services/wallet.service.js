@@ -229,7 +229,7 @@ class WalletService {
 			result = amount >= this.state.balance;
 		}
 		if (direction === 'buy' && amount && price) {
-			result = amount * price >= this.state.balanceUSDC;
+			result = amount * price > this.state.balanceUSDC;
 		}
 		this.state = {
 			...this.state,

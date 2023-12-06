@@ -14,3 +14,4 @@ export { default as UtmService } from './utm.service';
 export { default as SubscribeService } from './subscribe.service';
 export { default as AirdropService } from './airdrop.service';
 export { default as WalletStatusService } from './wallet-status.service';
+export { default as UserPointsService } from './user-points.service';

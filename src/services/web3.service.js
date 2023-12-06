@@ -302,7 +302,6 @@ class Web3Service {
 			gasPrice = WalletService.web3.utils.toWei('10', 'gwei').toString();
 
 		return new Promise((resolve, reject) => {
-			console.log({ from, to, value, gas, gasPrice });
 			WalletService.web3.eth
 				.sendTransaction({
 					from,
