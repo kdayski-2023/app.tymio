@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLORS } from '../../../../models/colors';
 
 export const Button = styled.button`
+	border: none;
 	height: 40px;
 	border-radius: 5px;
 	width: 100%;

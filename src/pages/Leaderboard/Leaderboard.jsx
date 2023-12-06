@@ -33,16 +33,17 @@ const Leaderboard = () => {
 
 	return (
 		<Styled.Leaderboard>
-			<Styled.Title>
-				<TymioUI.H2>Top-10 wallets with the highest earnings</TymioUI.H2>
-			</Styled.Title>
 			<Styled.Container>
 				<Card
 					padding={'30px'}
 					height={'100%'}
-					gap={'60px'}
+					gap={'30px'}
 					xsPadding={'30px 15px'}
 					flex={true}>
+					<Styled.Title>
+						<TymioUI.H2>The highest earning wallets</TymioUI.H2>
+						{/* <TymioUI.Typography size={'big'}></TymioUI.Typography> */}
+					</Styled.Title>
 					<Styled.SwitcherWrapper>
 						<TymioUI.Switcher>
 							{directionOptions.map((option, index) => (
