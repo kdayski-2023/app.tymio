@@ -6,6 +6,7 @@ export const HH = styled.h1`
 	font-weight: 500;
 	line-height: 90%;
 	color: ${(color) => (color ? color : COLORS.LIGHT)};
+	margin: ${(noMargin) => noMargin && '0'};
 	@media (max-width: 768px) {
 		font-size: 50px;
 		font-style: normal;

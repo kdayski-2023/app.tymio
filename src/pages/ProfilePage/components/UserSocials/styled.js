@@ -237,17 +237,35 @@ export const AirdropBadge = styled.div`
 	border-radius: 10px;
 	background: ${COLORS.DARK};
 	gap: 10px;
-	p {
-		text-transform: uppercase;
-	}
 
 	@media (max-width: 576px) {
 		width: 100%;
 	}
 `;
+export const PointsBadge = styled(AirdropBadge)`
+	@media (max-width: 576px) {
+		width: unset;
+	}
+`;
+export const PointsCountBadge = styled(AirdropBadge)`
+	background: ${COLORS.LEMON};
+	h2 {
+		font-size: 40px !important;
+		letter-spacing: 0.4px !important;
+		line-height: 30px !important;
+	}
+
+	@media (max-width: 576px) {
+		width: unset;
+	}
+`;
 export const Condition = styled.div`
 	display: flex;
 	gap: 20px;
+`;
+export const PointsCondition = styled(Condition)`
+	padding-bottom: 10px;
+	border-bottom: 0.5px solid ${COLORS.GRAY};
 `;
 export const Number = styled.div`
 	margin-top: 5px;
@@ -257,6 +275,10 @@ export const Number = styled.div`
 	border: 1px solid ${COLORS.LIGHT};
 	height: 20px;
 	min-width: 20px;
+`;
+export const PointNumber = styled(Number)`
+	margin-top: 0;
+	margin-bottom: 1px;
 `;
 
 export const Participant = styled.div`

@@ -38,6 +38,6 @@ export const Typography = styled.p`
 	letter-spacing: ${({ size }) =>
 		sizeMap[size]?.letterSpacing || sizeMap['medium'].letterSpacing};
 	color: ${({ color }) => (color ? color : COLORS.LIGHT)};
-	text-transform: ${({ uppercase }) => uppercase && 'uppercase '};
+	text-transform: ${({ uppercase }) => uppercase && 'uppercase'};
 	text-align: ${({ align }) => align && align};
 `;

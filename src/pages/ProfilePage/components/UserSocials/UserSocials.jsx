@@ -53,12 +53,12 @@ const UserSocials = () => {
 				totals={totals}
 				balance={balance}
 			/>
-			{airdropParticipant &&
-				airdrop &&
+			<UserPoints points={userPoints} />
+			{airdrop &&
+				airdropParticipant &&
 				airdropParticipant.serial_number <= airdrop.participant_limit && (
-					<UserPoints points={userPoints} />
+					<Airdrop airdrop={airdrop} airdropParticipant={airdropParticipant} />
 				)}
-			<Airdrop airdrop={airdrop} airdropParticipant={airdropParticipant} />
 		</Styled.UserSocials>
 	);
 };

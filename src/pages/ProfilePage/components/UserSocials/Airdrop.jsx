@@ -32,8 +32,8 @@ const Airdrop = ({ airdrop, airdropParticipant }) => {
 				gap={'20px'}>
 				<TymioUI.H2 lh={'100%'}>Airdrop 10K</TymioUI.H2>
 				<Styled.AirdropBadge>
-					<TymioUI.Typography>10K USDC for first</TymioUI.Typography>
-					<TymioUI.Typography>100 loyal users</TymioUI.Typography>
+					<TymioUI.Typography uppercase>10K USDC for first</TymioUI.Typography>
+					<TymioUI.Typography uppercase>100 loyal users</TymioUI.Typography>
 				</Styled.AirdropBadge>
 			</Card.Header>
 			<TymioUI.Typography>CONDITIONS:</TymioUI.Typography>
