@@ -1,6 +1,6 @@
 {
   "name": "app.tymio",
-  "version": "3.0.37",
+  "version": "3.0.40",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.8.1",

@@ -30,7 +30,7 @@ const UserPoints = ({ points }) => {
 						gap={'20px'}>
 						<Styled.PointsCountBadge>
 							<TymioUI.H2 lh={'100%'} color={COLORS.RICH_PURPLE}>
-								{points.toFixed(0)}
+								{points ? points.toFixed(0) : 0}
 							</TymioUI.H2>
 						</Styled.PointsCountBadge>
 						<Styled.PointsBadge>
