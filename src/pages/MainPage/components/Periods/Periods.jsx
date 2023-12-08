@@ -140,7 +140,13 @@ const Periods = ({
 										<TymioUI.Typography
 											size={TYPOGRAPHY_SIZE.SMALL}
 											color={COLORS.BLACK}>
-											Enjoy increased ARP rate as a TYMIO club member
+											Enjoy increased ARP rate as a{' '}
+											<Styled.Link
+												href="https://tymio.com/club"
+												target="_blank">
+												TYMIO club
+											</Styled.Link>{' '}
+											member
 										</TymioUI.Typography>
 									</Styled.AprBonus>
 								)}

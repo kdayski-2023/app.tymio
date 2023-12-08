@@ -79,3 +79,38 @@ export const ShowDesktop = styled.div`
 		display: none;
 	}
 `;
+
+export const AprBadge = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 2px 5px;
+	border-radius: 10px;
+	background: ${({ focus }) => (focus ? COLORS.LEMON_DARK : COLORS.LEMON)};
+
+	&:hover {
+		cursor: pointer;
+		background: ${COLORS.LIME_LEMON};
+	}
+`;
+
+export const AprBonus = styled.div`
+	position: absolute;
+	width: 100%;
+	top: 10px;
+	padding: 20px;
+	border-radius: 10px;
+	background: ${COLORS.LEMON};
+	text-align: left;
+	p {
+		width: 175px;
+	}
+`;
+
+export const Cross = styled.div`
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 15px;
+	cursor: pointer;
+`;

@@ -11,6 +11,7 @@ import LeaderboardService from '../../services/leaderboard.service';
 import { useWallet } from '../../hooks';
 import { spliceAddress } from '../../lib/lib';
 import { TYPOGRAPHY_SIZE } from '../../models/types';
+import Badge from './components/Badge/Badge';
 
 const Leaderboard = () => {
 	const { userAddress } = useWallet();
@@ -20,7 +21,6 @@ const Leaderboard = () => {
 		{ title: 'ALL TIME', grow: true },
 	];
 	const [selectedDirection, setSelectedDirection] = useState('WEEK');
-
 	const { leaderboard, loading, error } = useLeaderboard();
 
 	useEffect(() => {
@@ -111,28 +111,7 @@ const Leaderboard = () => {
 													position={'relative'}
 													adaptive>
 													{spliceAddress(data.address)}
-													{data.club_member && (
-														<Styled.WrapperBadge>
-															<TymioUI.Tooltip
-																icon={true}
-																text={
-																	'Enjoy increased ARP rate as a TYMIO club member'
-																}
-																swapPosition
-																gap="3px"
-																secondary
-																position={'right'}
-																style={{ width: '185px' }}>
-																<Styled.ShowDesktop>
-																	<TymioUI.Typography
-																		size={'small'}
-																		color="BLACK">
-																		Club
-																	</TymioUI.Typography>
-																</Styled.ShowDesktop>
-															</TymioUI.Tooltip>
-														</Styled.WrapperBadge>
-													)}
+													<Badge club_member={data.club_member} />
 												</Table.Td>
 												<Table.Td align={'left'} adaptive>
 													${data.earned.toFixed(0)}

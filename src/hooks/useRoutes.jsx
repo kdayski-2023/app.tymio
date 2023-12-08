@@ -58,7 +58,7 @@ const useRoutes = () => {
 		},
 		{
 			label: 'Terms Of Use',
-			path: 'https://app.tymio.com/terms',
+			path: 'http://tymio.com/terms',
 		},
 	];
 	const media = [
@@ -107,6 +107,7 @@ const useRoutes = () => {
 			path: 'https://tymio.com/terms',
 			target: '_blank',
 		},
+		{ label: 'Club', path: 'https://tymio.com/club', target: '_blank' },
 	];
 
 	const allRoutes = [...header, ...media, ...burger, ...footer];
