@@ -10,11 +10,11 @@ import { COLORS } from '../../../../models/colors';
 
 const UserPoints = ({ points }) => {
 	const conditions = [
-		'Wallet connected',
-		'First tx',
-		'Amount earned',
+		'Connect wallet',
+		'First transaction',
+		'Amount earned on platform',
 		'Time on platform',
-		'Referral amount earned',
+		'Referrals amount earned',
 	];
 	const { loading } = useUserPoints();
 
