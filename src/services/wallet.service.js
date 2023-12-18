@@ -40,7 +40,7 @@ class WalletService {
 		this.metadata = {
 			name: 'Tymio',
 			description: 'Tymio',
-			url: 'https://sell-high.io/',
+			url: 'https://app.tymio.com/',
 			icons: ['https://sell-high.io/static/media/logo.53cae53b.png'],
 		};
 		this.providerConfig = {

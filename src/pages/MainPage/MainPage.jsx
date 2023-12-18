@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 
 import * as Components from './components';
@@ -29,7 +29,6 @@ const MainPage = ({ config }) => {
 		isNotEnoughBalance,
 	} = useWallet();
 	const [searchParams] = useSearchParams();
-	const navigate = useNavigate();
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [waitSubmit, setWaitSubmit] = useState(false);
@@ -61,7 +60,6 @@ const MainPage = ({ config }) => {
 		const utm = searchParams.get('utm');
 		if (utm) {
 			window.localStorage.setItem('utm', utm);
-			navigate('/');
 			Service.UtmService.sendUtm(utm, ref);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +69,6 @@ const MainPage = ({ config }) => {
 		if (ref) {
 			const utm = searchParams.get('utm');
 			window.localStorage.setItem('ref', ref);
-			navigate('/');
 			Service.UtmService.sendUtm(utm, ref);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

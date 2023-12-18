@@ -49,18 +49,16 @@ const ReferralCode = ({ referral, referrals, totals, balance }) => {
 				<>
 					<Styled.ProfileInputSheet mt={'0'}>
 						<Styled.ProfileInput
-							value={
-								referral ? `${window.location.origin}/code/${referral}` : ''
-							}
+							value={referral ? `${window.location.origin}/${referral}` : ''}
 							type={'text'}
-							placeholder={'sell-high.io/code/ed2da5'}
+							placeholder={'https://tymio.com/ed2da5'}
 							disabled={true}
 						/>
 						<Styled.ProfileButton
 							type={BUTTON_TYPE.SECONDARY}
 							disabled={!referral}
 							onClick={(e) =>
-								copyHandler(e, `${window.location.origin}/code/${referral}`)
+								copyHandler(e, `${window.location.origin}/${referral}`)
 							}>
 							{copyText}
 						</Styled.ProfileButton>

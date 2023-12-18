@@ -50,7 +50,7 @@ const App = () => {
 				<Routes>
 					<Route path="/" element={<Layout sessionInfo={sessionInfo} />}>
 						<Route path="/" element={<MainPage config={config} />} />
-						<Route path="/code/:ref" element={<MainPage config={config} />} />
+						<Route path="/:ref" element={<MainPage config={config} />} />
 						<Route path="/profile" element={<ProfilePage />} />
 						<Route path="/leaderboard" element={<Leaderboard />} />
 						<Route path="*" element={<MainPage config={config} />} />
