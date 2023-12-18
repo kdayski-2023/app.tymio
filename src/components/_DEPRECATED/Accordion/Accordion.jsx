@@ -1,37 +1,43 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import * as Styled from './styled';
-import * as TymioUI from '../../_DEPRECATED';
 
-const Accordion = ({ title, children }) => {
-	const [isExpanded, setExpand] = useState();
+import AccordionIcon from '../Icons/AccordionIcon/AccordionIcon';
 
-	const contentRef = useRef();
-	const contentHeight = isExpanded ? contentRef.current.scrollHeight : 0;
+const Accordion = ({ content, trigger, type, heightTrigger }) => {
+	const ref = useRef(null);
+	const [expanded, setExpanded] = useState(false);
+	const [height, setHeight] = useState('0');
 
-	const handleExpandToggle = useCallback(() => {
-		setExpand(!isExpanded);
-	}, [isExpanded]);
+	const toggleHandler = () => {
+		setExpanded((prevState) => !prevState);
+	};
+
+	useEffect(() => {
+		console.log({ heightTrigger });
+		let height = 0;
+		if (expanded) {
+			if (type === 'block') height += 30;
+			for (const item of ref.current.children) {
+				height += item.offsetHeight;
+			}
+			if (type === 'nested') {
+				height = 'auto';
+			}
+		}
+		setHeight(String(height));
+	}, [expanded, type, heightTrigger]);
 
 	return (
-		<Styled.Container>
-			<Styled.Title onClick={handleExpandToggle}>
-				<TymioUI.Grid columns={12} alignItems={'flex-start'}>
-					<TymioUI.GridElem column={'span 11'} textAlign={'left'}>
-						{title}
-					</TymioUI.GridElem>
-					<TymioUI.GridElem column={'span 1'} textAlign={'right'} floatRight>
-						<Styled.Chevron direction={isExpanded ? 'top' : 'bottom'} />
-					</TymioUI.GridElem>
-				</TymioUI.Grid>
-			</Styled.Title>
-			<Styled.ContentWrapper maxHeight={contentHeight}>
-				<Styled.Content
-					ref={contentRef}
-					dangerouslySetInnerHTML={{ __html: children }}
-				/>
-			</Styled.ContentWrapper>
-		</Styled.Container>
+		<Styled.Accordion type={type}>
+			<Styled.Trigger onClick={toggleHandler} expanded={expanded} type={type}>
+				<Styled.Question>{trigger}</Styled.Question>
+				<AccordionIcon size={'large'} expanded={expanded} />
+			</Styled.Trigger>
+			<Styled.Collapse height={height} ref={ref} type={type}>
+				<Styled.Content type={type}>{content}</Styled.Content>
+			</Styled.Collapse>
+		</Styled.Accordion>
 	);
 };
 
