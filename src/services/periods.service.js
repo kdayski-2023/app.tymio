@@ -9,6 +9,7 @@ class PeriodsService {
 		periods: [],
 		aprBonus: false,
 		welcomeBonus: false,
+		welcomeBonusPercent: 0,
 	};
 
 	pricePeriodsState = this.initialPricePeriodState;
@@ -47,6 +48,7 @@ class PeriodsService {
 					),
 					aprBonus: result.data.aprBonus,
 					welcomeBonus: result.data.welcomeBonus,
+					welcomeBonusPercent: result.data.welcomeBonusPercent,
 				};
 
 				this.pricePeriodsState$.next(this.pricePeriodsState);

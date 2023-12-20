@@ -29,7 +29,14 @@ const Periods = ({
 	const ref = useRef();
 	useFocus(orderLoading, ref);
 	const { connected } = useWallet();
-	const { error, loading, periods, aprBonus, welcomeBonus } = Hook.usePeriods();
+	const {
+		error,
+		loading,
+		periods,
+		aprBonus,
+		welcomeBonus,
+		welcomeBonusPercent,
+	} = Hook.usePeriods();
 	const { orderData } = Hook.useOrderAvailable();
 	const [earnPercent, setEarnPercent] = useState(0);
 	const [showBadge, setShowBadge] = useState(false);
@@ -173,7 +180,8 @@ const Periods = ({
 										<TymioUI.Typography
 											size={TYPOGRAPHY_SIZE.SMALL}
 											color={COLORS.BLACK}>
-											Welcome bonus: +9% to earnings for the first transaction
+											Welcome bonus: +{welcomeBonusPercent}% to earnings for the
+											first transaction
 										</TymioUI.Typography>
 									</Styled.AprBonus>
 								)}

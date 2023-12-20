@@ -6,6 +6,7 @@ const usePeriods = () => {
 	const [periods, setPeriods] = useState([]);
 	const [aprBonus, setAprBonus] = useState(false);
 	const [welcomeBonus, setWelcomeBonus] = useState(false);
+	const [welcomeBonusPercent, setWelcomeBonusPercent] = useState(0);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
@@ -16,6 +17,7 @@ const usePeriods = () => {
 				setPeriods(state.periods);
 				setAprBonus(state.aprBonus);
 				setWelcomeBonus(state.welcomeBonus);
+				setWelcomeBonusPercent(state.welcomeBonusPercent);
 			},
 		);
 
@@ -30,6 +32,7 @@ const usePeriods = () => {
 		periods,
 		aprBonus,
 		welcomeBonus,
+		welcomeBonusPercent,
 	};
 };
 
