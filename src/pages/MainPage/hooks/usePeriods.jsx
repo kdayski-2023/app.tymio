@@ -5,6 +5,7 @@ const usePeriods = () => {
 	const [loading, setLoading] = useState(false);
 	const [periods, setPeriods] = useState([]);
 	const [aprBonus, setAprBonus] = useState(false);
+	const [welcomeBonus, setWelcomeBonus] = useState(false);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
@@ -14,6 +15,7 @@ const usePeriods = () => {
 				setLoading(state.loading);
 				setPeriods(state.periods);
 				setAprBonus(state.aprBonus);
+				setWelcomeBonus(state.welcomeBonus);
 			},
 		);
 
@@ -27,6 +29,7 @@ const usePeriods = () => {
 		error,
 		periods,
 		aprBonus,
+		welcomeBonus,
 	};
 };
 

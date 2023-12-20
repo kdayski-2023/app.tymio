@@ -8,6 +8,7 @@ class PeriodsService {
 		error: null,
 		periods: [],
 		aprBonus: false,
+		welcomeBonus: false,
 	};
 
 	pricePeriodsState = this.initialPricePeriodState;
@@ -45,6 +46,7 @@ class PeriodsService {
 						(a, b) => a.timestamp - b.timestamp,
 					),
 					aprBonus: result.data.aprBonus,
+					welcomeBonus: result.data.welcomeBonus,
 				};
 
 				this.pricePeriodsState$.next(this.pricePeriodsState);

@@ -185,6 +185,7 @@ const MainPage = ({ config }) => {
 							price={price}
 							amount={amount}
 							amountFocused={amountFocused}
+							tokenSymbol={tokenSymbol}
 						/>
 					</GridElem>
 					{showAgreement && (

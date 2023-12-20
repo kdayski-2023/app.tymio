@@ -15,6 +15,7 @@ import * as Styled from './styled';
 import * as TymioUI from '../../../../components';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 import { COLORS } from '../../../../models/colors';
+import { PeriodsService } from '../../../../services';
 
 const Periods = ({
 	formik,
@@ -23,14 +24,31 @@ const Periods = ({
 	price,
 	amount,
 	forwardedRef,
+	tokenSymbol,
 }) => {
 	const ref = useRef();
 	useFocus(orderLoading, ref);
 	const { connected } = useWallet();
-	const { error, loading, periods, aprBonus } = Hook.usePeriods();
+	const { error, loading, periods, aprBonus, welcomeBonus } = Hook.usePeriods();
+	const { orderData } = Hook.useOrderAvailable();
 	const [earnPercent, setEarnPercent] = useState(0);
 	const [showBadge, setShowBadge] = useState(false);
 	const [toggleFocused, setToggleFocused] = useState(false);
+	const [localWelcomeBonus, setLocalWelcomeBonus] = useState(welcomeBonus);
+
+	useEffect(() => {
+		if (orderData) {
+			if (welcomeBonus !== orderData.welcomeBonus) {
+				if (price && parseFloat(amount) > 0 && tokenSymbol) {
+					PeriodsService.getPricePeriods(price, amount, tokenSymbol, true);
+				}
+			}
+			setLocalWelcomeBonus(orderData.welcomeBonus);
+		} else {
+			setLocalWelcomeBonus(welcomeBonus);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [orderData, welcomeBonus]);
 
 	useEffect(() => {
 		setEarnPercent(0);
@@ -100,7 +118,22 @@ const Periods = ({
 									<TymioUI.Typography size={TYPOGRAPHY_SIZE.SMALL}>
 										APR
 									</TymioUI.Typography>
-									{aprBonus && (
+									{localWelcomeBonus && (
+										<Styled.AprBadge
+											onClick={toggleShowBadge}
+											focus={showBadge}>
+											<TymioUI.Typography
+												size={TYPOGRAPHY_SIZE.SMALL}
+												color={COLORS.BLACK}>
+												Bonus
+											</TymioUI.Typography>
+											<TymioUI.TooltipIcon
+												circleFill={COLORS.BLACK}
+												iconFill={COLORS.LEMON}
+											/>
+										</Styled.AprBadge>
+									)}
+									{!localWelcomeBonus && aprBonus && (
 										<Styled.AprBadge
 											onClick={toggleShowBadge}
 											focus={showBadge}>
@@ -132,7 +165,19 @@ const Periods = ({
 					<>
 						<Styled.CardWrapper>
 							<Card.Body mt={'20px'}>
-								{showBadge && (
+								{localWelcomeBonus && showBadge && (
+									<Styled.AprBonus ref={contentRef}>
+										<Styled.Cross onClick={handleClose}>
+											<TymioUI.CrossClose color={COLORS.BLACK} />
+										</Styled.Cross>
+										<TymioUI.Typography
+											size={TYPOGRAPHY_SIZE.SMALL}
+											color={COLORS.BLACK}>
+											Welcome bonus: +9% to earnings for the first transaction
+										</TymioUI.Typography>
+									</Styled.AprBonus>
+								)}
+								{aprBonus && showBadge && (
 									<Styled.AprBonus ref={contentRef}>
 										<Styled.Cross onClick={handleClose}>
 											<TymioUI.CrossClose color={COLORS.BLACK} />
