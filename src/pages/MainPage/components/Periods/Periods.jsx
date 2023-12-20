@@ -180,8 +180,8 @@ const Periods = ({
 										<TymioUI.Typography
 											size={TYPOGRAPHY_SIZE.SMALL}
 											color={COLORS.BLACK}>
-											Welcome bonus: +{welcomeBonusPercent}% to earnings for the
-											first transaction
+											+{welcomeBonusPercent}% to earnings for the first
+											transaction
 										</TymioUI.Typography>
 									</Styled.AprBonus>
 								)}
