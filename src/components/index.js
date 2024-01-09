@@ -6,6 +6,7 @@ export { default as Typography } from './Typography/Typography/Typography';
 
 //Components
 export { default as Button } from './Button/Button';
+export { default as CopyButton } from './CopyButton/CopyButton';
 export { default as Menu } from './Menu';
 export { default as RouteMenu } from './RouteMenu/RouteMenu';
 export { default as WalletStatus } from './WalletStatus/WalletStatus';
@@ -14,6 +15,8 @@ export { default as NetworkSelector } from './NetworkSelector/NetworkSelector';
 export { default as Tooltip } from './Tooltip/Tooltip';
 export { default as Switcher } from './Switcher';
 export { default as Pagination } from './Pagination/Pagination';
+export { default as MoreActions } from './MoreActions/MoreActions';
+export { default as MoreActionItem } from './MoreActions/MoreActionItem';
 
 //Icons
 export { default as NetworkMenuArrow } from './Icons/NetworkMenuArrow/NetworkMenuArrow';
@@ -22,3 +25,4 @@ export { default as SelectorArrow } from './Icons/SelectorArrow/SelectorArrow';
 export { default as TooltipIcon } from './Icons/TooltipIcon/TooltipIcon';
 export { default as TransactionIcon } from './Icons/TransactionIcon/TransactionIcon';
 export { default as CrossClose } from './Icons/CrossClose/CrossClose';
+export { default as MoreActionsIcon } from './Icons/MoreActionsIcon/MoreActionsIcon';

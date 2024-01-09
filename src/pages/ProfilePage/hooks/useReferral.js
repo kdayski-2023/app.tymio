@@ -8,6 +8,7 @@ const useReferral = (userAddress) => {
 	const [totals, setTotals] = useState(null);
 	const [balance, setBalance] = useState(0);
 	const [error, setError] = useState(null);
+	const [refCodeList, setRefCodeList] = useState([]);
 
 	useEffect(() => {
 		const ref$ = ReferralService.state$.subscribe((state) => {
@@ -17,6 +18,7 @@ const useReferral = (userAddress) => {
 			setReferrals(state.referrals);
 			setTotals(state.totals);
 			setBalance(state.balance);
+			setRefCodeList(state.refCodeList);
 		});
 
 		return () => {
@@ -31,6 +33,7 @@ const useReferral = (userAddress) => {
 		referrals,
 		totals,
 		balance,
+		refCodeList,
 	};
 };
 

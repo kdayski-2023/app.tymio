@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import * as Service from '../../../../services';
 import * as Styled from './styled';
@@ -6,31 +6,22 @@ import * as Hook from '../../hooks';
 import * as TymioUI from '../../../../components';
 import ReferralList from './ReferralList';
 import { Card, LoadingSpinner } from '../../../../components/_DEPRECATED';
-import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../../../models/types';
+import { TYPOGRAPHY_SIZE } from '../../../../models/types';
+import RefCodeInput from './RefCodeInput';
+import { useWallet } from '../../../../hooks';
 
-const ReferralCode = ({ referral, referrals, totals, balance }) => {
-	const { loading, error } = Hook.useReferral();
-	const [copyText, setCopyText] = useState('COPY');
-	let timeout;
+const ReferralCode = () => {
+	const { loading, refCodeList, referrals, totals, balance, error } =
+		Hook.useReferral();
+	const { userAddress } = useWallet();
 
 	useEffect(() => {
 		if (error) {
 			Service.MessageDialogService.showError(error);
+			Service.ReferralService.getData(userAddress);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [error]);
-
-	const copyHandler = (e, data) => {
-		e.preventDefault();
-		navigator.clipboard.writeText(data);
-		setCopyText('COPIED');
-
-		if (timeout) {
-			clearTimeout(timeout);
-		}
-		timeout = setTimeout(() => {
-			setCopyText('COPY');
-		}, 2000);
-	};
 
 	return (
 		<Card gap={'30px'} xsPadding={'30px 20px'}>
@@ -47,22 +38,9 @@ const ReferralCode = ({ referral, referrals, totals, balance }) => {
 			{loading && <LoadingSpinner margin={'auto'} />}
 			{!loading && (
 				<>
-					<Styled.ProfileInputSheet mt={'0'}>
-						<Styled.ProfileInput
-							value={referral ? `${window.location.origin}/${referral}` : ''}
-							type={'text'}
-							placeholder={'https://tymio.com/ed2da5'}
-							disabled={true}
-						/>
-						<Styled.ProfileButton
-							type={BUTTON_TYPE.SECONDARY}
-							disabled={!referral}
-							onClick={(e) =>
-								copyHandler(e, `${window.location.origin}/${referral}`)
-							}>
-							{copyText}
-						</Styled.ProfileButton>
-					</Styled.ProfileInputSheet>
+					{refCodeList.map((refCode, idx) => (
+						<RefCodeInput key={idx} idx={idx} refCode={refCode} />
+					))}
 
 					{referrals && referrals.length ? (
 						<Card.Footer>

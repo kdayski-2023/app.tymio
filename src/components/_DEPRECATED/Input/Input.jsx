@@ -12,6 +12,7 @@ const Input = ({
 	innerRef,
 	style,
 	selector,
+	copyClipboard,
 	...props
 }) => {
 	const textArea = useRef();
@@ -59,6 +60,7 @@ const Input = ({
 						) : (
 							<Styled.Input {...props} ref={innerRef} onChange={onChange} />
 						)}
+						{copyClipboard && <TymioUI.CopyButton copyContent={props.value} />}
 					</Styled.InputWrapper>
 					{error ? <FormErrorText error={error} /> : null}
 				</>

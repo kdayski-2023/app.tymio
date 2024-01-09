@@ -8,18 +8,12 @@ import ReferralCode from './ReferralCode';
 import UserPoints from './UserPoints';
 
 import { useWallet } from '../../../../hooks';
-import {
-	useSubscribe,
-	useAirdrop,
-	useReferral,
-	useUserPoints,
-} from '../../hooks';
+import { useSubscribe, useAirdrop, useUserPoints } from '../../hooks';
 
 const UserSocials = () => {
 	const { userAddress, connected } = useWallet();
 	const { subscription } = useSubscribe(userAddress);
 	const { airdrop, airdropParticipant } = useAirdrop(userAddress);
-	const { referral, referrals, totals, balance } = useReferral(userAddress);
 	const { userPoints } = useUserPoints(userAddress);
 
 	useEffect(() => {
@@ -47,12 +41,7 @@ const UserSocials = () => {
 	return (
 		<Styled.UserSocials>
 			{subscription && <Subscribe subscription={subscription} />}
-			<ReferralCode
-				referral={referral}
-				referrals={referrals}
-				totals={totals}
-				balance={balance}
-			/>
+			<ReferralCode />
 			<UserPoints points={userPoints} />
 			{airdrop &&
 				airdropParticipant &&

@@ -48,12 +48,14 @@ class Web3Service {
 					.withdraw(value)
 					.estimateGas({ from: this.walletState.address })
 			).toString();
+
 			try {
-				gasPrice =
-					chain_id === 42161
-						? WalletService.web3.utils.toWei('0.1', 'gwei').toString()
-						: undefined;
+				gasPrice = (await WalletService.web3.eth.getGasPrice()).toString();
+				if (!gasPrice && chain_id === 42161) {
+					gasPrice = WalletService.web3.utils.toWei('0.1', 'gwei').toString();
+				}
 			} catch (e) {
+				console.log(e);
 				console.log('Unable to count gasPrice');
 			}
 			const inputData = contract.methods.withdraw(value).encodeABI();
@@ -103,12 +105,18 @@ class Web3Service {
 								return;
 							}
 						}
+
 						try {
-							gasPrice =
-								networkId === 42161
-									? WalletService.web3.utils.toWei('0.1', 'gwei').toString()
-									: undefined;
+							gasPrice = (
+								await WalletService.web3.eth.getGasPrice()
+							).toString();
+							if (!gasPrice && networkId === 42161) {
+								gasPrice = WalletService.web3.utils
+									.toWei('0.1', 'gwei')
+									.toString();
+							}
 						} catch (e) {
+							console.log(e);
 							console.log('Unable to count gasPrice');
 						}
 
@@ -179,12 +187,18 @@ class Web3Service {
 								return;
 							}
 						}
+
 						try {
-							gasPrice =
-								networkId === 42161
-									? WalletService.web3.utils.toWei('0.1', 'gwei').toString()
-									: undefined;
+							gasPrice = (
+								await WalletService.web3.eth.getGasPrice()
+							).toString();
+							if (!gasPrice && networkId === 42161) {
+								gasPrice = WalletService.web3.utils
+									.toWei('0.1', 'gwei')
+									.toString();
+							}
 						} catch (e) {
+							console.log(e);
 							console.log('Unable to count gasPrice');
 						}
 
@@ -291,15 +305,17 @@ class Web3Service {
 		let gasPrice;
 
 		try {
-			gasPrice = await WalletService.web3.eth.getGasPrice();
+			gasPrice = (await WalletService.web3.eth.getGasPrice()).toString();
+			if (!gasPrice && networkId === 42161) {
+				gasPrice = WalletService.web3.utils.toWei('0.1', 'gwei').toString();
+			}
+			if (!gasPrice && networkId === 421613) {
+				gasPrice = WalletService.web3.utils.toWei('10', 'gwei').toString();
+			}
 		} catch (error) {
 			console.log(error);
+			console.log('Unable to count gasPrice');
 		}
-
-		if (networkId === 42161)
-			gasPrice = WalletService.web3.utils.toWei('0.1', 'gwei').toString();
-		if (networkId === 421613)
-			gasPrice = WalletService.web3.utils.toWei('10', 'gwei').toString();
 
 		return new Promise((resolve, reject) => {
 			WalletService.web3.eth
