@@ -22,7 +22,7 @@ export const Actions = styled.div`
 	display: flex;
 	height: auto;
 	flex-direction: column;
-	transform: translateY(-50%);
+	z-index: 1;
 	border-radius: 5px;
 	user-select: none;
 

@@ -40,7 +40,12 @@ const ReferralCode = () => {
 				<>
 					<Styled.RefCodeList>
 						{refCodeList.map((refCode, idx) => (
-							<RefCodeInput key={idx} idx={idx} refCode={refCode} />
+							<RefCodeInput
+								key={idx}
+								idx={idx}
+								refCode={refCode}
+								refCodeList={refCodeList}
+							/>
 						))}
 					</Styled.RefCodeList>
 
