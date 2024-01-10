@@ -38,9 +38,11 @@ const ReferralCode = () => {
 			{loading && <LoadingSpinner margin={'auto'} />}
 			{!loading && (
 				<>
-					{refCodeList.map((refCode, idx) => (
-						<RefCodeInput key={idx} idx={idx} refCode={refCode} />
-					))}
+					<Styled.RefCodeList>
+						{refCodeList.map((refCode, idx) => (
+							<RefCodeInput key={idx} idx={idx} refCode={refCode} />
+						))}
+					</Styled.RefCodeList>
 
 					{referrals && referrals.length ? (
 						<Card.Footer>

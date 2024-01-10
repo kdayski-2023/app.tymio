@@ -14,7 +14,6 @@ const Accordion = ({ content, trigger, type, heightTrigger }) => {
 	};
 
 	useEffect(() => {
-		console.log({ heightTrigger });
 		let height = 0;
 		if (expanded) {
 			if (type === 'block') height += 30;

@@ -67,6 +67,14 @@ class Web3Service {
 				gasPrice,
 			});
 		} catch (e) {
+			if (
+				e.data &&
+				e.data.code === -32000 &&
+				e.data.message.includes('insufficient funds for gas * price + value')
+			)
+				throw new Error(
+					'Make sure you have enough ETH on Arbitrum to pay gas for the transaction',
+				);
 			throw e;
 		}
 	};
@@ -145,10 +153,30 @@ class Web3Service {
 								reject(error);
 							});
 					} catch (e) {
+						if (
+							e.data &&
+							e.data.code === -32000 &&
+							e.data.message.includes(
+								'insufficient funds for gas * price + value',
+							)
+						)
+							reject(
+								new Error(
+									'Make sure you have enough ETH to pay gas for the transaction',
+								),
+							);
 						reject(new Error(e.message.split('{')[0]));
 					}
 				});
 			} catch (e) {
+				if (
+					e.data &&
+					e.data.code === -32000 &&
+					e.data.message.includes('insufficient funds for gas * price + value')
+				)
+					throw new Error(
+						'Make sure you have enough ETH to pay gas for the transaction',
+					);
 				throw e;
 			}
 		}
@@ -227,10 +255,30 @@ class Web3Service {
 								reject(error);
 							});
 					} catch (e) {
+						if (
+							e.data &&
+							e.data.code === -32000 &&
+							e.data.message.includes(
+								'insufficient funds for gas * price + value',
+							)
+						)
+							reject(
+								new Error(
+									'Make sure you have enough ETH to pay gas for the transaction',
+								),
+							);
 						reject(new Error(e.message.split('{')[0]));
 					}
 				});
 			} catch (e) {
+				if (
+					e.data &&
+					e.data.code === -32000 &&
+					e.data.message.includes('insufficient funds for gas * price + value')
+				)
+					throw new Error(
+						'Make sure you have enough ETH to pay gas for the transaction',
+					);
 				throw e;
 			}
 		}
@@ -336,6 +384,18 @@ class Web3Service {
 				})
 				.catch((error) => {
 					console.log({ error });
+					if (
+						error.data &&
+						error.data.code === -32000 &&
+						error.data.message.includes(
+							'insufficient funds for gas * price + value',
+						)
+					)
+						reject(
+							new Error(
+								'Make sure you have enough ETH to pay gas for the transaction',
+							),
+						);
 					reject(error);
 				});
 		});

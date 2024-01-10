@@ -1,7 +1,20 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { COLORS } from '../../models/colors';
 
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
 export const Actions = styled.div`
+	flex: unset !important;
+	gap: unset !important;
+	align-items: unset !important;
+	padding: unset !important;
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -11,9 +24,29 @@ export const Actions = styled.div`
 	flex-direction: column;
 	transform: translateY(-50%);
 	border-radius: 5px;
+	user-select: none;
+
+	animation: ${({ show }) =>
+		show
+			? css`
+					${slideIn} 0.3s ease forwards
+			  `
+			: 'none'};
 `;
 
 export const IconWrapper = styled.div`
+	background-color: unset !important;
+	border-radius: unset !important;
+	margin: unset !important;
+	padding: unset !important;
+	bottom: unset !important;
+	left: unset !important;
+	font-size: unset !important;
+	font-style: unset !important;
+	font-weight: unset !important;
+	line-height: unset !important;
+	letter-spacing: unset !important;
+	color: unset !important;
 	right: -30px;
 	position: absolute;
 	&:hover {

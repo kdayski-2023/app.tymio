@@ -59,7 +59,7 @@ export const CardBody = styled.div`
 	padding: 30px 0;
 	font-weight: 400;
 	font-size: 18px;
-	line-height: 150%;
+	line-height: 20px;
 	color: ${COLORS.WHITE};
 	display: flex;
 	flex-direction: row;
@@ -76,6 +76,10 @@ export const CardBody = styled.div`
 
 	.m-0 {
 		margin: 0 !important;
+	}
+
+	p {
+		line-height: 20px !important;
 	}
 `;
 

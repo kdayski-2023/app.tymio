@@ -303,3 +303,9 @@ export const Withdraw = styled.div`
 		border-radius: 5px;
 	}
 `;
+
+export const RefCodeList = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+`;

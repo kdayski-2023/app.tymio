@@ -8,7 +8,6 @@ const MoreActions = ({ actions }) => {
 	const [show, setShow] = useState(false);
 
 	const handleClick = () => {
-		console.log(show);
 		setShow((prevState) => !prevState);
 	};
 
@@ -26,16 +25,16 @@ const MoreActions = ({ actions }) => {
 	}, []);
 
 	return (
-		<>
+		<div ref={ref}>
 			{show && (
-				<Styled.Actions ref={ref}>
+				<Styled.Actions show={show}>
 					{actions.map((action) => action)}
 				</Styled.Actions>
 			)}
 			<Styled.IconWrapper onClick={handleClick}>
 				<MoreActionsIcon />
 			</Styled.IconWrapper>
-		</>
+		</div>
 	);
 };
 

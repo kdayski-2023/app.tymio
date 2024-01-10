@@ -13,7 +13,11 @@ import { COLORS } from '../../../../models/colors';
 import * as TymioUI from '../../../../components';
 import { TYPOGRAPHY_SIZE } from '../../../../models/types';
 import * as Styled from './styled';
-import { ReferralService, Web3Service } from '../../../../services';
+import {
+	MessageDialogService,
+	ReferralService,
+	Web3Service,
+} from '../../../../services';
 import { useWallet } from '../../../../hooks';
 import { useEffect } from 'react';
 
@@ -48,6 +52,7 @@ const ReferralList = ({ referrals, totals, balance }) => {
 			await Web3Service.withdraw(amount);
 			ReferralService.getData(userAddress);
 		} catch (e) {
+			MessageDialogService.showError(e.message);
 			console.log(e);
 		}
 		setSending(false);

@@ -136,8 +136,6 @@ class ReferralService {
 				this.state = {
 					...this.state,
 					error: null,
-					referral,
-					refCodeList: result.data.ref_list,
 					loading: false,
 				};
 				if (!result.success && result.error) {
@@ -145,6 +143,12 @@ class ReferralService {
 						...this.state,
 						referral: this.initialState.referral,
 						error: result.error,
+					};
+				} else {
+					this.state = {
+						...this.state,
+						referral,
+						refCodeList: result.data.ref_list,
 					};
 				}
 
