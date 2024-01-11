@@ -34,7 +34,7 @@ class ReferralService {
 		this.state$.next(this.state);
 	}
 
-	getData(address, idx) {
+	getData(address) {
 		if (this.state.loading) {
 			return;
 		}
