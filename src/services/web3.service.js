@@ -4,6 +4,32 @@ import ReferralAbi from '../abi/Referral.json';
 import { convertFloatToBnString } from '../lib/lib';
 import { ConfigService } from '.';
 
+const parseBalanceError = (error) => {
+	const errorContents = [
+		'insufficient funds for gas * price + value',
+		'max fee per gas less than block base fee',
+	];
+	const errorMsg =
+		'Make sure you have enough ETH to pay gas for the transaction';
+	let containsContent = false;
+	let message = '';
+
+	if (error && error.message) message = error.message;
+	if (error && error.data && error.data.message) message = error.data.message;
+
+	for (const content of errorContents) {
+		if (message.includes(content)) {
+			containsContent = true;
+			break;
+		}
+	}
+
+	if (error && containsContent) {
+		return new Error(errorMsg);
+	}
+	return error;
+};
+
 class Web3Service {
 	constructor() {
 		this.wallet$ = WalletService.state$.subscribe((state) => {
@@ -67,15 +93,8 @@ class Web3Service {
 				gasPrice,
 			});
 		} catch (e) {
-			if (
-				e.data &&
-				e.data.code === -32000 &&
-				e.data.message.includes('insufficient funds for gas * price + value')
-			)
-				throw new Error(
-					'Make sure you have enough ETH on Arbitrum to pay gas for the transaction',
-				);
-			throw e;
+			const parsedError = parseBalanceError(e);
+			throw parsedError;
 		}
 	};
 
@@ -145,38 +164,20 @@ class Web3Service {
 								resolve(hash);
 							})
 							.on('error', (error) => {
-								console.log({ error });
-								reject(error);
+								const parsedError = parseBalanceError(error);
+								console.log(parsedError);
+								reject(parsedError);
 							})
 							.catch((error) => {
-								console.log({ error });
-								reject(error);
+								const parsedError = parseBalanceError(error);
+								console.log(parsedError);
+								reject(parsedError);
 							});
 					} catch (e) {
-						if (
-							e.data &&
-							e.data.code === -32000 &&
-							e.data.message.includes(
-								'insufficient funds for gas * price + value',
-							)
-						)
-							reject(
-								new Error(
-									'Make sure you have enough ETH to pay gas for the transaction',
-								),
-							);
 						reject(new Error(e.message.split('{')[0]));
 					}
 				});
 			} catch (e) {
-				if (
-					e.data &&
-					e.data.code === -32000 &&
-					e.data.message.includes('insufficient funds for gas * price + value')
-				)
-					throw new Error(
-						'Make sure you have enough ETH to pay gas for the transaction',
-					);
 				throw e;
 			}
 		}
@@ -247,38 +248,20 @@ class Web3Service {
 								resolve(hash);
 							})
 							.on('error', (error) => {
-								console.log({ error });
-								reject(error);
+								const parsedError = parseBalanceError(error);
+								console.log(parsedError);
+								reject(parsedError);
 							})
 							.catch((error) => {
-								console.log({ error });
-								reject(error);
+								const parsedError = parseBalanceError(error);
+								console.log(parsedError);
+								reject(parsedError);
 							});
 					} catch (e) {
-						if (
-							e.data &&
-							e.data.code === -32000 &&
-							e.data.message.includes(
-								'insufficient funds for gas * price + value',
-							)
-						)
-							reject(
-								new Error(
-									'Make sure you have enough ETH to pay gas for the transaction',
-								),
-							);
 						reject(new Error(e.message.split('{')[0]));
 					}
 				});
 			} catch (e) {
-				if (
-					e.data &&
-					e.data.code === -32000 &&
-					e.data.message.includes('insufficient funds for gas * price + value')
-				)
-					throw new Error(
-						'Make sure you have enough ETH to pay gas for the transaction',
-					);
 				throw e;
 			}
 		}
@@ -379,24 +362,14 @@ class Web3Service {
 					resolve(hash);
 				})
 				.on('error', (error) => {
-					console.log({ error });
-					reject(error);
+					const parsedError = parseBalanceError(error);
+					console.log(parsedError);
+					reject(parsedError);
 				})
 				.catch((error) => {
-					console.log({ error });
-					if (
-						error.data &&
-						error.data.code === -32000 &&
-						error.data.message.includes(
-							'insufficient funds for gas * price + value',
-						)
-					)
-						reject(
-							new Error(
-								'Make sure you have enough ETH to pay gas for the transaction',
-							),
-						);
-					reject(error);
+					const parsedError = parseBalanceError(error);
+					console.log(parsedError);
+					reject(parsedError);
 				});
 		});
 	};
