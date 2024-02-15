@@ -63,7 +63,7 @@ export const Tr = styled.tr`
 	padding: 17px 0px 15px 20px;
 	gap: 10px;
 	width: 100%;
-	border-top: 0.5px solid ${COLORS.GRAY};
+	border-top: 1px solid ${COLORS.GRAY};
 	height: 52px;
 	background: ${({ user }) =>
 		user

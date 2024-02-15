@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from '../Buttons/Button/styled';
+import { Button } from '../Button/styled';
 import { COLORS } from '../../../models/colors';
 
 export const BalanceSheet = styled.div`

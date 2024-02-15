@@ -8,7 +8,7 @@ export const InputWrapper = styled.div`
 	max-height: ${({ type }) => type === 'textarea' && '200px'};
 	color: ${COLORS.WHITE};
 	display: flex;
-	border: 0.5px solid ${COLORS.PURPLE_BRIGHT};
+	box-shadow: 0 0 0 1px ${COLORS.PURPLE_BRIGHT};
 	background: ${COLORS.BLACK};
 	border-radius: 5px;
 	padding: ${({ type }) => (type === 'textarea' ? '0' : '0 15px 0 0')};
@@ -20,6 +20,7 @@ export const InputWrapper = styled.div`
 
 export const CheckboxWrapper = styled(InputWrapper)`
 	height: fit-content;
+	box-shadow: unset;
 	border: unset;
 	background: unset;
 	border-radius: unset;
@@ -56,7 +57,7 @@ export const TextArea = styled.textarea`
 	text-align: ${({ align }) => align};
 	background: ${COLORS.RICH_PURPLE};
 	border-radius: 5px;
-	border: 0.5px solid ${COLORS.LIGHT};
+	box-shadow: 0 0 0 1px ${COLORS.LIGHT};
 	outline: none;
 
 	&::placeholder {

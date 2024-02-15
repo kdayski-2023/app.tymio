@@ -6,7 +6,7 @@ import {
 	MessageDialogCardWrapper,
 } from './styled';
 import { Card, CardFooter, CardBody, CardHeader } from './styled';
-import { Button } from '../Buttons/Button/styled';
+import { Button } from '../Button/styled';
 import { Typography } from '../../Typography/Typography/styled';
 
 import { WarningIcon } from '../Icons/WarningIcon';

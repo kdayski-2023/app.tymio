@@ -20,11 +20,12 @@ export const UserSocials = styled.div`
 export const ProfileSheet = styled.div`
 	display: flex;
 	background: ${COLORS.BLACK};
-	border: 1px solid ${COLORS.VERY_DARK};
+	box-shadow: 0 0 0 1px ${COLORS.VERY_DARK};
 	border-radius: 45px;
 `;
 
 export const ProfileInputSheet = styled(ProfileSheet)`
+	box-shadow: 0 0 0 1px ${COLORS.PURPLE_BRIGHT};
 	margin-top: ${({ mt }) => mt || '30px'};
 	margin-left: ${({ ml }) => ml};
 	position: relative;
@@ -67,23 +68,27 @@ export const ProfileInputSheet = styled(ProfileSheet)`
 export const ProfileInput = styled(Input)`
 	height: 40px;
 	border-radius: 5px 0px 0px 5px;
-	border-style: solid;
-	border-color: ${({ error }) =>
-		error ? COLORS.WARNINGS : COLORS.PURPLE_GRAY2};
-	border-width: 0.5px 0 0.5px 0.5px;
+	box-shadow: ${({ error }) => `
+  -1px 0 0 0 ${error ? COLORS.WARNINGS : COLORS.PURPLE_GRAY2},
+  0 -1px 0 0 ${error ? COLORS.WARNINGS : COLORS.PURPLE_GRAY2},
+  0 1px 0 0 ${error ? COLORS.WARNINGS : COLORS.PURPLE_GRAY2}
+`};
+
 	font-size: 13px;
 	font-weight: 400;
 	line-height: 13px;
 	letter-spacing: 0.39px;
-	padding: ${({ noButton }) => (noButton ? '12px 0' : '14.5px 20px')};
+	padding: ${({ noButton }) => (noButton ? '12px 0' : '14px 20px')};
 	text-align: ${({ noButton }) => (noButton ? 'center' : 'initial')};
 	color: ${({ error }) => (error ? COLORS.WARNINGS : COLORS.LIGHT)};
 	opacity: ${({ error }) => (error ? '0.6' : '1')};
 
 	&:focus {
-		border-style: solid;
-		border-color: ${({ error }) => (error ? COLORS.WARNINGS : COLORS.LIGHT)};
-		border-width: 0.5px 0 0.5px 0.5px;
+		box-shadow: ${({ error }) => `
+  -1px 0 0 0 ${error ? COLORS.WARNINGS : COLORS.LIGHT},
+  0 -1px 0 0 ${error ? COLORS.WARNINGS : COLORS.LIGHT},
+  0 1px 0 0 ${error ? COLORS.WARNINGS : COLORS.LIGHT}
+`};
 		color: ${({ error }) => (error ? COLORS.WARNINGS : COLORS.LIGHT)};
 		opacity: ${({ error }) => (error ? '0.6' : '1')};
 	}
@@ -102,19 +107,18 @@ export const ProfileButton = styled(Button)`
 	background-color: ${COLORS.PURPLE_GRAY2};
 	color: ${COLORS.BLACK};
 	border-radius: ${({ border }) => (border ? '5px' : '0 5px 5px 0')};
-	padding: 14.5px 30px;
+	padding: 14px 30px;
 	border: none;
 	opacity: 1;
 
 	&:hover {
-		padding: 14.5px 30px;
 		background-color: ${COLORS.PURPLE_BRIGHT};
 		color: ${COLORS.BLACK};
 		border: none;
+		box-shadow: 0 0 0 1px ${COLORS.PURPLE_BRIGHT};
 	}
 
 	&:disabled {
-		padding: 14.5px 30px;
 		background-color: ${COLORS.PURPLE_GRAY2};
 		color: ${COLORS.BLACK};
 		border: none;
@@ -147,7 +151,7 @@ export const SubscribeSheet = styled.div`
 	position: relative;
 	display: flex;
 	background: ${COLORS.BLACK};
-	border: 1px solid ${COLORS.VERY_DARK};
+	box-shadow: 0 0 0 1px ${COLORS.VERY_DARK};
 	border-radius: 45px;
 
 	div {
@@ -265,7 +269,7 @@ export const Condition = styled.div`
 `;
 export const PointsCondition = styled(Condition)`
 	padding-bottom: 10px;
-	border-bottom: 0.5px solid ${COLORS.GRAY};
+	border-bottom: 1px solid ${COLORS.GRAY};
 `;
 export const Number = styled.div`
 	margin-top: 5px;

@@ -17,7 +17,7 @@ export const Footer = styled.div`
 	}
 `;
 export const HR = styled.div`
-	height: 0.5px;
+	height: 1px;
 	background: ${COLORS.GRAY};
 `;
 export const Content = styled.div`

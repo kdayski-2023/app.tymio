@@ -25,9 +25,7 @@ export const MenuItem = styled.button`
 	}
 
 	&:focus {
-		border: 1.5px solid ${COLORS.LIGHT};
-		box-shadow: ${`0px 0px 3px 0px ${COLORS.BOX_SHADOW}`};
-		padding: 11px 19px;
+		box-shadow: 0 0 3px 2px ${COLORS.LIGHT};
 		border-radius: 5px;
 	}
 `;

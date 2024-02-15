@@ -45,14 +45,13 @@ export const Header = styled.div`
 			line-height: 30px;
 		}
 	}
-
 `;
 
 export const TDLi = styled.li`
 	padding: 10px 0;
 	display: flex;
 	justify-content: space-between;
-	border-bottom: 0.5px solid ${COLORS.GRAY};
+	border-bottom: 1px solid ${COLORS.GRAY};
 	color: ${COLORS.LIGHT};
 	font-size: 17px;
 	font-weight: 400;
@@ -154,7 +153,7 @@ export const AccordionItem = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	border-bottom: 0.5px solid ${COLORS.BLACK};
+	border-bottom: 1px solid ${COLORS.BLACK};
 	padding-bottom: 5px;
 `;
 

@@ -29,8 +29,8 @@ export { default as Message } from './Message/Message';
  */
 
 export { Container } from './Containers/Container/styled';
-export { Button } from './Buttons/Button/styled';
 export { Grid, GridElem } from './Grid/styled';
+export { Button } from './Button/styled';
 export { TransitionArrow } from './Icons/Arrow/styled';
 export { Chevron } from './Accordion/styled';
 

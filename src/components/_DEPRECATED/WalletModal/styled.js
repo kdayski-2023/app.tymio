@@ -77,7 +77,7 @@ export const ButtonLink = styled.div`
 	padding: 15px 20px;
 	cursor: pointer;
 	border-radius: 10px;
-	border: 1.5px solid ${COLORS.LIGHT};
+	border: 2px solid ${COLORS.LIGHT};
 	gap: 20px;
 
 	&:hover {

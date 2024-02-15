@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from '../../../../models/colors';
+import { COLORS } from '../../../models/colors';
 
 export const Button = styled.button`
 	border: none;
@@ -13,12 +13,11 @@ export const Button = styled.button`
 	justify-content: ${({ waitProcess }) => waitProcess && 'center'};
 	opacity: ${({ disabled }) => disabled && '0.7'};
 	color: ${({ active }) => active && COLORS.BLACK};
-	padding: 9.5px 13.5px;
-	outline: ${({ active }) =>
+	padding: 9px 13px;
+	box-shadow: ${({ active }) =>
 		active
-			? `2.5px solid ${COLORS.PURPLE_BRIGHT}`
-			: `0.5px solid ${COLORS.PURPLE_BRIGHT}`};
-	outline-offset: -2.5px;
+			? `0 0 0 2px ${COLORS.PURPLE_BRIGHT}`
+			: `0 0 0 1px ${COLORS.PURPLE_BRIGHT}`};
 	background: ${({ active }) => (active ? COLORS.PURPLE_BRIGHT : COLORS.DARK)};
 
 	p {
@@ -26,13 +25,10 @@ export const Button = styled.button`
 	}
 
 	&:hover {
-		padding: 9.5px 13.5px;
-
 		background: ${({ active }) =>
 			active ? COLORS.PURPLE_BRIGHT : COLORS.DARK};
 		color: ${COLORS.PURPLE_GRAY2};
-		outline: 2.5px solid ${COLORS.PURPLE_BRIGHT};
-		outline-offset: -2.5px;
+		box-shadow: 0 0 0 2px ${COLORS.PURPLE_BRIGHT};
 
 		p {
 			color: ${({ active }) => (active ? COLORS.BLACK : COLORS.PURPLE_GRAY2)};
@@ -44,18 +40,20 @@ export const Button = styled.button`
 	}
 
 	&:focus {
-		outline: ${({ active }) =>
+		box-shadow: ${({ active }) =>
 			active
-				? `2.5px solid ${COLORS.PURPLE_BRIGHT}`
-				: `1.5px solid ${COLORS.LIGHT}`};
-		outline-offset: ${({ active }) => (active ? `-2.5px` : `-1.5px`)};
+				? `0 0 0 2px ${COLORS.PURPLE_BRIGHT}`
+				: `0 0 3px 2px ${COLORS.LIGHT}`};
 		background: ${({ active }) =>
 			active ? COLORS.PURPLE_BRIGHT : COLORS.DARK};
-		box-shadow: ${({ active }) => !active && `0px 0px 3px 0px ${COLORS.LIGHT}`};
 		color: ${({ active }) => !active && COLORS.LIGHT};
 
 		p {
 			color: ${({ active }) => !active && COLORS.LIGHT};
 		}
+	}
+
+	&:disabled {
+		box-shadow: 0 0 0 1px ${COLORS.PURPLE_BRIGHT};
 	}
 `;

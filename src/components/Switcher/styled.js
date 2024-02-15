@@ -3,8 +3,7 @@ import { COLORS } from '../../models/colors';
 
 export const Switcher = styled.div`
 	box-sizing: border-box;
-	outline: 1.5px solid ${COLORS.PURPLE_GRAY};
-	outline-offset: -1.5px;
+	box-shadow: 0 0 0 1px ${COLORS.PURPLE_GRAY};
 	height: 40px;
 	display: flex;
 	border-radius: 5px;
@@ -37,12 +36,8 @@ export const Option = styled.button`
 
 	&:focus {
 		box-sizing: border-box;
-		outline-offset: ${({ active }) => (active ? 'none' : `-1.5px`)};
-		outline: ${({ active }) =>
-			active ? 'none' : `1.5px solid ${COLORS.LIGHT}`};
 		box-shadow: ${({ active }) =>
-			active ? 'none' : `0px 0px 3px 0px ${COLORS.LIGHT}`};
+			active ? 'none' : `0 0 3px 1px ${COLORS.LIGHT}`};
 		background: ${({ active }) => (active ? COLORS.PURPLE_GRAY : COLORS.BLACK)};
-		padding: '14px 20px 13px';
 	}
 `;

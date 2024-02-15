@@ -55,24 +55,20 @@ export const Tr = styled.tr`
 		(columns ? '1fr '.repeat(columns) : '1fr 2fr 2fr 1fr')};
 	align-items: center;
 	height: 40px;
-	padding: 4.5px 15px;
+	padding: 5px 15px;
 	gap: 10px;
 	border-radius: 5px;
 	background: ${COLORS.DARK};
 	width: 100%;
 	cursor: pointer;
-	outline: 0.5px solid ${COLORS.PURPLE_BRIGHT};
-	outline-offset: -0.5px;
+	box-shadow: 0 0 0 1px ${COLORS.PURPLE_BRIGHT};
 
 	&:focus {
-		outline: 1.5px solid ${COLORS.LIGHT};
-		outline-offset: -1.5px;
-		box-shadow: 0px 0px 3px 0px ${COLORS.BOX_SHADOW};
+		box-shadow: 0 0 3px 2px ${COLORS.LIGHT};
 	}
 
 	&:hover {
-		outline: 2.5px solid ${COLORS.PURPLE_GRAY2};
-		outline-offset: -2.5px;
+		box-shadow: 0 0 0 2px ${COLORS.PURPLE_GRAY2};
 		td {
 			color: ${COLORS.PURPLE_GRAY2};
 			p {

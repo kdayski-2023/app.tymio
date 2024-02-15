@@ -63,20 +63,18 @@ export const Action = styled.button`
 	background-color: ${COLORS.PURPLE_GRAY2};
 	color: ${COLORS.BLACK};
 	border-radius: 5px;
-	padding: 14.5px 30px;
+	padding: 14px 30px;
 	border: none;
 	opacity: 1;
 
 	&:hover {
 		cursor: pointer;
-		padding: 14.5px 30px;
 		background-color: ${COLORS.PURPLE_BRIGHT};
 		color: ${COLORS.BLACK};
 		border: none;
 	}
 
 	&:disabled {
-		padding: 14.5px 30px;
 		background-color: ${COLORS.PURPLE_GRAY2};
 		color: ${COLORS.BLACK};
 		border: none;

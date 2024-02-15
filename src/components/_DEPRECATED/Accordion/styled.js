@@ -73,7 +73,7 @@ export const Accordion = styled.div`
 	border-bottom: ${({ type }) =>
 		type === 'nested' || type === 'block'
 			? 'none'
-			: `0.5px ${COLORS.GRAY} solid`};
+			: `1px ${COLORS.GRAY} solid`};
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;

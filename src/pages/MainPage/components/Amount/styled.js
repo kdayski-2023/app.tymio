@@ -58,8 +58,6 @@ export const Max = styled.button`
 			color: ${COLORS.PURPLE_BRIGHT};
 		}
 		border-radius: 5px;
-		border: 1.5px solid ${COLORS.LIGHT};
-		box-shadow: 0px 0px 3px 0px ${COLORS.LIGHT};
-		padding: 4px 9px;
+		box-shadow: 0px 0px 3px 2px ${COLORS.LIGHT};
 	}
 `;

@@ -31,7 +31,7 @@ export const Value = styled.div`
 	justify-content: space-between;
 	border-radius: 5px;
 
-	padding: ${({ custom }) => (custom ? '7px 15px 7px 15px' : '4.5px 10px')};
+	padding: ${({ custom }) => (custom ? '7px 15px 7px 15px' : '5px 10px')};
 	gap: 10px;
 	color: ${({ custom }) => (custom ? COLORS.LIGHT : COLORS.PINK)};
 

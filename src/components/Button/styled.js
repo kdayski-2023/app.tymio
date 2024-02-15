@@ -3,7 +3,8 @@ import { COLORS } from '../../models/colors';
 import { BUTTON_TYPE } from '../../models/types';
 
 export const Button = styled.button`
-	padding: 14.5px 20px 12px 20px;
+	border: none;
+	padding: 14px 20px 12px 20px;
 	border-radius: 5px;
 	text-transform: ${({ common }) => !common && 'uppercase'};
 	width: ${({ width }) => width && width};
@@ -18,12 +19,12 @@ export const Button = styled.button`
 				return COLORS.GRADIENT_RED_PINK;
 		}
 	}};
-	border: ${({ type }) => {
+	box-shadow: ${({ type }) => {
 		switch (type) {
 			case BUTTON_TYPE.PRIMARY:
 				return 'none';
 			case BUTTON_TYPE.SECONDARY:
-				return `0.5px solid ${COLORS.BLACK}`;
+				return `0 0 0 1px ${COLORS.BLACK}`;
 			default:
 				return 'none';
 		}
@@ -44,25 +45,14 @@ export const Button = styled.button`
 	}
 
 	&:focus {
-		padding: ${({ fixed }) => !fixed && '13.5px 19px 11px 19px'};
 		box-shadow: ${({ type }) => {
 			switch (type) {
 				case BUTTON_TYPE.PRIMARY:
-					return `0px 0px 3px 0px ${COLORS.BOX_SHADOW}`;
+					return `0px 0px 3px 2px ${COLORS.LIGHT}`;
 				case BUTTON_TYPE.SECONDARY:
-					return `0px 0px 3px 0px ${COLORS.BLACK}`;
+					return `0px 0px 3px 2px ${COLORS.BLACK}`;
 				default:
-					return `0px 0px 3px 0px ${COLORS.BOX_SHADOW}`;
-			}
-		}};
-		border: ${({ type }) => {
-			switch (type) {
-				case BUTTON_TYPE.PRIMARY:
-					return `1.5px solid ${COLORS.LIGHT}`;
-				case BUTTON_TYPE.SECONDARY:
-					return `1.5px solid ${COLORS.BLACK}`;
-				default:
-					return `1.5px solid ${COLORS.LIGHT}`;
+					return `0px 0px 3px 2px ${COLORS.LIGHT}`;
 			}
 		}};
 		background: ${({ type }) => {
