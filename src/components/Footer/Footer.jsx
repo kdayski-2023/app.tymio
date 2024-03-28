@@ -35,7 +35,7 @@ const Footer = () => {
 					))}
 				</Styled.Socials>
 			</Styled.Content>
-			<Styled.Copyrights>© 2023 Tymio. All rights reserved</Styled.Copyrights>
+			<Styled.Copyrights>© 2024 Tymio. All rights reserved</Styled.Copyrights>
 		</Styled.Footer>
 	);
 };
