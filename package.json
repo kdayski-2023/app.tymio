@@ -39,7 +39,7 @@
 	},
 	"scripts": {
 		"start": "GENERATE_SOURCEMAP=false PORT=5110 react-scripts start",
-		"dev": "GENERATE_SOURCEMAP=false PORT=5210 react-scripts start",
+		"dev": "GENERATE_SOURCEMAP=false PORT=7001 react-scripts start",
 		"preprod": "GENERATE_SOURCEMAP=false PORT=5310 react-scripts start",
 		"build": "npm run update-version && GENERATE_SOURCEMAP=false react-scripts build",
 		"update-version": "node scripts/update-version.js",

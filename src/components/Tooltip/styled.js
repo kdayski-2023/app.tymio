@@ -10,9 +10,10 @@ export const TooltipWrapper = styled.div`
 `;
 
 export const TooltipText = styled.div`
+	z-index: ${({ show }) => (show ? '1001' : '1')};
 	display: ${(props) => (props.show ? 'block' : 'none')};
 	opacity: ${(props) => (props.show ? 1 : 0)};
-	top: 20px;
+	top: ${({ top }) => top || '20px'};
 	${({ position }) => (position === 'right' ? 'right: 0' : 'left: 0')};
 	border-radius: 10px;
 	padding: 20px;
@@ -23,7 +24,7 @@ export const TooltipText = styled.div`
 	font-weight: 400;
 	line-height: 15px;
 	letter-spacing: 0.39px;
-	width: 255px;
+	width: ${({ width }) => width || '255px'};
 	position: absolute;
 	transition: opacity 0.5s ease;
 	text-align: left;

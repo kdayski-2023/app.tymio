@@ -3,11 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
 
 import * as Components from './components';
-import * as Styled from './styled';
 import * as Service from '../../services';
 import {
 	Container,
-	ErrorIcon,
 	Message,
 	Grid,
 	GridElem,
@@ -21,12 +19,12 @@ const MainPage = ({ config }) => {
 	const periodsRef = useRef(null);
 	const {
 		chainId,
-		connected,
 		userAddress,
 		balance,
 		balanceUSDC,
 		balanceToken,
 		isNotEnoughBalance,
+		isNotSupportedNetwork,
 	} = useWallet();
 	const [searchParams] = useSearchParams();
 	const [error, setError] = useState(null);
@@ -106,6 +104,12 @@ const MainPage = ({ config }) => {
 	}, [price, period, amount, tokenSymbol, direction, balance, balanceUSDC]);
 
 	useEffect(() => {
+		if (chainId && config) {
+			Service.WalletService.setIsNotSupportedNetwork(chainId, config);
+		}
+	}, [chainId, config]);
+
+	useEffect(() => {
 		if (tokenSymbol && balanceToken && tokenSymbol === balanceToken) {
 			Service.PricesService.getData(tokenSymbol, direction);
 		}
@@ -120,14 +124,6 @@ const MainPage = ({ config }) => {
 
 	const showAgreement =
 		price && period && amount && Number(amount) ? true : false;
-	const showActions =
-		config &&
-		config.CHAIN_LIST &&
-		chainId &&
-		config.CHAIN_LIST.includes(Number(chainId))
-			? true
-			: false;
-	const showUnsupportedNetwork = showActions || !connected;
 
 	return (
 		<Container grid>
@@ -197,6 +193,7 @@ const MainPage = ({ config }) => {
 							xsColumn={'span 2'}>
 							<Components.Agreement
 								formik={formik}
+								isNotSupportedNetwork={isNotSupportedNetwork}
 								isNotEnoughBalance={isNotEnoughBalance}
 								waitSubmit={waitSubmit}
 								setWaitSubmit={setWaitSubmit}
@@ -204,14 +201,6 @@ const MainPage = ({ config }) => {
 								amountFocused={amountFocused}
 							/>
 						</GridElem>
-					)}
-					{showUnsupportedNetwork ? (
-						''
-					) : (
-						<Styled.Blur>
-							<ErrorIcon />
-							<span>Unsupported Network</span>
-						</Styled.Blur>
 					)}
 				</Grid>
 			)}

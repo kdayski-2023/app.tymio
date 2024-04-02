@@ -17,6 +17,7 @@ import * as Styled from './styled';
 
 const Agreement = ({
 	formik,
+	isNotSupportedNetwork,
 	isNotEnoughBalance,
 	waitSubmit,
 	submitError,
@@ -89,7 +90,10 @@ const Agreement = ({
 								Connect your wallet to make a final transaction
 							</TymioUI.Typography>
 						)}
-						{connected && isNotEnoughBalance && (
+						{connected && isNotSupportedNetwork && (
+							<TymioUI.WalletConnectButton width={'100%'} switchNetwork />
+						)}
+						{connected && !isNotSupportedNetwork && isNotEnoughBalance && (
 							<TymioUI.Typography
 								align={'left'}
 								size={TYPOGRAPHY_SIZE.SMALL}
@@ -105,7 +109,7 @@ const Agreement = ({
 								in your wallet to make a transaction
 							</TymioUI.Typography>
 						)}
-						{connected && !isNotEnoughBalance && (
+						{connected && !isNotSupportedNetwork && !isNotEnoughBalance && (
 							<Input
 								type="checkbox"
 								label="I have read the agreement above and"
@@ -124,7 +128,7 @@ const Agreement = ({
 							<TymioUI.WalletConnectButton width={'100%'} />
 						</Card.Footer>
 					)}
-					{connected && !isNotEnoughBalance && (
+					{connected && !isNotSupportedNetwork && !isNotEnoughBalance && (
 						<Card.Footer>
 							<Actions
 								formik={formik}

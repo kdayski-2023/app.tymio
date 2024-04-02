@@ -8,14 +8,20 @@ import { isMobile } from '../../lib/lib';
 import { BUTTON_TYPE, TYPOGRAPHY_SIZE } from '../../models/types';
 import { COLORS } from '../../models/colors';
 import { MESSAGES } from '../../models/messages';
+import { useConfig } from '../../hooks';
 
-const WalletConnectButton = ({ width }) => {
-	const handleClick = async () => {
-		const mobile = isMobile();
-		if (mobile) {
-			await WalletService.connect('wc');
+const WalletConnectButton = ({ width, switchNetwork }) => {
+	const { config } = useConfig();
+	const handleClick = async (switchNetwork, chain_id) => {
+		if (switchNetwork && chain_id) {
+			await WalletService.changeNetwork(chain_id);
 		} else {
-			WalletModalService.show(mobile);
+			const mobile = isMobile();
+			if (mobile) {
+				await WalletService.connect('wc');
+			} else {
+				WalletModalService.show(mobile);
+			}
 		}
 	};
 
@@ -23,11 +29,13 @@ const WalletConnectButton = ({ width }) => {
 		<TymioUI.Button
 			width={width}
 			type={BUTTON_TYPE.PRIMARY}
-			onClick={handleClick}>
+			onClick={() => handleClick(switchNetwork, config.CHAIN_LIST_ENV[0])}>
 			<TymioUI.Typography
 				size={TYPOGRAPHY_SIZE.MEDIUM}
 				color={COLORS.RICH_BLACK}>
-				{MESSAGES.CONNECT_WALLET_TEXT}
+				{switchNetwork
+					? `CONNECT TO ${config.CHAIN_NAMES[config.CHAIN_LIST_ENV[0]]}`
+					: MESSAGES.CONNECT_WALLET_TEXT}
 			</TymioUI.Typography>
 		</TymioUI.Button>
 	);

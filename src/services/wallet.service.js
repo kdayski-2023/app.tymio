@@ -19,6 +19,7 @@ class WalletService {
 		balanceETH: 0,
 		connected: false,
 		connecting: false,
+		isNotSupportedNetwork: false,
 		isNotEnoughBalance: false,
 		address: '',
 		networkName: '',
@@ -234,6 +235,20 @@ class WalletService {
 		this.state = {
 			...this.state,
 			isNotEnoughBalance: result,
+		};
+
+		this.state$.next(this.state);
+	};
+
+	setIsNotSupportedNetwork = async (chain_id, config) => {
+		if (!this.state.connected) {
+			return;
+		}
+
+		const result = !config.CHAIN_LIST_ENV.includes(Number(chain_id));
+		this.state = {
+			...this.state,
+			isNotSupportedNetwork: result,
 		};
 
 		this.state$.next(this.state);

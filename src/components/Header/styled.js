@@ -124,6 +124,8 @@ export const Route = styled.li`
 	cursor: pointer;
 
 	a {
+		display: inline-block;
+		width: 100%;
 		color: ${COLORS.LIGHT};
 		text-decoration: none;
 	}
