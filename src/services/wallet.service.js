@@ -50,7 +50,7 @@ class WalletService {
 				showQrModal: true,
 				qrModalOptions: { themeMode: 'light' },
 				chains: [1],
-				optionalChains: [80001, 42161, 421613],
+				optionalChains: [42161],
 				methods: [
 					'eth_sendTransaction',
 					'personal_sign',
