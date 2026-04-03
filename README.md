@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# Tymio (app.tymio)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Фронтенд-приложение **Tymio** — веб-клиент для работы с крипто-активами в экосистеме Sell High: подключение кошелька, оформление заявок на покупку/продажу по периодам и ценам с бэкенда, профиль пользователя с реферальной программой, баллами и историей операций.
 
-## Available Scripts
+## Возможности
 
-In the project directory, you can run:
+- **Главная страница** — выбор пары, периода, суммы; отображение цен и доступности заявок; соглашения; интеграция с Web3.
+- **Кошелёк** — MetaMask SDK и WalletConnect (Ethereum mainnet, опционально Arbitrum), проверка баланса и сети.
+- **Профиль** — заказы и транзакции, реферальный код и список приглашённых, подписка, airdrop, социальные баллы.
+- **Таблица лидеров** — рейтинг пользователей.
+- **Чат** — real-time через Socket.IO.
+- **Сессия и конфигурация** — загрузка с бэкенда; при ответе `418` показывается страница блокировки по IP/региону.
 
-### `npm start`
+## Технологии
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| Категория | Стек |
+|-----------|------|
+| UI | React 18, React Router 6 |
+| Стили | styled-components, Emotion |
+| Формы | Formik, Yup |
+| Блокчейн | web3.js 4, MetaMask SDK, WalletConnect |
+| Сеть | RxJS (сервисы), Socket.IO client |
+| Сборка | Create React App (`react-scripts` 5) |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Требования
 
-### `npm test`
+- Node.js и npm (версии, совместимые с CRA 5)
+- Доступ к API и Socket-серверу (см. переменные окружения)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Установка и запуск
 
-### `npm run build`
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Создайте файл окружения (например `.env.local` в корне проекта) по образцу раздела ниже, затем:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm run dev
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Приложение поднимется на порту **7001** (скрипт `dev`). Альтернативы: `start` — порт 5110, `preprod` — 5310.
 
-### `npm run eject`
+Сборка для продакшена:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm run build
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Перед сборкой выполняется обновление версии (`scripts/update-version.js`).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Переменные окружения
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Переменные с префиксом `REACT_APP_` встраиваются в клиент на этапе сборки.
 
-## Learn More
+| Переменная | Назначение |
+|------------|------------|
+| `REACT_APP_API_URL` | Базовый URL REST API (например `https://example.com/api`) |
+| `REACT_APP_SOCKET_URL` | URL сервера WebSocket для чата |
+| `REACT_APP_PROJECT_ID` | Project ID WalletConnect |
+| `REACT_APP_TERMS` | Путь или URL к пользовательским условиям (подписка и т.п.) |
+| `REACT_APP_ABOUT_VIDEO` | ID ролика YouTube для виджета «О проекте» |
+| `SKIP_PREFLIGHT_CHECK` | Опционально для CRA при конфликтах зависимостей |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Пример можно взять из `.env.dev` в репозитории (подставьте свои URL и секреты для нужного окружения).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Скрипты npm
 
-### Code Splitting
+| Скрипт | Описание |
+|--------|----------|
+| `npm run start` | Разработка, порт 5110 |
+| `npm run dev` | Разработка, порт 7001 |
+| `npm run preprod` | Разработка, порт 5310 |
+| `npm run build` | Продакшен-сборка |
+| `npm test` | Тесты (Jest / Testing Library) |
+| `npm run pretty` | Форматирование Prettier |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+В `package.json` для портов используется синтаксис `PORT=...` (Unix). В среде Windows без bash может понадобиться задать `PORT` вручную или использовать совместимую оболочку.
 
-### Analyzing the Bundle Size
+## Структура репозитория (кратко)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `src/pages/` — экраны: главная, профиль, лидерборд, блокировка IP
+- `src/services/` — API, кошелёк, сессия, рефералы, заказы, чат и др.
+- `src/hooks/` — общие хуки (сессия, кошелёк, чат)
+- `src/components/_DEPRECATED/` — лейаут и устаревшие общие компоненты
+- `src/abi/` — ABI контрактов (ERC20 и др.)
 
-### Making a Progressive Web App
+## Лицензия
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Проект помечен как `private` в `package.json`; условия распространения определяются владельцем репозитория.
